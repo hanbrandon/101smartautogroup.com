@@ -4,7 +4,7 @@ export const Services = () => {
   return (
     <section id="services" className="py-40 text-center">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-5xl md:text-9xl font-bold tracking-tighter mb-20 leading-[0.8] opacity-50 select-none uppercase">Expertise & Service.</h2>
+        <h2 className="text-5xl md:text-9xl font-bold tracking-tighter mb-20 leading-[0.8] opacity-80 select-none uppercase">Expertise & Service.</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
           <div className="p-10 rounded-[32px] bg-white text-black group hover:bg-gray-100 transition-colors">

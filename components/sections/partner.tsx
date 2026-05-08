@@ -35,7 +35,7 @@ export const Partner = () => {
         </div>
       </div>
 
-      <div className="flex animate-ticker whitespace-nowrap opacity-20 mt-20 select-none">
+      <div className="flex animate-ticker whitespace-nowrap opacity-40 mt-20 select-none">
         {[...Array(2)].map((_, i) => (
           <div key={i} className="flex gap-20 items-center px-10">
             {TOOLS.map(tool => (

@@ -28,10 +28,9 @@ export const Hero = ({ currentTime }: HeroProps) => {
         <section
             id="hero"
             ref={heroRef}
-            className={`sticky top-0 h-screen flex flex-col items-center justify-between py-10 overflow-hidden z-0 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+            className="sticky top-0 h-screen flex flex-col items-center justify-between py-10 overflow-hidden z-0 bg-black"
         >
-            {/* Background Gradient Animation Iframe */}
-            <div className="absolute inset-0 z-0 pointer-events-none scale-110">
+            <div className={`absolute inset-0 z-0 pointer-events-none scale-110 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
                 {!isLoaded && (
                     <div className="absolute inset-0 bg-black flex items-center justify-center">
                         <div className="w-[500px] h-[500px] bg-orange-600/20 blur-[120px] rounded-full animate-pulse" />
@@ -73,7 +72,7 @@ export const Hero = ({ currentTime }: HeroProps) => {
             {/* Center/Bottom: HeroLogo - MIDU-style layering */}
             {/* Layer 1: color-dodge parent blends with the background shader */}
             <div
-                className="absolute inset-x-0 bottom-0 z-10 pointer-events-none overflow-hidden"
+                className={`absolute inset-x-0 bottom-0 z-10 pointer-events-none overflow-hidden transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{
                     mixBlendMode: 'color-dodge',
                     bottom: '4vw',
