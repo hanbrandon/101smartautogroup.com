@@ -29,4 +29,10 @@
   .animate-ticker {
     animation: ticker 30s linear infinite;
   }
+
+  @keyframes blur-pulse {
+    0% { filter: blur(0px); opacity: 1; }
+    40% { filter: blur(2px); opacity: 0.6; }
+    100% { filter: blur(0px); opacity: 1; }
+  }
 }
