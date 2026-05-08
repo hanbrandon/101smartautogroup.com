@@ -61,7 +61,7 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
               <span className="text-xs font-bold uppercase tracking-widest text-white">Menu</span>
             </div>
             <div className="h-4 w-[1px] bg-white/10" />
-            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest whitespace-nowrap">
+            <span className="hidden sm:inline text-[10px] font-bold text-white/40 uppercase tracking-widest whitespace-nowrap">
               2/5 slots for May
             </span>
             <ChevronDown size={14} className={cn("transition-transform duration-500 text-white/40", isOpen ? "rotate-180" : "")} />
