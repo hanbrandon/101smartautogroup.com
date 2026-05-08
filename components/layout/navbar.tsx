@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Moon, ArrowDown, Sparkles } from 'lucide-react';
+import { Sparkles, Plus, LayoutGrid, ChevronDown, Instagram, Linkedin, Globe } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface NavbarProps {
   currentTime: string;
@@ -11,133 +12,121 @@ interface NavbarProps {
 
 export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const menuItems = [
-    { name: "Home", href: "/#hero", img: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&q=80&w=300" },
-    { name: "Process", href: "/#process", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=300" },
-    { name: "Services", href: "/#services", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=300" },
-    { name: "Gallery", href: "/#gallery", img: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&q=80&w=300" },
+    { name: "Home", href: "/#hero" },
+    { name: "Gallery", href: "/#gallery" },
+    { name: "Process", href: "/#process" },
+    { name: "Services", href: "/#services" },
+    { name: "Credit Application", href: "/credit-application" },
+    { name: "Privacy", href: "/do-not-sell" },
   ];
 
   return (
-    <>
-      <nav className="fixed top-0 left-0 right-0 z-[100] px-6 py-6 md:py-8">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <a href="/" className="flex items-center gap-3 cursor-pointer group">
-            <div className="w-8 h-8 md:w-9 md:h-9 bg-white rounded-xl flex items-center justify-center transition-transform group-hover:scale-110">
-              <span className="text-black font-black text-xl md:text-2xl italic tracking-tighter">1</span>
-            </div>
-            <span className="font-bold text-xl md:text-2xl tracking-tighter text-white whitespace-nowrap">101 Auto Group</span>
-          </a>
-          
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-[100] transition-all duration-500 px-6 py-4",
+      scrolled ? "bg-black/80 backdrop-blur-xl border-b border-white/5 py-3" : "bg-transparent"
+    )}>
+      <div className="max-w-[1800px] mx-auto flex items-center justify-between relative">
+        
+        {/* Left: Logo */}
+        <a href="/" className="flex items-center gap-3 group">
+          <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center transition-transform group-hover:scale-110">
+            <span className="text-black font-black text-xl italic tracking-tighter">1</span>
+          </div>
+          <div className="flex flex-col -gap-1">
+            <span className="font-bold text-lg tracking-tighter text-white uppercase leading-none">101 Smart</span>
+            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest leading-none">Auto Group</span>
+          </div>
+        </a>
+
+        {/* Center: Menu Button */}
+        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col items-center">
           <button 
-            onClick={() => setIsOpen(true)}
-            aria-label="Open menu"
-            className="bg-white/5 backdrop-blur-2xl border border-white/5 rounded-[20px] px-6 py-3.5 flex items-center gap-3 text-base font-bold text-white hover:bg-white/10 transition-all active:scale-95 group shadow-2xl"
+            onClick={() => setIsOpen(!isOpen)}
+            className={cn(
+              "flex items-center gap-4 bg-[#0D0D0D] border border-white/10 rounded-full px-5 py-2.5 transition-all hover:border-white/20 active:scale-95 group",
+              isOpen ? "border-white/40 bg-white/10" : ""
+            )}
           >
-            <div className="grid grid-cols-2 gap-0.5">
-              <div className="w-1 h-1 bg-white rounded-full"></div>
-              <div className="w-1 h-1 bg-white rounded-full"></div>
-              <div className="w-1 h-1 bg-white rounded-full"></div>
-              <div className="w-1 h-1 bg-white rounded-full"></div>
+            <div className="flex items-center gap-2">
+              <LayoutGrid size={14} className={cn("transition-transform duration-500", isOpen ? "rotate-90 text-orange-500" : "text-white/40")} />
+              <span className="text-xs font-bold uppercase tracking-widest text-white">Menu</span>
             </div>
-            Menu
+            <div className="h-4 w-[1px] bg-white/10" />
+            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest whitespace-nowrap">
+              2/5 slots for May
+            </span>
+            <ChevronDown size={14} className={cn("transition-transform duration-500 text-white/40", isOpen ? "rotate-180" : "")} />
           </button>
-        </div>
-      </nav>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] bg-black overflow-hidden flex flex-col text-white"
-          >
-            <div className="absolute bottom-0 left-0 w-full h-[60vh] bg-gradient-to-t from-red-600/40 to-transparent pointer-events-none" />
-            
-            <div className="absolute bottom-[-5vw] left-0 w-full flex justify-center pointer-events-none opacity-20">
-              <span className="text-[40vw] font-black tracking-tighter leading-none text-white mix-blend-overlay select-none">JAKE</span>
-            </div>
-
-            <div className="relative z-10 flex justify-between items-center px-6 py-6 md:py-8">
-              <a href="/" className="flex items-center gap-3 cursor-pointer">
-                <div className="w-8 h-8 md:w-9 md:h-9 bg-white rounded-xl flex items-center justify-center">
-                  <span className="text-black font-black text-xl md:text-2xl italic tracking-tighter">1</span>
-                </div>
-                <span className="text-white font-bold tracking-tighter text-xl md:text-2xl whitespace-nowrap">101 Auto Group</span>
-              </a>
-              <button 
-                onClick={() => setIsOpen(false)}
-                className="bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-xl border border-white/10 px-6 py-3.5 rounded-[20px] flex items-center gap-3 text-base font-bold text-white shadow-2xl"
+          {/* Dropdown Menu */}
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                className="absolute top-full mt-4 w-[280px] bg-[#0D0D0D] border border-white/10 rounded-[32px] p-2 shadow-2xl overflow-hidden"
               >
-                <div className="grid grid-cols-2 gap-0.5">
-                  <div className="w-1 h-1 bg-white rounded-full"></div>
-                  <div className="w-1 h-1 bg-white rounded-full"></div>
-                  <div className="w-1 h-1 bg-white rounded-full"></div>
-                  <div className="w-1 h-1 bg-white rounded-full"></div>
+                <div className="flex flex-col gap-1">
+                  {menuItems.map((item, i) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center justify-between px-6 py-4 rounded-2xl hover:bg-white/5 transition-colors group"
+                    >
+                      <span className="text-sm font-bold text-white/60 group-hover:text-white transition-colors">{item.name}</span>
+                      <Plus size={14} className="text-white/0 group-hover:text-white/40 transition-all group-hover:rotate-90" />
+                    </a>
+                  ))}
                 </div>
-                Close
-              </button>
-            </div>
-
-            <div className="relative z-10 flex-1 px-4 py-0 flex flex-col max-w-lg mx-auto w-full">
-              <div className="bg-[#0A0A0A] rounded-[40px] overflow-hidden border border-white/5 p-3 flex flex-col gap-1 shadow-2xl mt-4 md:mt-10">
-                {menuItems.map((item, i) => (
-                  <motion.a
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex justify-between items-center p-4 rounded-3xl hover:bg-white/5 transition-colors group border-b border-white/5 last:border-0"
-                  >
-                    <span className="text-xl font-bold tracking-tight text-white">{item.name}</span>
-                    <div className="w-16 h-11 rounded-xl overflow-hidden bg-white/10 relative">
-                      <img src={item.img} alt="" className="w-full h-full object-cover grayscale group-hover:scale-110 group-hover:grayscale-0 transition-all duration-500" />
-                    </div>
-                  </motion.a>
-                ))}
-
-                <div className="p-6 pt-10 flex justify-between items-end bg-gradient-to-b from-transparent to-white/[0.02]">
-                  <div className="flex flex-col gap-3">
-                    <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/20">Social media</span>
-                    <div className="flex flex-col gap-1.5">
-                      <a href="#" className="text-xs font-bold text-white/60 hover:text-white transition-colors">Instagram</a>
-                      <a href="#" className="text-xs font-bold text-white/60 hover:text-white transition-colors">LinkedIn</a>
-                      <a href="#" className="text-xs font-bold text-white/60 hover:text-white transition-colors">Yelp</a>
+                
+                <div className="mt-2 p-6 bg-white/[0.02] border-t border-white/5 rounded-b-[24px]">
+                  <div className="flex justify-between items-center mb-6">
+                    <span className="text-[9px] font-bold uppercase tracking-widest text-white/20">Socials</span>
+                    <div className="flex gap-4">
+                      <Instagram size={14} className="text-white/40 hover:text-white cursor-pointer" />
+                      <Linkedin size={14} className="text-white/40 hover:text-white cursor-pointer" />
+                      <Globe size={14} className="text-white/40 hover:text-white cursor-pointer" />
                     </div>
                   </div>
-                  <button 
-                    onClick={onContactClick}
-                    className="bg-white text-black px-5 py-3.5 rounded-2xl text-xs font-bold flex items-center gap-2.5 hover:scale-105 active:scale-95 transition-all shadow-xl"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 fill-black" />
-                    Get in touch
-                  </button>
+                  <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest leading-relaxed">
+                    Based in Los Angeles & Orange County
+                  </p>
                 </div>
-              </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
-              <div className="mt-8 pb-8 pt-4 flex flex-col gap-5">
-                <p className="text-white/40 text-[10px] uppercase font-bold tracking-widest">Premium Automotive Services in LA & OC</p>
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
-                      <Moon className="w-3 h-3 text-white/40" />
-                    </div>
-                    <span className="text-xs font-bold text-white/80">{currentTime}</span>
-                  </div>
-                  <div className="flex items-center gap-3 group cursor-pointer" onClick={() => setIsOpen(false)}>
-                    <span className="text-xs font-bold text-white/40 group-hover:text-white transition-colors tracking-tight">Scroll to explore</span>
-                    <ArrowDown className="w-4 h-4 text-white/40 group-hover:translate-y-1 transition-transform" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        {/* Right: CTA */}
+        <button 
+          onClick={onContactClick}
+          className="hidden md:flex items-center gap-3 bg-white text-black px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_10px_20px_rgba(255,255,255,0.1)]"
+        >
+          <Plus size={16} />
+          Get in touch
+        </button>
+
+        {/* Mobile Contact Button (Icon only) */}
+        <button 
+          onClick={onContactClick}
+          className="md:hidden w-10 h-10 bg-white text-black rounded-full flex items-center justify-center"
+        >
+          <Plus size={20} />
+        </button>
+
+      </div>
+    </nav>
   );
 };
