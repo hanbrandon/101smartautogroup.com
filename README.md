@@ -9,10 +9,11 @@ Premium automotive sourcing and dealership services based in Los Angeles and Ora
 ### Key Features
 
 - **Custom Sourcing**: Specialized search for rare and luxury vehicles.
-- **Service Showcase**: Detailed breakdown of sourcing, inspection, and financing services.
-- **Process Transparency**: A clear 4-step guide on how the car buying journey works.
+- **Contact Inquiries**: Integrated 2-tab contact drawer (New Car & Sell Your Car) with Brevo email notifications.
+- **Credit Application**: Secure multi-step online financing application page.
+- **Privacy Shield**: One-click "Do Not Sell" opt-out functionality with GPC detection.
 - **Instagram Gallery**: Real-time updates and recently delivered vehicles.
-- **Responsive Design**: Premium dark-mode aesthetic optimized for all devices.
+- **Premium Design**: Sleek Orange & Black aesthetic optimized for all devices.
 
 ## 🛠️ Tech Stack
 
