@@ -13,8 +13,8 @@
 }
 
 @layer utilities {
-  .glow-orange {
-    background: radial-gradient(circle at center, rgba(255, 120, 0, 0.4) 0%, transparent 70%);
+  .glow-red {
+    background: radial-gradient(circle at center, rgba(255, 0, 0, 0.4) 0%, transparent 70%);
   }
   
   .text-glow {
@@ -34,5 +34,13 @@
     0% { filter: blur(0px); opacity: 1; }
     40% { filter: blur(2px); opacity: 0.6; }
     100% { filter: blur(0px); opacity: 1; }
+  }
+  @keyframes shimmer {
+    from { background-position: 200% center; }
+    to { background-position: -200% center; }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3s linear infinite;
   }
 }

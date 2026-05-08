@@ -119,7 +119,7 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                         <span className="text-[18px] font-bold text-white tracking-[-0.03em] uppercase leading-[18px] h-[18px] block">
                                             Menu
                                         </span>
-                                        <span className="text-[18px] font-bold text-orange-500 tracking-[-0.03em] uppercase leading-[18px] h-[18px] block">
+                                        <span className="text-[18px] font-bold text-red-500 tracking-[-0.03em] uppercase leading-[18px] h-[18px] block">
                                             Menu
                                         </span>
                                     </div>

@@ -26,7 +26,7 @@ export default function Home() {
       <Navbar currentTime={currentTime} onContactClick={openContact} />
 
       <main>
-        <Hero currentTime={currentTime} />
+        <Hero />
         
         <div className="relative z-10 bg-black shadow-[0_-50px_100px_rgba(0,0,0,0.5)]">
           <ValueProposition />

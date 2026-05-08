@@ -2,14 +2,10 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll } from 'motion/react';
-import { Shield, Zap } from 'lucide-react';
+import { Shield, Zap, ArrowDown } from 'lucide-react';
 import { Ticker } from '@/components/ui/ticker';
 
-interface HeroProps {
-    currentTime: string;
-}
-
-export const Hero = ({ currentTime }: HeroProps) => {
+export const Hero = () => {
     const heroRef = useRef<HTMLElement>(null);
     const [isLoaded, setIsLoaded] = React.useState(false);
 
@@ -28,9 +24,11 @@ export const Hero = ({ currentTime }: HeroProps) => {
         <section
             id="hero"
             ref={heroRef}
-            className="sticky top-0 h-screen flex flex-col items-center justify-between py-10 overflow-hidden z-0 bg-black"
+            className="sticky top-0 h-screen flex flex-col items-center py-10 overflow-hidden z-0 bg-black"
         >
-            <div className={`absolute inset-0 z-0 pointer-events-none scale-110 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+            <div
+                className={`absolute inset-0 z-0 pointer-events-none scale-110 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+            >
                 {!isLoaded && (
                     <div className="absolute inset-0 bg-black flex items-center justify-center">
                         <div className="w-[500px] h-[500px] bg-orange-600/20 blur-[120px] rounded-full animate-pulse" />
@@ -41,7 +39,7 @@ export const Hero = ({ currentTime }: HeroProps) => {
                     onLoad={() => setIsLoaded(true)}
                     className="w-full h-full border-none opacity-100 contrast-125 saturate-150 shadow-inner"
                     style={{
-                        filter: 'hue-rotate(25deg) brightness(1.2) saturate(1.2)',
+                        filter: 'brightness(1.2) saturate(1.2)',
                     }}
                     title="Background Gradient"
                     referrerPolicy="no-referrer"
@@ -69,13 +67,44 @@ export const Hero = ({ currentTime }: HeroProps) => {
                 </motion.div>
             </div>
 
+            {/* Status & Scroll Bar - Positioned right above the 'MOTOR' text (Middle of screen) */}
+            <div className="absolute inset-x-0 bottom-[18vw] md:bottom-[20vw] z-40 w-full mx-auto px-6 flex justify-between items-end pointer-events-none">
+                <div className="flex items-center gap-4 pointer-events-auto">
+                    <div className="text-[10px] font-medium uppercase tracking-[0.2em] flex items-center gap-4">
+                        <span className="bg-gradient-to-r from-white/40 via-white to-white/40 bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer flex items-center gap-4">
+                            <span>101 Smart Auto Group • Jake Kim</span>
+                            <span className="w-1 h-1 rounded-full bg-white/20" />
+                            <span>Los Angeles • Orange County</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div
+                    className="flex flex-col items-center gap-3 cursor-pointer group pointer-events-auto"
+                    onClick={() =>
+                        document
+                            .getElementById('projects')
+                            ?.scrollIntoView({ behavior: 'smooth' })
+                    }
+                >
+                    <div className="flex items-center gap-2">
+                        <span className="text-[10px] uppercase font-bold tracking-[0.2em] relative overflow-hidden">
+                            <span className="bg-gradient-to-r from-white/20 via-white to-white/20 bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer flex items-center gap-2">
+                                Scroll to explore
+                            </span>
+                        </span>
+                        <ArrowDown className="w-3 h-3 text-white/40 group-hover:text-white transition-colors" />
+                    </div>
+                </div>
+            </div>
+
             {/* Center/Bottom: HeroLogo - MIDU-style layering */}
             {/* Layer 1: color-dodge parent blends with the background shader */}
             <div
                 className={`absolute inset-x-0 bottom-0 z-10 pointer-events-none overflow-hidden transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{
                     mixBlendMode: 'color-dodge',
-                    bottom: '4vw',
+                    bottom: '-3vw',
                 }}
             >
                 {/* Layer 2: darken mask with radial gradient - MIDU technique */}
@@ -86,80 +115,16 @@ export const Hero = ({ currentTime }: HeroProps) => {
                         mixBlendMode: 'darken',
                         background:
                             'radial-gradient(56% 156% at 47.1% 1.9%, rgba(255,255,255,0) 0%, rgba(217,182,182,1) 100%)',
-                        WebkitMaskImage: `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 365"><text x="50%" y="88%" text-anchor="middle" font-family="Switzer,Inter,sans-serif" font-weight="900" font-size="420" letter-spacing="-0.08em" fill="white">JAKE</text></svg>')}")`,
+                        WebkitMaskImage: `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 365"><text x="50%" y="88%" text-anchor="middle" font-family="Switzer,Inter,sans-serif" font-weight="900" font-size="300" letter-spacing="0em" fill="white">MOTOR</text></svg>')}")`,
                         WebkitMaskSize: 'cover',
                         WebkitMaskPosition: 'center',
                         WebkitMaskRepeat: 'no-repeat',
-                        maskImage: `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 365"><text x="50%" y="88%" text-anchor="middle" font-family="Switzer,Inter,sans-serif" font-weight="900" font-size="420" letter-spacing="-0.08em" fill="white">JAKE</text></svg>')}")`,
+                        maskImage: `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 365"><text x="50%" y="88%" text-anchor="middle" font-family="Switzer,Inter,sans-serif" font-weight="900" font-size="300" letter-spacing="0em" fill="white">MOTOR</text></svg>')}")`,
                         maskSize: 'cover',
                         maskPosition: 'center',
                         maskRepeat: 'no-repeat',
                     }}
                 />
-            </div>
-
-            {/* Bottom Bar */}
-            <div className="relative z-30 w-full max-w-7xl mx-auto flex justify-between items-end px-6 mb-2">
-                <div className="flex flex-col items-start gap-4">
-                    <div className="flex items-center gap-3">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
-                            Premium Automotive Expert
-                        </span>
-                        <div className="flex items-center gap-2 px-2 py-1 bg-white/5 border border-white/10 rounded-md backdrop-blur-md">
-                            {(() => {
-                                const hour = new Date().getHours();
-                                const isNight = hour >= 20 || hour < 6;
-                                return isNight ? (
-                                    <Shield className="w-3 h-3 text-white/60" />
-                                ) : (
-                                    <Zap className="w-3 h-3 text-white/60" />
-                                );
-                            })()}
-                            <span className="text-[9px] font-bold uppercase tracking-widest text-white/60">
-                                {new Date().getHours() >= 20 ||
-                                new Date().getHours() < 6
-                                    ? 'Currently Resting'
-                                    : 'In Deep Focus'}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-4 text-[11px] font-bold text-white/80 tracking-tight">
-                        <span>{currentTime}</span>
-                    </div>
-                </div>
-
-                <motion.div
-                    whileHover={{ y: 5 }}
-                    className="flex flex-col items-center gap-3 cursor-pointer group"
-                    onClick={() =>
-                        document
-                            .getElementById('projects')
-                            ?.scrollIntoView({ behavior: 'smooth' })
-                    }
-                >
-                    <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 group-hover:text-white transition-colors animate-pulse">
-                        Scroll to explore
-                    </span>
-                    <div className="w-8 h-12 border border-white/10 rounded-full flex justify-center p-2 relative overflow-hidden backdrop-blur-sm">
-                        <motion.div
-                            animate={{
-                                y: [0, 16, 0],
-                                opacity: [0.2, 1, 0.2],
-                            }}
-                            transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: 'easeInOut',
-                            }}
-                            className="w-1 h-3 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.5)]"
-                        />
-                    </div>
-                </motion.div>
-            </div>
-
-            <div className="w-full absolute bottom-0 left-0 bg-white/5 backdrop-blur-md border-t border-white/5">
-                <Ticker text="Quality & Trust" dark={true} />
             </div>
         </section>
     );

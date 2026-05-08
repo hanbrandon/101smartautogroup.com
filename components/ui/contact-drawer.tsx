@@ -93,9 +93,9 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
     }
   };
 
-  const inputStyles = "w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm focus:border-orange-500 outline-none transition-colors placeholder:text-white/20";
+  const inputStyles = "w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm focus:border-red-500 outline-none transition-colors placeholder:text-white/20";
   const labelStyles = "text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2 block pl-1";
-  const selectStyles = "w-full bg-[#0D0D0D] border border-white/10 rounded-2xl px-6 py-4 text-sm focus:border-orange-500 outline-none transition-colors appearance-none cursor-pointer";
+  const selectStyles = "w-full bg-[#0D0D0D] border border-white/10 rounded-2xl px-6 py-4 text-sm focus:border-red-500 outline-none transition-colors appearance-none cursor-pointer";
 
   return (
     <AnimatePresence>
@@ -125,7 +125,7 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
             <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
               {status === 'success' ? (
                 <div className="h-full flex flex-col items-center justify-center text-center space-y-4">
-                  <div className="w-20 h-20 bg-orange-500/10 rounded-full flex items-center justify-center text-orange-500">
+                  <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center text-red-500">
                     <CheckCircle2 size={40} />
                   </div>
                   <h3 className="text-2xl font-bold">Request Sent!</h3>
@@ -248,7 +248,7 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
                                 />
                                 <div
                                   className={cn(
-                                    "w-10 h-10 rounded-full border-2 border-white/5 transition-all peer-checked:border-orange-500 peer-checked:scale-110",
+                                    "w-10 h-10 rounded-full border-2 border-white/5 transition-all peer-checked:border-red-500 peer-checked:scale-110",
                                     color.name === 'Other' ? "bg-gradient-to-tr from-white/20 via-white/40 to-white/20" : ""
                                   )}
                                   style={{ backgroundColor: color.hex }}
@@ -294,7 +294,7 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
                     </div>
 
                     <div className="p-6 rounded-2xl bg-white/5 border border-white/5 flex gap-4 items-start">
-                      <Info size={20} className="text-orange-500 shrink-0" />
+                      <Info size={20} className="text-red-500 shrink-0" />
                       <p className="text-[10px] text-white/40 leading-relaxed uppercase font-bold tracking-wider">
                         By submitting, you agree to our privacy policy and consent to receive communications regarding your inquiry.
                       </p>
@@ -303,7 +303,7 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
                     <button
                       type="submit"
                       disabled={status === 'loading'}
-                      className="w-full bg-orange-600 hover:bg-orange-500 disabled:opacity-50 text-white py-6 rounded-[24px] font-black uppercase tracking-widest text-[11px] flex items-center justify-center gap-3 transition-all shadow-[0_10px_30px_rgba(255,122,0,0.2)]"
+                      className="w-full bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white py-6 rounded-[24px] font-black uppercase tracking-widest text-[11px] flex items-center justify-center gap-3 transition-all shadow-[0_10px_30px_rgba(255,122,0,0.2)]"
                     >
                       {status === 'loading' ? (
                         <Loader2 className="animate-spin" size={20} />
@@ -315,7 +315,7 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
                       )}
                     </button>
                     {status === 'error' && (
-                      <p className="text-center text-xs text-orange-500 font-bold uppercase tracking-widest">Something went wrong. Please try again.</p>
+                      <p className="text-center text-xs text-red-500 font-bold uppercase tracking-widest">Something went wrong. Please try again.</p>
                     )}
                   </form>
                 </div>

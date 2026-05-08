@@ -46,7 +46,7 @@ export const CreditApplicationForm = () => {
   if (status === 'success') {
     return (
       <div className="py-20 text-center space-y-6">
-        <div className="w-20 h-20 bg-orange-500/10 rounded-full flex items-center justify-center text-orange-500 mx-auto">
+        <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center text-red-500 mx-auto">
           <CheckCircle2 size={40} />
         </div>
         <h2 className="text-3xl font-bold italic tracking-tighter uppercase">Application Received</h2>
@@ -67,7 +67,7 @@ export const CreditApplicationForm = () => {
           type="button"
           onClick={() => setAppType('personal')}
           className={`px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest transition-all flex items-center gap-2 ${
-            appType === 'personal' ? 'bg-orange-500 text-white' : 'bg-white/5 text-white/40'
+            appType === 'personal' ? 'bg-red-500 text-white' : 'bg-white/5 text-white/40'
           }`}
         >
           <User size={14} /> Personal
@@ -76,7 +76,7 @@ export const CreditApplicationForm = () => {
           type="button"
           onClick={() => setAppType('business')}
           className={`px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest transition-all flex items-center gap-2 ${
-            appType === 'business' ? 'bg-orange-500 text-white' : 'bg-white/5 text-white/40'
+            appType === 'business' ? 'bg-red-500 text-white' : 'bg-white/5 text-white/40'
           }`}
         >
           <Building2 size={14} /> Business
@@ -95,26 +95,26 @@ export const CreditApplicationForm = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">First Name</label>
-                <input required value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-orange-500 transition-colors" placeholder="Sang Hyun" />
+                <input required value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-colors" placeholder="Sang Hyun" />
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Last Name</label>
-                <input required value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-orange-500 transition-colors" placeholder="Han" />
+                <input required value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-colors" placeholder="Han" />
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Email</label>
-                <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-orange-500 transition-colors" placeholder="hello@gawoori.com" />
+                <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-colors" placeholder="hello@gawoori.com" />
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Phone</label>
-                <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-orange-500 transition-colors" placeholder="(123) 456-7890" />
+                <input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-colors" placeholder="(123) 456-7890" />
               </div>
             </div>
             <div className="space-y-2">
               <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Zip Code</label>
-              <input required value={formData.zipCode} onChange={e => setFormData({...formData, zipCode: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-orange-500 transition-colors" placeholder="92606" />
+              <input required value={formData.zipCode} onChange={e => setFormData({...formData, zipCode: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-colors" placeholder="92606" />
             </div>
             <button type="button" onClick={() => setStep(2)} className="w-full bg-white text-black py-5 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all">
               Continue <ChevronRight size={18} />
@@ -131,16 +131,16 @@ export const CreditApplicationForm = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Date of Birth</label>
-                <input required type="date" value={formData.dob} onChange={e => setFormData({...formData, dob: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-orange-500 transition-colors" />
+                <input required type="date" value={formData.dob} onChange={e => setFormData({...formData, dob: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-colors" />
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">SSN / ITIN</label>
-                <input required type="password" value={formData.ssn} onChange={e => setFormData({...formData, ssn: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-orange-500 transition-colors" placeholder="XXX-XX-XXXX" />
+                <input required type="password" value={formData.ssn} onChange={e => setFormData({...formData, ssn: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-colors" placeholder="XXX-XX-XXXX" />
               </div>
             </div>
             <div className="space-y-2">
               <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Employment Status</label>
-              <select required value={formData.employmentStatus} onChange={e => setFormData({...formData, employmentStatus: e.target.value})} className="w-full bg-[#0D0D0D] border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-orange-500 transition-colors appearance-none">
+              <select required value={formData.employmentStatus} onChange={e => setFormData({...formData, employmentStatus: e.target.value})} className="w-full bg-[#0D0D0D] border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-colors appearance-none">
                 <option value="">Select Status</option>
                 <option value="employed">Employed</option>
                 <option value="self-employed">Self-Employed</option>
@@ -150,14 +150,14 @@ export const CreditApplicationForm = () => {
             </div>
             <div className="space-y-2">
               <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Digital Signature (Type Full Name)</label>
-              <input required value={formData.signature} onChange={e => setFormData({...formData, signature: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-orange-500 transition-colors font-serif italic text-xl" placeholder="Sang Hyun Han" />
+              <input required value={formData.signature} onChange={e => setFormData({...formData, signature: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-500 transition-colors font-serif italic text-xl" placeholder="Sang Hyun Han" />
             </div>
             
             <div className="flex gap-4">
               <button type="button" onClick={() => setStep(1)} className="flex-1 bg-white/5 text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:bg-white/10 transition-all">
                 <ChevronLeft size={18} /> Back
               </button>
-              <button type="submit" disabled={status === 'submitting'} className="flex-[2] bg-orange-600 hover:bg-orange-500 text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(255,122,0,0.3)]">
+              <button type="submit" disabled={status === 'submitting'} className="flex-[2] bg-red-600 hover:bg-red-500 text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(255,122,0,0.3)]">
                 {status === 'submitting' ? <Loader2 className="animate-spin" /> : <><ShieldCheck size={18} /> Submit Application</>}
               </button>
             </div>
