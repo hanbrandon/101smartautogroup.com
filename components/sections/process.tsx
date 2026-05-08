@@ -3,7 +3,7 @@
 import { Check, MessageSquare, Search, ShieldCheck, Key } from "lucide-react";
 import { motion } from 'motion/react';
 
-export const Process = () => {
+export const Process = ({ onContactClick }: { onContactClick?: () => void }) => {
   const steps = [
     {
       id: "01",
@@ -37,7 +37,7 @@ export const Process = () => {
 
   return (
     <section id="process" className="py-40 bg-zinc-950 relative overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] glow-red opacity-20 pointer-events-none"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] glow-orange opacity-20 pointer-events-none"></div>
       
       <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
         <h2 className="text-5xl md:text-8xl font-bold tracking-tighter mb-6 leading-none">How it works: <br /><span className="text-white/30">Your journey to the perfect drive.</span></h2>
@@ -53,7 +53,7 @@ export const Process = () => {
               className="p-8 rounded-[32px] bg-white/5 border border-white/10 flex flex-col hover:border-white/20 transition-all group"
             >
               <div className="flex justify-between items-start mb-8">
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500">{step.id}</span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-orange-500">{step.id}</span>
                 <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
                   {step.icon}
                 </div>
@@ -63,7 +63,7 @@ export const Process = () => {
               <ul className="mt-auto space-y-3">
                 {step.features.map(feature => (
                   <li key={feature} className="flex items-center gap-2 text-[10px] font-bold text-white/30 uppercase tracking-widest">
-                    <Check className="w-3 h-3 text-red-500" /> {feature}
+                    <Check className="w-3 h-3 text-orange-500" /> {feature}
                   </li>
                 ))}
               </ul>
@@ -79,7 +79,12 @@ export const Process = () => {
               <div className="text-4xl md:text-5xl font-bold tracking-tighter">Book a free consultation</div>
             </div>
           </div>
-          <button className="bg-black text-white px-10 py-5 rounded-full font-bold text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-all">Get in touch</button>
+          <button 
+            onClick={onContactClick}
+            className="bg-black text-white px-10 py-5 rounded-full font-bold text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-all"
+          >
+            Get in touch
+          </button>
         </div>
       </div>
     </section>

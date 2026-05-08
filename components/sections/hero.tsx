@@ -11,6 +11,13 @@ interface HeroProps {
 
 export const Hero = ({ currentTime }: HeroProps) => {
     const heroRef = useRef<HTMLElement>(null);
+    const [isLoaded, setIsLoaded] = React.useState(false);
+
+    React.useEffect(() => {
+        // Fallback for iframe loading
+        const timer = setTimeout(() => setIsLoaded(true), 1500);
+        return () => clearTimeout(timer);
+    }, []);
 
     const { scrollYProgress } = useScroll({
         target: heroRef,
@@ -21,12 +28,18 @@ export const Hero = ({ currentTime }: HeroProps) => {
         <section
             id="hero"
             ref={heroRef}
-            className="sticky top-0 h-screen flex flex-col items-center justify-between py-10 overflow-hidden z-0"
+            className={`sticky top-0 h-screen flex flex-col items-center justify-between py-10 overflow-hidden z-0 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
         >
             {/* Background Gradient Animation Iframe */}
             <div className="absolute inset-0 z-0 pointer-events-none scale-110">
+                {!isLoaded && (
+                    <div className="absolute inset-0 bg-black flex items-center justify-center">
+                        <div className="w-[500px] h-[500px] bg-orange-600/20 blur-[120px] rounded-full animate-pulse" />
+                    </div>
+                )}
                 <iframe
                     src="https://gradientshader-nine.vercel.app/"
+                    onLoad={() => setIsLoaded(true)}
                     className="w-full h-full border-none opacity-100 contrast-125 saturate-150 shadow-inner"
                     style={{
                         filter: 'hue-rotate(25deg) brightness(1.2) saturate(1.2)',

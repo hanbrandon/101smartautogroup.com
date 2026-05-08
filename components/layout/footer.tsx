@@ -2,9 +2,10 @@ import { Moon, Sparkles } from "lucide-react";
 
 interface FooterProps {
   currentTime: string;
+  onContactClick?: () => void;
 }
 
-export const Footer = ({ currentTime }: FooterProps) => {
+export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
   return (
     <footer className="relative pt-40 pb-0 overflow-hidden bg-black flex flex-col items-center">
       <div className="max-w-7xl mx-auto px-6 w-full relative z-20 mb-20">
@@ -17,7 +18,10 @@ export const Footer = ({ currentTime }: FooterProps) => {
             <h3 className="text-2xl font-bold tracking-tight max-w-xs">
               Your Trusted Car Partner in <br /> Los Angeles & Orange County.
             </h3>
-            <button className="bg-white text-black px-6 py-3 rounded-full font-bold flex items-center gap-2 w-fit hover:scale-105 transition-transform active:scale-95 shadow-2xl">
+            <button 
+              onClick={onContactClick}
+              className="bg-white text-black px-6 py-3 rounded-full font-bold flex items-center gap-2 w-fit hover:scale-105 transition-transform active:scale-95 shadow-2xl"
+            >
               <Sparkles className="w-4 h-4" />
               Get in touch
             </button>
@@ -58,7 +62,7 @@ export const Footer = ({ currentTime }: FooterProps) => {
 
       <div className="relative w-full flex justify-center items-end pointer-events-none mb-[-4vw]">
         <div className="absolute inset-0 z-10 bg-gradient-to-b from-black via-black/80 to-transparent h-1/2" />
-        <h2 className="text-[46vw] font-black tracking-[-0.08em] leading-[0.7] text-transparent bg-clip-text bg-gradient-to-t from-red-600/60 to-red-900/10 select-none uppercase">
+        <h2 className="text-[46vw] font-black tracking-[-0.08em] leading-[0.7] text-transparent bg-clip-text bg-gradient-to-t from-orange-600/60 to-orange-900/10 select-none uppercase">
           JAKE
         </h2>
       </div>

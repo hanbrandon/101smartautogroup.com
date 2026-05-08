@@ -13,8 +13,8 @@
 }
 
 @layer utilities {
-  .glow-red {
-    background: radial-gradient(circle at center, rgba(255, 60, 60, 0.4) 0%, transparent 70%);
+  .glow-orange {
+    background: radial-gradient(circle at center, rgba(255, 120, 0, 0.4) 0%, transparent 70%);
   }
   
   .text-glow {

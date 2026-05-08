@@ -6,9 +6,10 @@ import { Moon, ArrowDown, Sparkles } from 'lucide-react';
 
 interface NavbarProps {
   currentTime: string;
+  onContactClick?: () => void;
 }
 
-export const Navbar = ({ currentTime }: NavbarProps) => {
+export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
@@ -108,7 +109,10 @@ export const Navbar = ({ currentTime }: NavbarProps) => {
                       <a href="#" className="text-xs font-bold text-white/60 hover:text-white transition-colors">Yelp</a>
                     </div>
                   </div>
-                  <button className="bg-white text-black px-5 py-3.5 rounded-2xl text-xs font-bold flex items-center gap-2.5 hover:scale-105 active:scale-95 transition-all shadow-xl">
+                  <button 
+                    onClick={onContactClick}
+                    className="bg-white text-black px-5 py-3.5 rounded-2xl text-xs font-bold flex items-center gap-2.5 hover:scale-105 active:scale-95 transition-all shadow-xl"
+                  >
                     <Sparkles className="w-3.5 h-3.5 fill-black" />
                     Get in touch
                   </button>
