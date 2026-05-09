@@ -56,13 +56,16 @@ export const Hero = () => {
                     transition={{ duration: 1, ease: 'easeOut' }}
                     className="flex flex-col items-start gap-2"
                 >
-                    <h1 className="text-[24px] md:text-[32px] font-[550] leading-[1.1] text-white select-none max-w-2xl tracking-[-0.02em] normal-case antialiased [font-feature-settings:'blwf'_on,'cv09'_on,'cv03'_on,'cv04'_on,'cv11'_on]">
+                    <h1 className="text-[36px] md:text-[32px] font-[550] leading-[1.05] text-white select-none max-w-2xl tracking-[-0.03em] normal-case antialiased [font-feature-settings:'blwf'_on,'cv09'_on,'cv03'_on,'cv04'_on,'cv11'_on]">
                         Your Premium Car Dealer in <br />
                         <span className="text-white/60">
                             Los Angeles & Orange County
                         </span>
                         .
-                        <br /> Expert car buying, leasing, and auto financing services.
+                        <br />
+                        <span className="text-[16px] md:text-[18px] opacity-60 font-medium block mt-4 leading-relaxed">
+                            Expert car buying, leasing, and auto financing services.
+                        </span>
                     </h1>
                 </motion.div>
             </div>
@@ -70,7 +73,7 @@ export const Hero = () => {
             {/* Status & Scroll Bar - Positioned right above the 'MOTOR' text (Middle of screen) */}
             <div className="absolute inset-x-0 bottom-[18vw] md:bottom-[20vw] z-40 w-full mx-auto px-6 flex justify-between items-end pointer-events-none">
                 <div className="flex items-center gap-4 pointer-events-auto">
-                    <div className="text-[10px] font-medium uppercase tracking-[0.2em] flex items-center gap-4">
+                    <div className="text-[11px] md:text-[10px] font-medium uppercase tracking-[0.2em] flex items-center gap-4">
                         <span className="bg-gradient-to-r from-white/40 via-white to-white/40 bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer flex items-center gap-4">
                             <span>101 Auto Group • Jake Kim</span>
                             <span className="w-1 h-1 rounded-full bg-white/20" />
@@ -88,7 +91,7 @@ export const Hero = () => {
                     }
                 >
                     <div className="flex items-center gap-2">
-                        <span className="text-[10px] uppercase font-bold tracking-[0.2em] relative overflow-hidden">
+                        <span className="text-[11px] md:text-[10px] uppercase font-bold tracking-[0.2em] relative overflow-hidden">
                             <span className="bg-gradient-to-r from-white/20 via-white to-white/20 bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer flex items-center gap-2">
                                 Scroll to explore
                             </span>

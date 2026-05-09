@@ -52,7 +52,19 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                                 href="/#process"
                                 className="hover:text-white transition-colors"
                             >
-                                How it works
+                                Process
+                            </a>
+                            <a
+                                href="/#services"
+                                className="hover:text-white transition-colors"
+                            >
+                                Services
+                            </a>
+                            <a
+                                href="/credit-application"
+                                className="hover:text-white transition-colors"
+                            >
+                                Credit Application
                             </a>
                         </div>
                     </div>
