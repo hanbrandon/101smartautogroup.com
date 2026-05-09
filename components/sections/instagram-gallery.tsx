@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { Instagram } from 'lucide-react';
+import { cn } from "@/lib/utils";
 import { SectionHeader } from '@/components/ui/section-header';
 import { INSTAGRAM_POSTS } from '@/constants';
 
@@ -14,8 +15,8 @@ export const InstagramGallery = () => {
           subtitle="Explore our latest deliveries, rare finds, and the lifestyle behind the drive. We share real-time updates of cars we're sourcing and delivering across Southern California."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {INSTAGRAM_POSTS.map((post, i) => (
+        <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
+          {INSTAGRAM_POSTS.slice(0, 9).map((post, i) => (
             <motion.a 
               key={post.id}
               href={post.link}
@@ -25,7 +26,10 @@ export const InstagramGallery = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group relative aspect-square rounded-[24px] overflow-hidden bg-white/5"
+              className={cn(
+                "group relative aspect-square rounded-[12px] md:rounded-[24px] overflow-hidden bg-white/5",
+                i >= 4 && "md:hidden lg:hidden" // Only show 4 on desktop/tablet
+              )}
             >
               <img 
                 src={post.image} 
@@ -44,13 +48,13 @@ export const InstagramGallery = () => {
         
         <div className="mt-20 flex justify-center">
           <a 
-            href="https://instagram.com" 
+            href="https://www.instagram.com/goldenkeyautogroup/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="px-8 py-4 rounded-full border border-white/10 hover:bg-white hover:text-black transition-all font-bold text-xs uppercase tracking-widest flex items-center gap-3"
           >
             <Instagram className="w-4 h-4" />
-            Follow @jakekim_auto
+            Follow @goldenkeyautogroup
           </a>
         </div>
       </div>

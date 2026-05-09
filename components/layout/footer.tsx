@@ -17,30 +17,25 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
             <div className="mx-auto px-6 w-full relative z-20 mb-20">
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-12 lg:gap-20">
                     <div className="md:col-span-2 flex flex-col gap-8">
-                        <div className="flex items-center gap-2">
-                            <Moon className="w-3 h-3 text-white/40" />
-                            <span className="text-[11px] font-bold text-white/40">
-                                {currentTime}
-                            </span>
-                        </div>
+
                         <h3 className="text-2xl font-bold tracking-tight max-w-xs">
                             Your Premium Car Dealer in <br /> Los Angeles &
                             Orange County.
                         </h3>
                         <button
                             onClick={onContactClick}
-                            className="bg-white text-black px-6 py-3 rounded-full font-bold flex items-center gap-2 w-fit hover:scale-105 transition-transform active:scale-95 shadow-2xl"
+                            className="flex items-center gap-[12px] bg-white text-[#030303] px-10 py-4 rounded-[20px] font-bold text-[18px] tracking-[-0.03em] leading-[1.1] active:scale-95 transition-all shadow-[0_10px_30px_rgba(255,255,255,0.15)] group w-fit"
                         >
-                            <Sparkles className="w-4 h-4" />
+                            <Sparkles className="w-4 h-4 transition-transform group-hover:rotate-12" />
                             Get in touch
                         </button>
                     </div>
 
                     <div className="flex flex-col gap-4">
-                        <span className="text-[10px] uppercase font-black tracking-widest text-white/20">
+                        <span className="text-sm font-medium text-white/20">
                             Explore
                         </span>
-                        <div className="flex flex-col gap-2 font-bold text-sm text-white/60">
+                        <div className="flex flex-col gap-2 text-lg text-white/60">
                             <a
                                 href="/#hero"
                                 className="hover:text-white transition-colors"
@@ -63,70 +58,73 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                     </div>
 
                     <div className="flex flex-col gap-4">
-                        <span className="text-[10px] uppercase font-black tracking-widest text-white/20">
+                        <span className="text-sm font-medium text-white/20">
                             Policies
                         </span>
-                        <div className="flex flex-col gap-2 font-bold text-sm text-white/60">
+                        <div className="flex flex-col gap-2 text-lg text-white/60">
                             <a
                                 href="/terms"
-                                className="hover:text-white transition-colors uppercase"
+                                className="hover:text-white transition-colors"
                             >
                                 Terms
                             </a>
                             <a
                                 href="/privacy"
-                                className="hover:text-white transition-colors uppercase"
+                                className="hover:text-white transition-colors"
                             >
                                 Privacy
                             </a>
                             <a
                                 href="/do-not-sell"
-                                className="hover:text-white transition-colors uppercase"
+                                className="hover:text-white transition-colors"
                             >
-                                Do Not Sell My Info
+                                Do not sell my info
                             </a>
                         </div>
                     </div>
                     <div className="flex flex-col gap-4">
-                        <span className="text-[10px] uppercase font-black tracking-widest text-white/20">
+                        <span className="text-sm font-medium text-white/20">
                             Contact
                         </span>
-                        <div className="flex flex-col gap-4 text-xs text-white/60">
+                        <div className="flex flex-col gap-6 text-base text-white/60">
                             <div className="flex flex-col gap-1">
-                                <span className="text-white font-bold">
+                                <span className="text-white">
                                     {process.env.NEXT_PUBLIC_MANAGER_NAME} (
                                     {process.env.NEXT_PUBLIC_MANAGER_TITLE})
                                 </span>
                                 <a
                                     href={`tel:${process.env.NEXT_PUBLIC_PHONE?.replace(/\s/g, '')}`}
-                                    className="hover:text-white transition-colors"
+                                    className="hover:text-red-500 transition-colors"
                                 >
                                     P: {process.env.NEXT_PUBLIC_PHONE}
                                 </a>
                                 <a
                                     href={`tel:${process.env.NEXT_PUBLIC_OFFICE_PHONE?.replace(/\s/g, '')}`}
-                                    className="hover:text-white transition-colors"
+                                    className="hover:text-red-500 transition-colors"
                                 >
                                     O: {process.env.NEXT_PUBLIC_OFFICE_PHONE}
                                 </a>
                                 <a
                                     href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}
-                                    className="hover:text-white transition-colors"
+                                    className="hover:text-red-500 transition-colors"
                                 >
                                     {process.env.NEXT_PUBLIC_EMAIL}
                                 </a>
                             </div>
                             <div className="flex flex-col gap-1">
-                                <span className="uppercase text-[9px] font-black tracking-widest text-white/20">
+                                <span className="text-xs font-medium text-white/20">
                                     Office
                                 </span>
-                                <span className="leading-relaxed">
-                                    {process.env.NEXT_PUBLIC_OFFICE_ADDRESS}
+                                <span className="leading-relaxed text-base">
+                                    936 Crenshaw Blvd. #303 <br />
+                                    Los Angeles, CA 90019
                                 </span>
                             </div>
-                            <div className="flex items-center gap-4 pt-2 border-t border-white/5 mt-2">
+                            <div className="flex items-center gap-4 pt-4">
                                 <a
-                                    href="#"
+                                    href="https://www.instagram.com/goldenkeyautogroup/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white"
                                 >
                                     <Instagram size={14} />

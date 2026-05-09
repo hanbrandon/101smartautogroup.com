@@ -153,9 +153,26 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                                 Social media
                                             </span>
                                             <div className="flex flex-col gap-1">
-                                                <a href="#" className="text-[14px] font-medium text-white/40 hover:text-white transition-colors">Instagram</a>
-                                                <a href="#" className="text-[14px] font-medium text-white/40 hover:text-white transition-colors">LinkedIn</a>
-                                                <a href="#" className="text-[14px] font-medium text-white/40 hover:text-white transition-colors">The X</a>
+                                                <a
+                                                    href="https://www.instagram.com/goldenkeyautogroup/"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-[14px] font-medium text-white/40 hover:text-white transition-colors"
+                                                >
+                                                    Instagram
+                                                </a>
+                                                <a
+                                                    href="#"
+                                                    className="text-[14px] font-medium text-white/40 hover:text-white transition-colors"
+                                                >
+                                                    LinkedIn
+                                                </a>
+                                                <a
+                                                    href="#"
+                                                    className="text-[14px] font-medium text-white/40 hover:text-white transition-colors"
+                                                >
+                                                    The X
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -178,7 +195,9 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                             <div
                                 className={cn(
                                     'flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
-                                    isOpen ? '-translate-y-1/2' : 'translate-y-0',
+                                    isOpen
+                                        ? '-translate-y-1/2'
+                                        : 'translate-y-0',
                                 )}
                             >
                                 <span className="text-[16px] font-bold text-white tracking-tight uppercase leading-[18px] h-[18px] block">
@@ -199,7 +218,11 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                             initial={{ opacity: 0, y: 20, scale: 0.95 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                            transition={{
+                                type: 'spring',
+                                damping: 25,
+                                stiffness: 200,
+                            }}
                             className="md:hidden fixed top-[100px] left-6 right-6 bg-[#111111]/80 backdrop-blur-2xl rounded-[32px] border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.5)] overflow-hidden pointer-events-auto z-[101]"
                         >
                             <div className="flex flex-col p-2">
@@ -224,25 +247,44 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                 ))}
                             </div>
 
-                            <div className="p-8 bg-white/[0.02] border-t border-white/5 flex items-end justify-between mt-2">
+                            <div className="p-6 bg-white/[0.02] border-t border-white/5 flex items-end justify-between mt-2">
                                 <div className="flex flex-col gap-4">
-                                    <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/20">Social media</span>
+                                    <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/20">
+                                        Social media
+                                    </span>
                                     <div className="flex flex-col gap-2">
-                                        <a href="#" className="text-[16px] font-medium text-white/40 hover:text-white transition-colors">Instagram</a>
-                                        <a href="#" className="text-[16px] font-medium text-white/40 hover:text-white transition-colors">LinkedIn</a>
-                                        <a href="#" className="text-[16px] font-medium text-white/40 hover:text-white transition-colors">The X</a>
+                                        <a
+                                            href="https://www.instagram.com/goldenkeyautogroup/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-[14px] font-medium text-white/40 hover:text-white transition-colors"
+                                        >
+                                            Instagram
+                                        </a>
+                                        <a
+                                            href="#"
+                                            className="text-[14px] font-medium text-white/40 hover:text-white transition-colors"
+                                        >
+                                            LinkedIn
+                                        </a>
+                                        <a
+                                            href="#"
+                                            className="text-[14px] font-medium text-white/40 hover:text-white transition-colors"
+                                        >
+                                            The X
+                                        </a>
                                     </div>
                                 </div>
-                                
+
                                 {/* Mobile CTA */}
                                 <button
                                     onClick={() => {
                                         setIsOpen(false);
                                         onContactClick?.();
                                     }}
-                                    className="flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full font-bold text-[16px] shadow-[0_10px_30px_rgba(255,255,255,0.1)] active:scale-95 transition-all group"
+                                    className="flex items-center gap-2 bg-white text-black px-6 py-3.5 rounded-full font-bold text-[14px] shadow-[0_10px_30px_rgba(255,255,255,0.1)] active:scale-95 transition-all group shrink-0 whitespace-nowrap"
                                 >
-                                    <div className="w-4 h-4">
+                                    <div className="w-3.5 h-3.5">
                                         <SparkleIcon />
                                     </div>
                                     <span>Get in touch</span>
@@ -298,4 +340,3 @@ const SparkleIcon = () => (
         />
     </svg>
 );
-

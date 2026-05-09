@@ -144,7 +144,7 @@ export default function DoNotSellPage() {
               </div>
             </div>
 
-            <footer className="pt-12 border-t border-white/10">
+            <footer className="pt-12">
               <Link href="/" className="inline-flex items-center gap-2 text-white/40 hover:text-red-500 transition-colors uppercase text-[10px] font-black tracking-widest">
                 ← Back to Home
               </Link>

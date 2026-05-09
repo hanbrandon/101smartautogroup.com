@@ -6,7 +6,7 @@ import { TOOLS } from '@/constants';
 
 export const Partner = () => {
     return (
-        <section className="py-40 border-y border-white/10 overflow-hidden bg-black">
+        <section className="py-40 overflow-hidden bg-black">
             <div className="max-w-7xl mx-auto px-6 mb-32">
                 <motion.h2
                     initial={{ opacity: 0, y: 40 }}

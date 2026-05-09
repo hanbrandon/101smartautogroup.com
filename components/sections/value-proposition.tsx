@@ -16,7 +16,7 @@ export const ValueProposition = () => {
           Finding the right car <br /> should be as smooth as <br /> the drive itself.
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-sm md:text-base text-white/50 border-t border-white/10 pt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-sm md:text-base text-white/50 pt-12">
           <div className="space-y-4">
             <p className="font-bold text-white uppercase tracking-widest text-xs">The Mission.</p>
             <p className="leading-relaxed">As a premium car dealer in Los Angeles and Orange County, Jake Kim provides a transparent, hassle-free car buying and leasing experience. We negotiate the best auto deals to find the perfect vehicle for your lifestyle and budget.</p>
