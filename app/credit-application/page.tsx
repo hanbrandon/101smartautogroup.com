@@ -22,7 +22,7 @@ export default function CreditApplicationPage() {
             </p>
           </div>
 
-          <div className="bg-[#0A0A0A] border border-white/5 rounded-[40px] p-8 md:p-12 shadow-2xl relative overflow-hidden">
+          <div className="bg-[#0A0A0A] border border-white/5 rounded-[32px] md:rounded-[40px] px-4 py-8 md:p-12 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[300px] bg-red-500/5 blur-[120px] rounded-full pointer-events-none" />
             <CreditApplicationForm />
           </div>

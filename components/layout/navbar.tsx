@@ -29,27 +29,27 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
         {
             name: 'Home',
             href: '/#hero',
-            img: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&q=80&w=300',
+            img: '/images/menu/home.png',
         },
         {
             name: 'Gallery',
             href: '/#gallery',
-            img: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&q=80&w=300',
+            img: '/images/menu/gallery.png',
         },
         {
             name: 'Process',
             href: '/#process',
-            img: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=300',
+            img: '/images/menu/process.png',
         },
         {
             name: 'Services',
             href: '/#services',
-            img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=300',
+            img: '/images/menu/services.png',
         },
         {
             name: 'Credit Application',
             href: '/credit-application',
-            img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=300',
+            img: '/images/menu/credit.png',
         },
     ];
 

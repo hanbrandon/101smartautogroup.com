@@ -52,6 +52,19 @@ Premium automotive sourcing and dealership services based in Los Angeles and Ora
 
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## ⚙️ Configuration
+
+The project requires several environment variables for full functionality. Create a `.env.local` file based on `.env.example`:
+
+### Brand Information
+- `NEXT_PUBLIC_MANAGER_NAME`: Displays the manager's name across the site.
+- `NEXT_PUBLIC_PHONE`: Primary contact phone number.
+- `NEXT_PUBLIC_EMAIL`: Primary contact email.
+
+### Email Service (Brevo)
+- `BREVO_API_KEY`: Required for sending contact inquiries and credit applications.
+- `NOTIFICATION_EMAIL`: The recipient email address for all form submissions.
+
 ## 📄 License
 
 © 2026 101 Smart Auto Group. All rights reserved.
