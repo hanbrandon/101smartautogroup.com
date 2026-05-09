@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "JAKE KIM | Premium Automotive Sourcing in LA & OC",
-  description: "Expert automotive dealership services in Los Angeles and Orange County. Finding the perfect drive for your lifestyle with transparency and trust.",
+  title: "101 Smart Auto Group | Premium Car Dealer in LA & OC",
+  description: "Top car dealer and auto leasing services in Los Angeles and Orange County. Hassle-free car buying, best auto deals, and expert financing with Jake Kim.",
 };
 
 export default function RootLayout({

@@ -1,4 +1,10 @@
-import { Moon, Sparkles } from 'lucide-react';
+import {
+    Moon,
+    Sparkles,
+    Instagram,
+    Linkedin,
+    ExternalLink,
+} from 'lucide-react';
 
 interface FooterProps {
     currentTime: string;
@@ -9,7 +15,7 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
     return (
         <footer className="relative pt-40 pb-0 overflow-hidden bg-black flex flex-col items-center">
             <div className="mx-auto px-6 w-full relative z-20 mb-20">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-20">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-12 lg:gap-20">
                     <div className="md:col-span-2 flex flex-col gap-8">
                         <div className="flex items-center gap-2">
                             <Moon className="w-3 h-3 text-white/40" />
@@ -18,7 +24,7 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                             </span>
                         </div>
                         <h3 className="text-2xl font-bold tracking-tight max-w-xs">
-                            Your Trusted Car Partner in <br /> Los Angeles &
+                            Your Premium Car Dealer in <br /> Los Angeles &
                             Orange County.
                         </h3>
                         <button
@@ -30,54 +36,112 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                         </button>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-10 md:col-span-2">
-                        <div className="flex flex-col gap-4">
-                            <span className="text-[10px] uppercase font-black tracking-widest text-white/20">
-                                Explore
-                            </span>
-                            <div className="flex flex-col gap-2 font-bold text-sm text-white/60">
+                    <div className="flex flex-col gap-4">
+                        <span className="text-[10px] uppercase font-black tracking-widest text-white/20">
+                            Explore
+                        </span>
+                        <div className="flex flex-col gap-2 font-bold text-sm text-white/60">
+                            <a
+                                href="/#hero"
+                                className="hover:text-white transition-colors"
+                            >
+                                Home
+                            </a>
+                            <a
+                                href="/#gallery"
+                                className="hover:text-white transition-colors"
+                            >
+                                Gallery
+                            </a>
+                            <a
+                                href="/#process"
+                                className="hover:text-white transition-colors"
+                            >
+                                How it works
+                            </a>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                        <span className="text-[10px] uppercase font-black tracking-widest text-white/20">
+                            Policies
+                        </span>
+                        <div className="flex flex-col gap-2 font-bold text-sm text-white/60">
+                            <a
+                                href="/terms"
+                                className="hover:text-white transition-colors uppercase"
+                            >
+                                Terms
+                            </a>
+                            <a
+                                href="/privacy"
+                                className="hover:text-white transition-colors uppercase"
+                            >
+                                Privacy
+                            </a>
+                            <a
+                                href="/do-not-sell"
+                                className="hover:text-white transition-colors uppercase"
+                            >
+                                Do Not Sell My Info
+                            </a>
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                        <span className="text-[10px] uppercase font-black tracking-widest text-white/20">
+                            Contact
+                        </span>
+                        <div className="flex flex-col gap-4 text-xs text-white/60">
+                            <div className="flex flex-col gap-1">
+                                <span className="text-white font-bold">
+                                    {process.env.NEXT_PUBLIC_MANAGER_NAME} (
+                                    {process.env.NEXT_PUBLIC_MANAGER_TITLE})
+                                </span>
                                 <a
-                                    href="/#hero"
+                                    href={`tel:${process.env.NEXT_PUBLIC_PHONE?.replace(/\s/g, '')}`}
                                     className="hover:text-white transition-colors"
                                 >
-                                    Home
+                                    P: {process.env.NEXT_PUBLIC_PHONE}
                                 </a>
                                 <a
-                                    href="/#gallery"
+                                    href={`tel:${process.env.NEXT_PUBLIC_OFFICE_PHONE?.replace(/\s/g, '')}`}
                                     className="hover:text-white transition-colors"
                                 >
-                                    Gallery
+                                    O: {process.env.NEXT_PUBLIC_OFFICE_PHONE}
                                 </a>
                                 <a
-                                    href="/#process"
+                                    href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}
                                     className="hover:text-white transition-colors"
                                 >
-                                    How it works
+                                    {process.env.NEXT_PUBLIC_EMAIL}
                                 </a>
                             </div>
-                        </div>
-                        <div className="flex flex-col gap-4">
-                            <span className="text-[10px] uppercase font-black tracking-widest text-white/20">
-                                Socials
-                            </span>
-                            <div className="flex flex-col gap-2 font-bold text-sm text-white/60">
+                            <div className="flex flex-col gap-1">
+                                <span className="uppercase text-[9px] font-black tracking-widest text-white/20">
+                                    Office
+                                </span>
+                                <span className="leading-relaxed">
+                                    {process.env.NEXT_PUBLIC_OFFICE_ADDRESS}
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-4 pt-2 border-t border-white/5 mt-2">
                                 <a
                                     href="#"
-                                    className="hover:text-white transition-colors"
+                                    className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white"
                                 >
-                                    Instagram
+                                    <Instagram size={14} />
                                 </a>
                                 <a
                                     href="#"
-                                    className="hover:text-white transition-colors"
+                                    className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white"
                                 >
-                                    LinkedIn
+                                    <Linkedin size={14} />
                                 </a>
                                 <a
                                     href="#"
-                                    className="hover:text-white transition-colors"
+                                    className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white"
                                 >
-                                    Yelp
+                                    <ExternalLink size={14} />
                                 </a>
                             </div>
                         </div>
@@ -85,28 +149,15 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                 </div>
 
                 <div className="flex justify-between items-center mt-32 pt-8 border-t border-white/5 text-[9px] font-bold text-white/20 uppercase tracking-widest">
-                    <div className="flex flex-col gap-1">
-                        <span>2026 Jake Kim,</span>
-                        <span>ALL RIGHTS RESERVED</span>
-                    </div>
+                    <div>2026 101 SMART AUTO GROUP. ALL RIGHTS RESERVED.</div>
                     <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center">
                         <a
-                            href="/terms"
+                            href="https://gawoori.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="hover:text-white/40 transition-colors"
                         >
-                            TERMS
-                        </a>
-                        <a
-                            href="/privacy"
-                            className="hover:text-white/40 transition-colors"
-                        >
-                            PRIVACY POLICY
-                        </a>
-                        <a
-                            href="/do-not-sell"
-                            className="hover:text-white/40 transition-colors"
-                        >
-                            DO NOT SELL MY PERSONAL INFORMATION
+                            DEVELOPED BY GAWOORI.COM
                         </a>
                     </div>
                 </div>

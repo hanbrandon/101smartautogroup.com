@@ -57,12 +57,12 @@ export const Hero = () => {
                     className="flex flex-col items-start gap-2"
                 >
                     <h1 className="text-[24px] md:text-[32px] font-[550] leading-[1.1] text-white select-none max-w-2xl tracking-[-0.02em] normal-case antialiased [font-feature-settings:'blwf'_on,'cv09'_on,'cv03'_on,'cv04'_on,'cv11'_on]">
-                        Your Trusted Car Partner in <br />
+                        Your Premium Car Dealer in <br />
                         <span className="text-white/60">
                             Los Angeles & Orange County
                         </span>
                         .
-                        <br /> Finding the perfect drive for your lifestyle.
+                        <br /> Expert car buying, leasing, and auto financing services.
                     </h1>
                 </motion.div>
             </div>
@@ -74,7 +74,7 @@ export const Hero = () => {
                         <span className="bg-gradient-to-r from-white/40 via-white to-white/40 bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer flex items-center gap-4">
                             <span>101 Smart Auto Group • Jake Kim</span>
                             <span className="w-1 h-1 rounded-full bg-white/20" />
-                            <span>Los Angeles • Orange County</span>
+                            <span>Expert Car Dealer • LA & OC</span>
                         </span>
                     </div>
                 </div>

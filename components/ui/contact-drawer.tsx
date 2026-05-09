@@ -323,9 +323,32 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
             </div>
             
             <div className="p-8 border-t border-white/5 bg-black/40 backdrop-blur-xl">
-              <p className="text-[10px] text-white/20 font-bold uppercase tracking-[0.3em] text-center">
-                101 Smart Auto Group &bull; Los Angeles
-              </p>
+              <div className="flex flex-col gap-6">
+                <div className="grid grid-cols-2 gap-8">
+                  <div className="space-y-2">
+                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/20">Call</span>
+                    <div className="flex flex-col gap-1 text-[11px] font-bold">
+                      <a href={`tel:${process.env.NEXT_PUBLIC_PHONE?.replace(/\s/g, '')}`} className="hover:text-red-500 transition-colors">P: {process.env.NEXT_PUBLIC_PHONE}</a>
+                      <a href={`tel:${process.env.NEXT_PUBLIC_OFFICE_PHONE?.replace(/\s/g, '')}`} className="hover:text-red-500 transition-colors">O: {process.env.NEXT_PUBLIC_OFFICE_PHONE}</a>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/20">Email</span>
+                    <div className="flex flex-col gap-1 text-[11px] font-bold">
+                      <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`} className="hover:text-red-500 transition-colors">{process.env.NEXT_PUBLIC_EMAIL}</a>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/20">Office Address</span>
+                  <p className="text-[11px] font-bold text-white/60 leading-relaxed">
+                    {process.env.NEXT_PUBLIC_OFFICE_ADDRESS}
+                  </p>
+                </div>
+                <p className="text-[9px] text-white/10 font-bold uppercase tracking-[0.4em] text-center pt-4 border-t border-white/5">
+                  101 Smart Auto Group &bull; {process.env.NEXT_PUBLIC_MANAGER_NAME}
+                </p>
+              </div>
             </div>
           </motion.div>
         </>

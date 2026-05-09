@@ -19,19 +19,16 @@ export const ValueProposition = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-sm md:text-base text-white/50 border-t border-white/10 pt-12">
           <div className="space-y-4">
             <p className="font-bold text-white uppercase tracking-widest text-xs">The Mission.</p>
-            <p className="leading-relaxed">Based in Los Angeles and Orange County, Jake Kim is dedicated to providing a transparent and personalized car buying experience. We don't just sell cars; we find the perfect match for your lifestyle and budget.</p>
+            <p className="leading-relaxed">As a premium car dealer in Los Angeles and Orange County, Jake Kim provides a transparent, hassle-free car buying and leasing experience. We negotiate the best auto deals to find the perfect vehicle for your lifestyle and budget.</p>
           </div>
           <div className="space-y-4">
             <p className="font-bold text-white uppercase tracking-widest text-xs">The Expertise.</p>
-            <p className="leading-relaxed">From luxury imports to reliable daily drivers, our deep understanding of the SoCal market ensures you get the best value whether you're buying, selling, or trading in.</p>
-            <p className="font-bold text-white uppercase tracking-widest text-xs pt-4 flex items-center gap-2 cursor-pointer hover:gap-4 transition-all group">
-              <span className="w-5 h-5 rounded-full border border-white flex items-center justify-center">
-                <ArrowRight className="w-3 h-3" />
-              </span>
-              View our services
-            </p>
+            <p className="leading-relaxed">From luxury imports to reliable daily drivers, our deep understanding of the SoCal market ensures you get the best value whether you're buying, leasing, selling, or trading in your car.</p>
           </div>
-          <div className="hidden lg:block"></div>
+          <div className="space-y-4">
+            <p className="font-bold text-white uppercase tracking-widest text-xs">The Advantage.</p>
+            <p className="leading-relaxed">Skip the traditional dealership waiting game. We leverage our extensive dealer network to secure exclusive auto loan rates and offer seamless door-to-door vehicle delivery directly to your home or office.</p>
+          </div>
         </div>
       </div>
     </section>
