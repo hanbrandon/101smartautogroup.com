@@ -1,9 +1,59 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import {
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+  SITE_URL,
+  absoluteUrl,
+  autoDealerSchema,
+  defaultOpenGraph,
+  faqSchema,
+  jsonLdScript,
+  serviceSchema,
+  websiteSchema,
+} from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "101 Auto Group | Premium Car Dealer in LA & OC",
-  description: "Top car dealer and auto leasing services in Los Angeles and Orange County. Hassle-free car buying, best auto deals, and expert financing with Jake Kim.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_TITLE,
+    template: "%s | 101 Auto Group",
+  },
+  description: SITE_DESCRIPTION,
+  alternates: {
+    canonical: SITE_URL,
+  },
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: "101 Auto Group",
+    type: "website",
+    locale: "en_US",
+    ...defaultOpenGraph,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [absoluteUrl("/og-image.png")],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -13,6 +63,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLdScript(autoDealerSchema)}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLdScript(websiteSchema)}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLdScript(serviceSchema)}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLdScript(faqSchema)}
+        />
+      </head>
       <body className="antialiased selection:bg-white selection:text-black">
         {children}
       </body>

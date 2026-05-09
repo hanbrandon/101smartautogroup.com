@@ -12,6 +12,14 @@ interface FooterProps {
 }
 
 export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
+    const managerName = process.env.NEXT_PUBLIC_MANAGER_NAME;
+    const managerTitle = process.env.NEXT_PUBLIC_MANAGER_TITLE;
+    const phone = process.env.NEXT_PUBLIC_PHONE;
+    const officePhone = process.env.NEXT_PUBLIC_OFFICE_PHONE;
+    const email = process.env.NEXT_PUBLIC_EMAIL;
+    const phoneHref = phone?.replace(/[^\d+]/g, '');
+    const officePhoneHref = officePhone?.replace(/[^\d+]/g, '');
+
     return (
         <footer className="relative pt-40 pb-0 overflow-hidden bg-black flex flex-col items-center">
             <div className="mx-auto px-6 w-full relative z-20 mb-20">
@@ -100,28 +108,41 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                         </span>
                         <div className="flex flex-col gap-6 text-base text-white/60">
                             <div className="flex flex-col gap-1">
-                                <span className="text-white">
-                                    {process.env.NEXT_PUBLIC_MANAGER_NAME} (
-                                    {process.env.NEXT_PUBLIC_MANAGER_TITLE})
-                                </span>
-                                <a
-                                    href={`tel:${process.env.NEXT_PUBLIC_PHONE?.replace(/\s/g, '')}`}
-                                    className="hover:text-red-500 transition-colors"
-                                >
-                                    P: {process.env.NEXT_PUBLIC_PHONE}
-                                </a>
-                                <a
-                                    href={`tel:${process.env.NEXT_PUBLIC_OFFICE_PHONE?.replace(/\s/g, '')}`}
-                                    className="hover:text-red-500 transition-colors"
-                                >
-                                    O: {process.env.NEXT_PUBLIC_OFFICE_PHONE}
-                                </a>
-                                <a
-                                    href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}
-                                    className="hover:text-red-500 transition-colors"
-                                >
-                                    {process.env.NEXT_PUBLIC_EMAIL}
-                                </a>
+                                {(managerName || managerTitle) && (
+                                    <span className="text-white">
+                                        {[managerName, managerTitle && `(${managerTitle})`]
+                                            .filter(Boolean)
+                                            .join(' ')}
+                                    </span>
+                                )}
+                                {phone && (
+                                    <a
+                                        href={phoneHref ? `tel:${phoneHref}` : undefined}
+                                        className="hover:text-red-500 transition-colors"
+                                    >
+                                        P: {phone}
+                                    </a>
+                                )}
+                                {officePhone && (
+                                    <a
+                                        href={
+                                            officePhoneHref
+                                                ? `tel:${officePhoneHref}`
+                                                : undefined
+                                        }
+                                        className="hover:text-red-500 transition-colors"
+                                    >
+                                        O: {officePhone}
+                                    </a>
+                                )}
+                                {email && (
+                                    <a
+                                        href={`mailto:${email}`}
+                                        className="hover:text-red-500 transition-colors"
+                                    >
+                                        {email}
+                                    </a>
+                                )}
                             </div>
                             <div className="flex flex-col gap-1">
                                 <span className="text-xs font-medium text-white/20">
