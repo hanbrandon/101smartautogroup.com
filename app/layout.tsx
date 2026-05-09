@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "101 Smart Auto Group | Premium Car Dealer in LA & OC",
+  title: "101 Auto Group | Premium Car Dealer in LA & OC",
   description: "Top car dealer and auto leasing services in Los Angeles and Orange County. Hassle-free car buying, best auto deals, and expert financing with Jake Kim.",
 };
 

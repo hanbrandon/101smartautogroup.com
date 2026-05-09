@@ -346,7 +346,7 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
                   </p>
                 </div>
                 <p className="text-[9px] text-white/10 font-bold uppercase tracking-[0.4em] text-center pt-4 border-t border-white/5">
-                  101 Smart Auto Group &bull; {process.env.NEXT_PUBLIC_MANAGER_NAME}
+                  101 Auto Group &bull; {process.env.NEXT_PUBLIC_MANAGER_NAME}
                 </p>
               </div>
             </div>

@@ -51,7 +51,7 @@ export const CreditApplicationForm = () => {
         </div>
         <h2 className="text-3xl font-bold italic tracking-tighter uppercase">Application Received</h2>
         <p className="text-white/40 max-w-md mx-auto">
-          Thank you for trusting 101 Smart Auto Group. Our financing team will review your application and contact you shortly.
+          Thank you for trusting 101 Auto Group. Our financing team will review your application and contact you shortly.
         </p>
         <button onClick={() => window.location.href = '/'} className="bg-white text-black px-8 py-4 rounded-2xl font-bold text-sm uppercase tracking-widest">
           Back to Home

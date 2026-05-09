@@ -149,7 +149,7 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                 </div>
 
                 <div className="flex justify-between items-center mt-32 pt-8 border-t border-white/5 text-[9px] font-bold text-white/20 uppercase tracking-widest">
-                    <div>2026 101 SMART AUTO GROUP. ALL RIGHTS RESERVED.</div>
+                    <div>2026 101 AUTO GROUP. ALL RIGHTS RESERVED.</div>
                     <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center">
                         <a
                             href="https://gawoori.com"

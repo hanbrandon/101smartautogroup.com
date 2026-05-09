@@ -72,7 +72,7 @@ export const Hero = () => {
                 <div className="flex items-center gap-4 pointer-events-auto">
                     <div className="text-[10px] font-medium uppercase tracking-[0.2em] flex items-center gap-4">
                         <span className="bg-gradient-to-r from-white/40 via-white to-white/40 bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer flex items-center gap-4">
-                            <span>101 Smart Auto Group • Jake Kim</span>
+                            <span>101 Auto Group • Jake Kim</span>
                             <span className="w-1 h-1 rounded-full bg-white/20" />
                             <span>Expert Car Dealer • LA & OC</span>
                         </span>
