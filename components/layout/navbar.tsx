@@ -57,17 +57,13 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
         <nav className="fixed top-0 left-0 right-0 z-[100] px-6 py-6 pointer-events-none">
             <div className="max-w-[1800px] mx-auto flex items-center justify-between relative pointer-events-auto">
                 {/* Left: Logo */}
-                <a href="/" className="flex items-center gap-3 group">
-                    <div className="w-8 h-8 bg-white rounded-[10px] flex items-center justify-center transition-transform group-hover:scale-110">
-                        <span className="text-black font-black text-xl italic tracking-tighter">
-                            1
-                        </span>
-                    </div>
-                    <div className="flex flex-col">
-                        <span className="font-bold text-[18px] tracking-[-0.03em] text-white lowercase leading-none">
-                            101 smart auto
-                        </span>
-                    </div>
+                <a href="/" className="flex flex-col items-center group py-1">
+                    <span className="font-bold text-[18px] md:text-[20px] tracking-[-0.03em] text-white uppercase leading-none text-center">
+                        101 Smart Auto Group
+                    </span>
+                    <span className="text-[10px] font-black text-white uppercase tracking-[0.3em] mt-1 text-center">
+                        {process.env.NEXT_PUBLIC_MANAGER_NAME || 'Jake Kim'}
+                    </span>
                 </a>
 
                 {/* Center: Morphing Menu */}
@@ -77,13 +73,14 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                     onMouseLeave={handleMouseLeave}
                 >
                     <motion.div
+                        layout
                         initial={false}
                         animate={{
-                            width: isOpen ? 380 : 160,
+                            width: isOpen ? 340 : 160,
                             height: isOpen ? 'auto' : 56,
                         }}
                         transition={{
-                            duration: 0.7,
+                            duration: 0.5,
                             ease: [0.16, 1, 0.3, 1],
                         }}
                         className={cn(
@@ -105,17 +102,49 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
                                     >
-                                        <rect x="1.5" y="1.5" width="4" height="4" rx="1" fill="currentColor" />
-                                        <rect x="8.5" y="1.5" width="4" height="4" rx="1" fill="currentColor" />
-                                        <rect x="1.5" y="8.5" width="4" height="4" rx="1" fill="currentColor" />
-                                        <rect x="8.5" y="8.5" width="4" height="4" rx="1" fill="currentColor" />
+                                        <rect
+                                            x="1.5"
+                                            y="1.5"
+                                            width="4"
+                                            height="4"
+                                            rx="1"
+                                            fill="currentColor"
+                                        />
+                                        <rect
+                                            x="8.5"
+                                            y="1.5"
+                                            width="4"
+                                            height="4"
+                                            rx="1"
+                                            fill="currentColor"
+                                        />
+                                        <rect
+                                            x="1.5"
+                                            y="8.5"
+                                            width="4"
+                                            height="4"
+                                            rx="1"
+                                            fill="currentColor"
+                                        />
+                                        <rect
+                                            x="8.5"
+                                            y="8.5"
+                                            width="4"
+                                            height="4"
+                                            rx="1"
+                                            fill="currentColor"
+                                        />
                                     </svg>
                                 </div>
                                 <div className="relative overflow-hidden h-[18px]">
-                                    <div className={cn(
-                                        "flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
-                                        isOpen ? "-translate-y-1/2" : "group-hover:-translate-y-1/2"
-                                    )}>
+                                    <div
+                                        className={cn(
+                                            'flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                                            isOpen
+                                                ? '-translate-y-1/2'
+                                                : 'group-hover:-translate-y-1/2',
+                                        )}
+                                    >
                                         <span className="text-[18px] font-bold text-white tracking-[-0.03em] uppercase leading-[18px] h-[18px] block">
                                             Menu
                                         </span>
@@ -131,10 +160,10 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                         <AnimatePresence>
                             {isOpen && (
                                 <motion.div
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 10 }}
-                                    className="flex flex-col gap-1 pb-4 px-2"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="flex flex-col gap-1 pb-2 px-2 w-[340px]"
                                 >
                                     <div className="h-[1px] bg-white/10 -mx-2 mb-2" />
                                     {menuItems.map((item, i) => (
@@ -157,7 +186,7 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                         </a>
                                     ))}
 
-                                    <div className="mt-4 p-6 bg-white/[0.02] border-t border-white/5 rounded-b-[24px]">
+                                    <div className="p-5 bg-white/[0.02] border-t border-white/5 rounded-b-[24px]">
                                         <div className="flex flex-col gap-3">
                                             <span className="text-[11px] font-medium uppercase tracking-widest text-white/20">
                                                 Social media
