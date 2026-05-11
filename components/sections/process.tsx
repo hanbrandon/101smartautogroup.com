@@ -62,7 +62,7 @@ export const Process = ({
     return (
         <section
             id="process"
-            className="py-40 bg-black relative overflow-hidden"
+            className="py-40 bg-black relative overflow-hidden scroll-mt-24"
         >
             <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
                 <h2 className="text-5xl md:text-8xl font-bold tracking-tighter mb-6 leading-none">

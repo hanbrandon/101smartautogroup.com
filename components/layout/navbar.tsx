@@ -13,6 +13,8 @@ interface NavbarProps {
 export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const phone = process.env.NEXT_PUBLIC_PHONE;
+    const phoneHref = phone?.replace(/[^\d+]/g, '');
 
     const handleMouseEnter = () => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -47,6 +49,16 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
             img: '/images/menu/services.png',
         },
         {
+            name: 'FAQ',
+            href: '/#faq',
+            img: '/images/menu/services.png',
+        },
+        {
+            name: 'Contact Us',
+            href: '/#contact',
+            img: '/images/menu/process.png',
+        },
+        {
             name: 'Credit Application',
             href: '/credit-application',
             img: '/images/menu/credit.png',
@@ -58,7 +70,7 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
             <div className="max-w-[1800px] mx-auto flex items-center justify-between relative pointer-events-auto">
                 {/* Left: Logo */}
                 <a href="/" className="flex flex-col items-center group py-1">
-                    <span className="font-bold text-[18px] md:text-[20px] tracking-[-0.03em] text-white uppercase leading-none text-center">
+                    <span className="font-bold text-[18px] md:text-[20px] tracking-[-0.03em] text-red-600 uppercase leading-none text-center">
                         101 Auto Group
                     </span>
                     <span className="text-[10px] font-black text-white uppercase tracking-[0.3em] mt-1 text-center">
@@ -131,7 +143,11 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                         <a
                                             key={item.name}
                                             href={item.href}
-                                            onClick={() => setIsOpen(false)}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setIsOpen(false);
+                                                window.location.hash = item.href.replace('/', '');
+                                            }}
                                             className="flex items-center justify-between px-5 py-4 rounded-2xl hover:bg-white/5 transition-colors group"
                                         >
                                             <span className="text-[20px] font-medium text-white/60 group-hover:text-white transition-colors tracking-tight">
@@ -162,13 +178,17 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                                     Instagram
                                                 </a>
                                                 <a
-                                                    href="#"
+                                                    href="https://www.threads.net/@goldenkeyautogroup"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
                                                     className="text-[14px] font-medium text-white/40 hover:text-white transition-colors"
                                                 >
-                                                    LinkedIn
+                                                    Threads
                                                 </a>
                                                 <a
-                                                    href="#"
+                                                    href="https://x.com/goldenkeyauto"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
                                                     className="text-[14px] font-medium text-white/40 hover:text-white transition-colors"
                                                 >
                                                     The X
@@ -230,7 +250,11 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                     <a
                                         key={item.name}
                                         href={item.href}
-                                        onClick={() => setIsOpen(false)}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setIsOpen(false);
+                                            window.location.hash = item.href.replace('/', '');
+                                        }}
                                         className="flex items-center justify-between px-6 py-5 rounded-2xl hover:bg-white/5 transition-colors group"
                                     >
                                         <span className="text-[22px] font-medium text-white/60 group-hover:text-white transition-colors tracking-tight">
@@ -262,13 +286,17 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                             Instagram
                                         </a>
                                         <a
-                                            href="#"
+                                            href="https://www.threads.net/@goldenkeyautogroup"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="text-[14px] font-medium text-white/40 hover:text-white transition-colors"
                                         >
-                                            LinkedIn
+                                            Threads
                                         </a>
                                         <a
-                                            href="#"
+                                            href="https://x.com/goldenkeyauto"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="text-[14px] font-medium text-white/40 hover:text-white transition-colors"
                                         >
                                             The X
@@ -277,27 +305,27 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                 </div>
 
                                 {/* Mobile CTA */}
-                                <button
+                                <a
+                                    href={phoneHref ? `tel:${phoneHref}` : undefined}
                                     onClick={() => {
                                         setIsOpen(false);
-                                        onContactClick?.();
                                     }}
-                                    className="flex items-center gap-2 bg-white text-black px-6 py-3.5 rounded-full font-bold text-[14px] shadow-[0_10px_30px_rgba(255,255,255,0.1)] active:scale-95 transition-all group shrink-0 whitespace-nowrap"
+                                    className="flex items-center gap-2 bg-white text-black px-6 py-3.5 rounded-full font-bold text-[14px] shadow-[0_10px_30px_rgba(255,255,255,0.1)] active:scale-95 transition-all group shrink-0 whitespace-nowrap cursor-pointer"
                                 >
                                     <div className="w-3.5 h-3.5">
                                         <SparkleIcon />
                                     </div>
                                     <span>Get in touch</span>
-                                </button>
+                                </a>
                             </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
 
                 {/* Right: CTA (Desktop Only) */}
-                <button
-                    onClick={onContactClick}
-                    className="hidden md:flex items-center gap-[12px] bg-white text-[#030303] px-10 py-4 rounded-[20px] font-bold text-[18px] tracking-[-0.03em] leading-[1.1] active:scale-95 transition-all shadow-[0_10px_30px_rgba(255,255,255,0.15)] group"
+                <a
+                    href={phoneHref ? `tel:${phoneHref}` : undefined}
+                    className="hidden md:flex items-center gap-[12px] bg-white text-[#030303] px-10 py-4 rounded-[20px] font-bold text-[18px] tracking-[-0.03em] leading-[1.1] active:scale-95 transition-all shadow-[0_10px_30px_rgba(255,255,255,0.15)] group cursor-pointer"
                 >
                     <div className="w-3 h-3 flex-shrink-0 transition-transform group-hover:rotate-90">
                         <SparkleIcon />
@@ -305,7 +333,7 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                     <span className="group-hover:animate-[blur-pulse_1.5s_ease-in-out_forwards]">
                         Get in touch
                     </span>
-                </button>
+                </a>
             </div>
         </nav>
     );

@@ -3,7 +3,7 @@ import { FAQS } from "@/constants";
 
 export const FAQ = () => {
   return (
-    <section className="py-40">
+    <section className="py-40 scroll-mt-24" id="faq">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-5xl md:text-8xl font-bold tracking-[-0.04em] text-center mb-32 leading-[0.9]">Frequently <br className="hidden md:block" /> Asked Questions</h2>
         

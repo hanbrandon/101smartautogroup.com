@@ -8,7 +8,7 @@ import { INSTAGRAM_POSTS } from '@/constants';
 
 export const InstagramGallery = () => {
   return (
-    <section id="gallery" className="py-40">
+    <section id="instagram" className="py-40">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader 
           title="Recent highlights. Follow our journey on Instagram."
@@ -51,10 +51,10 @@ export const InstagramGallery = () => {
             href="https://www.instagram.com/goldenkeyautogroup/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="px-8 py-4 rounded-full border border-white/10 hover:bg-white hover:text-black transition-all font-bold text-xs uppercase tracking-widest flex items-center gap-3"
+            className="px-8 py-4 rounded-full border border-white/10 hover:bg-white hover:text-black transition-all font-bold text-xs uppercase tracking-widest flex items-center gap-3 group"
           >
             <Instagram className="w-4 h-4" />
-            Follow @goldenkeyautogroup
+            Follow <span className="text-red-600 group-hover:text-black transition-colors">@goldenkeyautogroup</span>
           </a>
         </div>
       </div>

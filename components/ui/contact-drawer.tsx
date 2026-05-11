@@ -704,7 +704,7 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
                                         </div>
 
                                         <p className="text-[9px] text-white/10 font-bold uppercase tracking-[0.4em] text-center pt-8 border-t border-white/5">
-                                            101 Auto Group &bull;{' '}
+                                            <span className="text-red-600">101 Auto Group</span> &bull;{' '}
                                             {
                                                 process.env
                                                     .NEXT_PUBLIC_MANAGER_NAME

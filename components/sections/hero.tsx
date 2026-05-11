@@ -57,7 +57,7 @@ export const Hero = () => {
                     className="flex flex-col items-start gap-2"
                 >
                     <h1 className="text-[36px] md:text-[32px] font-[550] leading-[1.05] text-white select-none max-w-2xl tracking-[-0.03em] normal-case antialiased [font-feature-settings:'blwf'_on,'cv09'_on,'cv03'_on,'cv04'_on,'cv11'_on]">
-                        Your Premium Car Dealer in <br />
+                        <span className="text-red-600">Your Premium Car Dealer in</span> <br />
                         <span className="text-white/60">
                             Los Angeles & Orange County
                         </span>
@@ -84,11 +84,7 @@ export const Hero = () => {
 
                 <div
                     className="flex flex-col items-center gap-3 cursor-pointer group pointer-events-auto"
-                    onClick={() =>
-                        document
-                            .getElementById('projects')
-                            ?.scrollIntoView({ behavior: 'smooth' })
-                    }
+                    onClick={() => { window.location.href = '/#gallery'; }}
                 >
                     <div className="flex items-center gap-2">
                         <span className="text-[11px] md:text-[10px] uppercase font-bold tracking-[0.2em] relative overflow-hidden">

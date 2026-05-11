@@ -1,10 +1,7 @@
-import {
-    Moon,
-    Sparkles,
-    Instagram,
-    Linkedin,
-    ExternalLink,
-} from 'lucide-react';
+'use client';
+
+import { Sparkles } from 'lucide-react';
+import { FaInstagram, FaThreads, FaXTwitter } from "react-icons/fa6";
 
 interface FooterProps {
     currentTime: string;
@@ -25,18 +22,17 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
             <div className="mx-auto px-6 w-full relative z-20 mb-20">
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-12 lg:gap-20">
                     <div className="md:col-span-2 flex flex-col gap-8">
-
                         <h3 className="text-2xl font-bold tracking-tight max-w-xs">
-                            Your Premium Car Dealer in <br /> Los Angeles &
+                            <span className="text-red-600">Your Premium Car Dealer in</span> <br /> Los Angeles &
                             Orange County.
                         </h3>
-                        <button
-                            onClick={onContactClick}
-                            className="flex items-center gap-[12px] bg-white text-[#030303] px-10 py-4 rounded-[20px] font-bold text-[18px] tracking-[-0.03em] leading-[1.1] active:scale-95 transition-all shadow-[0_10px_30px_rgba(255,255,255,0.15)] group w-fit"
+                        <a
+                            href={phoneHref ? `tel:${phoneHref}` : undefined}
+                            className="flex items-center gap-[12px] bg-white text-[#030303] px-10 py-4 rounded-[20px] font-bold text-[18px] tracking-[-0.03em] leading-[1.1] active:scale-95 transition-all shadow-[0_10px_30px_rgba(255,255,255,0.15)] group w-fit cursor-pointer"
                         >
                             <Sparkles className="w-4 h-4 transition-transform group-hover:rotate-12" />
                             Get in touch
-                        </button>
+                        </a>
                     </div>
 
                     <div className="flex flex-col gap-4">
@@ -46,27 +42,45 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                         <div className="flex flex-col gap-2 text-lg text-white/60">
                             <a
                                 href="/#hero"
+                                onClick={(e) => { e.preventDefault(); window.location.hash = '#hero'; }}
                                 className="hover:text-white transition-colors"
                             >
                                 Home
                             </a>
                             <a
                                 href="/#gallery"
+                                onClick={(e) => { e.preventDefault(); window.location.hash = '#gallery'; }}
                                 className="hover:text-white transition-colors"
                             >
                                 Gallery
                             </a>
                             <a
                                 href="/#process"
+                                onClick={(e) => { e.preventDefault(); window.location.hash = '#process'; }}
                                 className="hover:text-white transition-colors"
                             >
                                 Process
                             </a>
                             <a
                                 href="/#services"
+                                onClick={(e) => { e.preventDefault(); window.location.hash = '#services'; }}
                                 className="hover:text-white transition-colors"
                             >
                                 Services
+                            </a>
+                            <a
+                                href="/#faq"
+                                onClick={(e) => { e.preventDefault(); window.location.hash = '#faq'; }}
+                                className="hover:text-white transition-colors"
+                            >
+                                FAQ
+                            </a>
+                            <a
+                                href="/#contact"
+                                onClick={(e) => { e.preventDefault(); window.location.hash = '#contact'; }}
+                                className="hover:text-white transition-colors"
+                            >
+                                Contact Us
                             </a>
                             <a
                                 href="/credit-application"
@@ -102,6 +116,7 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                             </a>
                         </div>
                     </div>
+
                     <div className="flex flex-col gap-4">
                         <span className="text-sm font-medium text-white/20">
                             Contact
@@ -160,19 +175,23 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                                     rel="noopener noreferrer"
                                     className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white"
                                 >
-                                    <Instagram size={14} />
+                                    <FaInstagram size={14} />
                                 </a>
                                 <a
-                                    href="#"
+                                    href="https://www.threads.net/@goldenkeyautogroup"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white"
                                 >
-                                    <Linkedin size={14} />
+                                    <FaThreads size={14} />
                                 </a>
                                 <a
-                                    href="#"
+                                    href="https://x.com/goldenkeyauto"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white"
                                 >
-                                    <ExternalLink size={14} />
+                                    <FaXTwitter size={14} />
                                 </a>
                             </div>
                         </div>
@@ -180,7 +199,7 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                 </div>
 
                 <div className="flex justify-between items-center mt-32 pt-8 border-t border-white/5 text-[9px] font-bold text-white/20 uppercase tracking-widest">
-                    <div>2026 101 AUTO GROUP. ALL RIGHTS RESERVED.</div>
+                    <div>2026 <span className="text-red-600">101 AUTO GROUP</span>. ALL RIGHTS RESERVED.</div>
                     <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center">
                         <a
                             href="https://gawoori.com"

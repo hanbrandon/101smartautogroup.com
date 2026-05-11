@@ -399,8 +399,7 @@ export const CreditApplicationForm = () => {
                     <CheckCircle2 size={40} />
                 </div>
                 <h2 className="text-3xl font-bold italic tracking-tighter uppercase">Application Received</h2>
-                <p className="text-white/40 max-w-md mx-auto">
-                    Thank you for trusting 101 Auto Group. Our financing team will review your application and contact you shortly.
+                    Thank you for trusting <span className="text-red-600 font-bold">101 Auto Group</span>. Our financing team will review your application and contact you shortly.
                 </p>
                 <button 
                     onClick={() => window.location.href = '/'}
@@ -825,8 +824,7 @@ export const CreditApplicationForm = () => {
                         <section>
                             <h3 className={sectionTitleStyles}><ShieldCheck size={20} className="text-red-500" /> Terms and Conditions</h3>
                             <div className="bg-white/5 border border-white/10 p-5 md:p-8 rounded-3xl space-y-6">
-                                <p className="text-white/40 text-xs leading-relaxed">
-                                    I certify that the above information is true and complete to the best of my knowledge. I authorize 101 Auto Group to check my credit and employment history, obtain credit reports, and/or to submit my application to one or more financial institutions for the purpose of securing credit.
+                                    I certify that the above information is true and complete to the best of my knowledge. I authorize <span className="text-red-600 font-bold">101 Auto Group</span> to check my credit and employment history, obtain credit reports, and/or to submit my application to one or more financial institutions for the purpose of securing credit.
                                 </p>
                                 <div>
                                     <label className={cn(labelStyles, signatureError && "text-red-500")} htmlFor="signature">

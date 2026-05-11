@@ -2,7 +2,7 @@ import { Car, Search, ShieldCheck, CreditCard, ArrowUpRight } from "lucide-react
 
 export const Services = () => {
   return (
-    <section id="services" className="py-40 text-center">
+    <section id="services" className="py-40 text-center scroll-mt-24">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-5xl md:text-9xl font-bold tracking-tighter mb-20 leading-[0.8] opacity-80 select-none uppercase">Expertise & Service.</h2>
         
