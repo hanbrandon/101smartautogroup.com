@@ -351,6 +351,12 @@ export const CreditApplicationForm = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Google Ads Conversion Tracking
+        if (typeof window !== 'undefined' && (window as any).gtag_report_conversion) {
+            (window as any).gtag_report_conversion();
+        }
+
         if (!validateStep2()) {
             window.scrollTo(0, 0);
             return;

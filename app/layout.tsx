@@ -74,6 +74,19 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'AW-18156621929');
+
+            function gtag_report_conversion(url) {
+              var callback = function () {
+                if (typeof(url) != 'undefined') {
+                  window.location = url;
+                }
+              };
+              gtag('event', 'conversion', {
+                  'send_to': 'AW-18156621929/t7VfCPyokKwcEOmg4NFD',
+                  'event_callback': callback
+              });
+              return false;
+            }
           `}
         </Script>
         <script

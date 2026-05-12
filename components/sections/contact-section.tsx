@@ -54,6 +54,12 @@ export const ContactSection = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Google Ads Conversion Tracking
+        if (typeof window !== 'undefined' && (window as any).gtag_report_conversion) {
+            (window as any).gtag_report_conversion();
+        }
+
         setStatus('loading');
 
         const data =
