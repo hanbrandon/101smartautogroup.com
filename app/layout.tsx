@@ -8,9 +8,7 @@ import {
   absoluteUrl,
   autoDealerSchema,
   defaultOpenGraph,
-  faqSchema,
   jsonLdScript,
-  serviceSchema,
   websiteSchema,
 } from "@/lib/seo";
 
@@ -85,14 +83,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={jsonLdScript(websiteSchema)}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={jsonLdScript(serviceSchema)}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={jsonLdScript(faqSchema)}
         />
       </head>
       <body className="antialiased selection:bg-white selection:text-black">

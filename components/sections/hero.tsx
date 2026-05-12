@@ -58,9 +58,9 @@ export const Hero = () => {
                     {/* Status Text Moved Above Title */}
                     <div className="text-[13px] md:text-[14px] font-medium uppercase tracking-[0.2em] flex items-center gap-4">
                         <span className="bg-gradient-to-r from-white/40 via-white to-white/40 bg-[length:200%_auto] bg-clip-text text-transparent animate-shimmer flex items-center gap-4">
-                            <span>101 Auto Group • Jake Kim</span>
+                            <span>101 Auto Group - Jake Kim</span>
                             <span className="w-1 h-1 rounded-full bg-white/20" />
-                            <span>Expert Car Dealer • LA & OC</span>
+                            <span>LA Car Dealer & OC Auto Leasing</span>
                         </span>
                     </div>
 
@@ -70,7 +70,7 @@ export const Hero = () => {
                             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                             className="text-red-600 inline-block"
                         >
-                            Your Premium Car Dealer in
+                            Los Angeles Car Dealer
                         </motion.span> 
                         <br />
                         <motion.span 
@@ -78,7 +78,7 @@ export const Hero = () => {
                             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                             className="text-white/60 inline-block"
                         >
-                            Los Angeles & Orange County
+                            Orange County Auto Leasing
                         </motion.span>
                         .
                         <br />
@@ -87,7 +87,7 @@ export const Hero = () => {
                             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                             className="text-[18px] md:text-[22px] opacity-60 font-medium block mt-4 leading-relaxed"
                         >
-                            Expert car buying, leasing, and auto financing services.
+                            Luxury sourcing, financing, trade-in, and delivery support.
                         </motion.span>
                     </h1>
                 </motion.div>
