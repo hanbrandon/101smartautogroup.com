@@ -14,11 +14,11 @@ export const Process = ({
             title: 'Consultation',
             icon: <MessageSquare className="w-6 h-6" />,
             description:
-                'We discuss your lifestyle, budget, and specific car requirements to build a clear search profile.',
+                'We discuss your lifestyle, budget, desired payment range, timing, and specific car requirements to build a clear search profile.',
             features: [
-                'Needs assessment',
+                '15-30 minute call',
                 'Budget planning',
-                'Timeline setting',
+                'Same-day next steps',
             ],
         },
         {
@@ -26,9 +26,9 @@ export const Process = ({
             title: 'Sourcing',
             icon: <Search className="w-6 h-6" />,
             description:
-                'We scan the market and our private network to find matches that meet our high standards.',
+                'We scan the market and our private network to find matches that meet your budget, trim, color, and mileage preferences.',
             features: [
-                'Market scanning',
+                '3-14 day search',
                 'Private network access',
                 'Price negotiation',
             ],
@@ -38,11 +38,11 @@ export const Process = ({
             title: 'Inspection',
             icon: <ShieldCheck className="w-6 h-6" />,
             description:
-                "Every car is thoroughly vetted and inspected to ensure it's mechanically sound and visually perfect.",
+                "Every car is vetted for condition, history, market value, and financing fit before you move forward.",
             features: [
                 'Multi-point check',
                 'Service history audit',
-                'Detailed reporting',
+                'Pricing review',
             ],
         },
         {
@@ -50,11 +50,11 @@ export const Process = ({
             title: 'Delivery',
             icon: <Key className="w-6 h-6" />,
             description:
-                'We handle the paperwork and deliver your new car right to your doorstep in LA or OC.',
+                'We coordinate lender approval, DMV paperwork, trade-in details, and delivery across LA or OC.',
             features: [
                 'DMV paperwork',
                 'Financing finalization',
-                'Doorstep delivery',
+                '1-3 day delivery window',
             ],
         },
     ];

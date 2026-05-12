@@ -7,25 +7,25 @@ import { X, ZoomIn } from 'lucide-react';
 const DEALS = [
   {
     image: "/featured/deal-1.png",
-    title: "Luxury Sedan",
+    title: "Luxury sedan sourcing in Los Angeles",
     price: "Inquire for Price",
     tag: "Available"
   },
   {
     image: "/featured/deal-2.png",
-    title: "Sport Performance",
+    title: "Performance car lease options in Orange County",
     price: "Inquire for Price",
     tag: "Available"
   },
   {
     image: "/featured/deal-3.png",
-    title: "Premium Coupe",
+    title: "Premium coupe buying consultation for Southern California",
     price: "Inquire for Price",
     tag: "New Arrival"
   },
   {
     image: "/featured/deal-4.png",
-    title: "Luxury SUV",
+    title: "Luxury SUV trade-in and financing support",
     price: "Inquire for Price",
     tag: "Available"
   }
@@ -88,7 +88,7 @@ export const FeaturedCard = () => {
             >
               <img 
                 src={selectedImage} 
-                alt="Enlarged vehicle" 
+                alt="Enlarged featured vehicle from 101 Auto Group"
                 className="w-full h-full object-contain"
               />
               <button 

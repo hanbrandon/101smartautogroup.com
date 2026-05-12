@@ -15,6 +15,13 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/credit-application`,
     images: [absoluteUrl("/og-image.png")],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Credit Application | 101 Auto Group",
+    description:
+      "Start a secure auto financing or lease pre-approval with Jake Kim and 101 Auto Group.",
+    images: [absoluteUrl("/og-image.png")],
+  },
 };
 
 export default function CreditApplicationLayout({

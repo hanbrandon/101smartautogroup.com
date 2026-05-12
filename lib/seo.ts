@@ -5,9 +5,10 @@ export const SITE_URL =
 
 export const BUSINESS_NAME = "101 Auto Group";
 export const MANAGER_NAME = process.env.NEXT_PUBLIC_MANAGER_NAME || "Jake Kim";
-export const SITE_TITLE = "101 Auto Group | Premium Car Dealer in LA & OC";
+export const SITE_TITLE =
+  "101 Auto Group | Los Angeles Car Dealer & Orange County Auto Leasing";
 export const SITE_DESCRIPTION =
-  "Top car dealer and auto leasing services in Los Angeles and Orange County. Hassle-free car buying, best auto deals, and expert financing with Jake Kim.";
+  "Work with Jake Kim for car buying, luxury vehicle sourcing, auto leasing, and financing support across Los Angeles, Koreatown, Irvine, Buena Park, Fullerton, Garden Grove, Torrance, and Orange County.";
 
 export const absoluteUrl = (path = "/") => {
   if (path.startsWith("http")) return path;
@@ -48,6 +49,12 @@ export const autoDealerSchema = {
   },
   areaServed: [
     { "@type": "City", name: "Los Angeles" },
+    { "@type": "City", name: "Koreatown" },
+    { "@type": "City", name: "Irvine" },
+    { "@type": "City", name: "Buena Park" },
+    { "@type": "City", name: "Fullerton" },
+    { "@type": "City", name: "Garden Grove" },
+    { "@type": "City", name: "Torrance" },
     { "@type": "AdministrativeArea", name: "Orange County" },
     { "@type": "AdministrativeArea", name: "Southern California" },
   ],
@@ -65,22 +72,34 @@ export const websiteSchema = {
 export const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  name: "Car buying, leasing, financing, trade-in, and consignment services",
-  serviceType: "Automotive sales and leasing",
+  name: "Los Angeles car buying, Orange County auto leasing, financing, trade-in, and consignment services",
+  serviceType: "Automotive sales, leasing, sourcing, financing, and trade-in support",
   provider: {
     "@type": "AutoDealer",
     name: BUSINESS_NAME,
     url: SITE_URL,
   },
-  areaServed: ["Los Angeles", "Orange County", "Southern California"],
+  areaServed: [
+    "Los Angeles",
+    "Koreatown",
+    "Irvine",
+    "Buena Park",
+    "Fullerton",
+    "Garden Grove",
+    "Torrance",
+    "Orange County",
+    "Southern California",
+  ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Auto dealer services",
     itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Custom vehicle sourcing" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Auto financing and leasing" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Trade-in and consignment" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Vehicle inspection and delivery" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Los Angeles car buying consultation" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Orange County auto leasing support" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Luxury vehicle sourcing for BMW, Mercedes-Benz, Porsche, Lexus, Audi, and Tesla" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Auto financing and lease pre-approval support" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Trade-in and consignment support" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Vehicle inspection, paperwork, and delivery coordination" } },
     ],
   },
 };

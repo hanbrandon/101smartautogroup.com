@@ -14,6 +14,7 @@ import { Process } from "@/components/sections/process";
 import { FAQ } from "@/components/sections/faq";
 import { ContactSection } from "@/components/sections/contact-section";
 import { ContactDrawer } from "@/components/ui/contact-drawer";
+import { faqSchema, jsonLdScript, serviceSchema } from "@/lib/seo";
 
 export default function Home() {
   const time = useCurrentTime();
@@ -56,6 +57,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(serviceSchema)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(faqSchema)}
+      />
       <Navbar currentTime={currentTime} onContactClick={openContact} />
 
       <main>

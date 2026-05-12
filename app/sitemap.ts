@@ -4,9 +4,6 @@ import { SITE_URL } from "@/lib/seo";
 const routes = [
   "",
   "/credit-application",
-  "/terms",
-  "/privacy",
-  "/do-not-sell",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

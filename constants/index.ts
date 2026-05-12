@@ -151,7 +151,19 @@ export const FAQS = [
     },
     {
         question: 'What areas do you serve?',
-        answer: 'We primarily serve Los Angeles and Orange County, but we can assist with vehicle sourcing and delivery across Southern California.',
+        answer: 'We serve Los Angeles, Koreatown, Torrance, Irvine, Buena Park, Fullerton, Garden Grove, Orange County, and nearby Southern California communities.',
+    },
+    {
+        question: 'How much does the service cost?',
+        answer: 'Initial consultation is free. Vehicle pricing, lease payments, financing terms, taxes, registration, delivery, and any service fees depend on the vehicle, credit profile, lender, and final purchase or lease structure.',
+    },
+    {
+        question: 'How long does the process usually take?',
+        answer: 'A consultation can often happen the same day. Common vehicle searches take 3 to 14 days, while rare models or very specific trims can take longer. Delivery timing depends on availability, lender approval, paperwork, and DMV processing.',
+    },
+    {
+        question: 'Can you help Korean-speaking car buyers in Los Angeles or Orange County?',
+        answer: 'Yes. Jake Kim works with customers across LA and OC who want a clear, guided car buying, leasing, financing, trade-in, or sourcing process.',
     },
     {
         question: 'Can you help me find a specific rare model?',
