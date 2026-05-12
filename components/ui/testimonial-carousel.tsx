@@ -21,7 +21,7 @@ export const TestimonialCarousel = () => {
         {TESTIMONIALS.map((_, i) => (
           <div 
             key={i} 
-            className={`h-1 rounded-full transition-all duration-700 ${i === index ? 'bg-white w-4' : 'bg-white/20 w-1'}`}
+            className={`h-1 rounded-full transition-all duration-700 ${i === index ? 'bg-red-600 w-4' : 'bg-white/10 w-1'}`}
           />
         ))}
       </div>

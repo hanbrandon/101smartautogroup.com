@@ -132,22 +132,22 @@ export const ContactSection = () => {
                         </p>
                         
                         <div className="flex flex-col gap-8">
-                            <div className="flex items-center gap-4 group cursor-pointer">
-                                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-red-500 group-hover:border-red-500 transition-all">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
                                     <BadgeDollarSign className="w-5 h-5" />
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-bold uppercase tracking-widest text-white/20">Best Rates</p>
-                                    <p className="text-lg font-medium">Guaranteed Financing</p>
+                                    <p className="text-lg font-medium text-red-500">Guaranteed Financing</p>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-4 group cursor-pointer">
-                                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-red-500 group-hover:border-red-500 transition-all">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
                                     <Car className="w-5 h-5" />
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-bold uppercase tracking-widest text-white/20">Doorstep Delivery</p>
-                                    <p className="text-lg font-medium">Anywhere in SoCal</p>
+                                    <p className="text-lg font-medium text-red-500">Anywhere in SoCal</p>
                                 </div>
                             </div>
                         </div>

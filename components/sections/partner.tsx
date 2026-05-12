@@ -31,7 +31,7 @@ export const Partner = () => {
                                 Trusted by 100+ <br />
                                 car owners.
                             </h3>
-                            <p className="text-[10px] uppercase font-bold tracking-[0.25em] text-white/20">
+                            <p className="text-[10px] uppercase font-bold tracking-[0.25em] text-red-600">
                                 Why drivers trust Jake Kim
                             </p>
                         </div>

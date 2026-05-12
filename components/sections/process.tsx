@@ -90,7 +90,7 @@ export const Process = ({
                                     {step.icon}
                                 </div>
                             </div>
-                            <h3 className="text-2xl font-bold tracking-tight mb-4">
+                            <h3 className="text-2xl font-bold tracking-tight mb-4 text-red-500">
                                 {step.title}
                             </h3>
                             <p className="text-sm text-white/50 leading-relaxed mb-8">
