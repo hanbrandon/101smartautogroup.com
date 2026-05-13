@@ -144,9 +144,20 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                             key={item.name}
                                             href={item.href}
                                             onClick={(e) => {
-                                                e.preventDefault();
-                                                setIsOpen(false);
-                                                window.location.hash = item.href.replace('/', '');
+                                                const isHomePage = window.location.pathname === '/';
+                                                if (item.href.startsWith('/#')) {
+                                                    if (isHomePage) {
+                                                        e.preventDefault();
+                                                        setIsOpen(false);
+                                                        window.location.hash = item.href.replace('/#', '');
+                                                    } else {
+                                                        setIsOpen(false);
+                                                        window.location.href = item.href;
+                                                    }
+                                                } else {
+                                                    setIsOpen(false);
+                                                    window.location.href = item.href;
+                                                }
                                             }}
                                             className="flex items-center justify-between px-5 py-4 rounded-2xl hover:bg-white/5 transition-colors group"
                                         >
@@ -259,9 +270,20 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                         key={item.name}
                                         href={item.href}
                                         onClick={(e) => {
-                                            e.preventDefault();
-                                            setIsOpen(false);
-                                            window.location.hash = item.href.replace('/', '');
+                                            const isHomePage = window.location.pathname === '/';
+                                            if (item.href.startsWith('/#')) {
+                                                if (isHomePage) {
+                                                    e.preventDefault();
+                                                    setIsOpen(false);
+                                                    window.location.hash = item.href.replace('/#', '');
+                                                } else {
+                                                    setIsOpen(false);
+                                                    window.location.href = item.href;
+                                                }
+                                            } else {
+                                                setIsOpen(false);
+                                                window.location.href = item.href;
+                                            }
                                         }}
                                         className="flex items-center justify-between px-6 py-3 rounded-2xl hover:bg-white/5 transition-colors group"
                                     >
