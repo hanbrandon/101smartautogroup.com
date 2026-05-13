@@ -211,7 +211,7 @@ export const ContactSection = () => {
                                                 value={formData.name}
                                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                                 className={inputStyles}
-                                                placeholder="Sang Hyun Han"
+                                                placeholder="Full Name"
                                             />
                                         </div>
                                         <div className="space-y-2">

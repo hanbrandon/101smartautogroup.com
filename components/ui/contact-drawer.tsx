@@ -231,7 +231,7 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
                                                         })
                                                     }
                                                     className={inputStyles}
-                                                    placeholder="Sang Hyun Han"
+                                                    placeholder="Full Name"
                                                 />
                                             </div>
                                             <div className="space-y-2">

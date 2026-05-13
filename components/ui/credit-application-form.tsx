@@ -559,7 +559,7 @@ export const CreditApplicationForm = () => {
                                 </label>
                                 <input 
                                     type="text" id="firstName" value={step1Data.firstName} 
-                                    onChange={handleStep1Change} className={cn(inputStyles, step1Errors.firstName && "border-red-500/50")} placeholder="SANG HYUN" required 
+                                    onChange={handleStep1Change} className={cn(inputStyles, step1Errors.firstName && "border-red-500/50")} placeholder="FIRST NAME" required 
                                 />
                                 {step1Errors.firstName && (
                                     <p className="text-red-500 text-[9px] font-bold mt-1 uppercase tracking-widest">This field is required</p>
@@ -571,7 +571,7 @@ export const CreditApplicationForm = () => {
                                 </label>
                                 <input 
                                     type="text" id="lastName" value={step1Data.lastName} 
-                                    onChange={handleStep1Change} className={cn(inputStyles, step1Errors.lastName && "border-red-500/50")} placeholder="HAN" required 
+                                    onChange={handleStep1Change} className={cn(inputStyles, step1Errors.lastName && "border-red-500/50")} placeholder="LAST NAME" required 
                                 />
                                 {step1Errors.lastName && (
                                     <p className="text-red-500 text-[9px] font-bold mt-1 uppercase tracking-widest">This field is required</p>
@@ -1158,7 +1158,7 @@ export const CreditApplicationForm = () => {
                                         Type Full Name to Sign {signatureError && <span className="ml-1">*</span>}
                                     </label>
                                     <input 
-                                        type="text" id="signature" className={cn(inputStyles, "font-serif italic text-2xl py-6", signatureError && "border-red-500/50")} placeholder="SANG HYUN HAN" value={signature} onChange={(e) => {
+                                        type="text" id="signature" className={cn(inputStyles, "font-serif italic text-2xl py-6", signatureError && "border-red-500/50")} placeholder="FULL NAME" value={signature} onChange={(e) => {
                                             setSignature(e.target.value);
                                             if (signatureError) setSignatureError(false);
                                         }} required 
