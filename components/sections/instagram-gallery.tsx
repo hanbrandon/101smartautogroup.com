@@ -53,7 +53,7 @@ export const InstagramGallery = () => {
               href="https://www.facebook.com/kim.jake.315/" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all group"
+              className="w-12 h-12 rounded-full border border-red-600/20 flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all group"
             >
               <FaFacebook size={18} />
             </a>
@@ -61,7 +61,7 @@ export const InstagramGallery = () => {
               href="https://www.instagram.com/goldenkeyautogroup/" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all group"
+              className="w-12 h-12 rounded-full border border-red-600/20 flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all group"
             >
               <FaInstagram size={18} />
             </a>
@@ -69,7 +69,7 @@ export const InstagramGallery = () => {
               href="https://www.threads.net/@goldenkeyautogroup" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all group"
+              className="w-12 h-12 rounded-full border border-red-600/20 flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all group"
             >
               <FaThreads size={18} />
             </a>
@@ -77,7 +77,7 @@ export const InstagramGallery = () => {
               href="https://x.com/goldenkeyauto" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all group"
+              className="w-12 h-12 rounded-full border border-red-600/20 flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all group"
             >
               <FaXTwitter size={18} />
             </a>
