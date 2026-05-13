@@ -1,7 +1,7 @@
 'use client';
 
 import { Sparkles } from 'lucide-react';
-import { FaInstagram, FaThreads, FaXTwitter } from "react-icons/fa6";
+import { FaInstagram, FaThreads, FaXTwitter, FaFacebook } from "react-icons/fa6";
 
 interface FooterProps {
     currentTime: string;
@@ -170,10 +170,18 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                             </div>
                             <div className="flex items-center gap-4 pt-4">
                                 <a
+                                    href="https://www.facebook.com/kim.jake.315/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-red-600"
+                                >
+                                    <FaFacebook size={14} />
+                                </a>
+                                <a
                                     href="https://www.instagram.com/goldenkeyautogroup/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white"
+                                    className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-red-600"
                                 >
                                     <FaInstagram size={14} />
                                 </a>
@@ -181,7 +189,7 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                                     href="https://www.threads.net/@goldenkeyautogroup"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white"
+                                    className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-red-600"
                                 >
                                     <FaThreads size={14} />
                                 </a>
@@ -189,7 +197,7 @@ export const Footer = ({ currentTime, onContactClick }: FooterProps) => {
                                     href="https://x.com/goldenkeyauto"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-white"
+                                    className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/40 hover:text-red-600"
                                 >
                                     <FaXTwitter size={14} />
                                 </a>

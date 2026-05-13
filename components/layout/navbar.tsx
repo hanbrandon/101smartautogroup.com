@@ -170,6 +170,14 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                             </span>
                                             <div className="flex flex-col gap-1">
                                                 <a
+                                                    href="https://www.facebook.com/kim.jake.315/"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-[14px] font-medium text-white/40 hover:text-white transition-colors"
+                                                >
+                                                    Facebook
+                                                </a>
+                                                <a
                                                     href="https://www.instagram.com/goldenkeyautogroup/"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
@@ -255,12 +263,12 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                             setIsOpen(false);
                                             window.location.hash = item.href.replace('/', '');
                                         }}
-                                        className="flex items-center justify-between px-6 py-5 rounded-2xl hover:bg-white/5 transition-colors group"
+                                        className="flex items-center justify-between px-6 py-3 rounded-2xl hover:bg-white/5 transition-colors group"
                                     >
-                                        <span className="text-[22px] font-medium text-white/60 group-hover:text-white transition-colors tracking-tight">
+                                        <span className="text-[18px] font-medium text-white/60 group-hover:text-white transition-colors tracking-tight">
                                             {item.name}
                                         </span>
-                                        <div className="w-20 h-14 rounded-xl overflow-hidden bg-white/5 relative opacity-60 group-hover:opacity-100 transition-opacity">
+                                        <div className="w-14 h-10 rounded-xl overflow-hidden bg-white/5 relative opacity-60 group-hover:opacity-100 transition-opacity">
                                             <img
                                                 src={item.img}
                                                 alt=""
@@ -271,12 +279,20 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                 ))}
                             </div>
 
-                            <div className="p-6 bg-white/[0.02] border-t border-white/5 flex items-end justify-between mt-2">
-                                <div className="flex flex-col gap-4">
-                                    <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/20">
+                            <div className="p-4 bg-white/[0.02] border-t border-white/5 flex items-end justify-between mt-1">
+                                <div className="flex flex-col gap-2">
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20">
                                         Social media
                                     </span>
-                                    <div className="flex flex-col gap-2">
+                                    <div className="flex flex-col gap-1">
+                                        <a
+                                            href="https://www.facebook.com/kim.jake.315/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-[14px] font-medium text-white/40 hover:text-white transition-colors"
+                                        >
+                                            Facebook
+                                        </a>
                                         <a
                                             href="https://www.instagram.com/goldenkeyautogroup/"
                                             target="_blank"
@@ -310,12 +326,12 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                     onClick={() => {
                                         setIsOpen(false);
                                     }}
-                                    className="flex items-center gap-2 bg-white text-black px-6 py-3.5 rounded-full font-bold text-[14px] shadow-[0_10px_30px_rgba(255,255,255,0.1)] active:scale-95 transition-all group shrink-0 whitespace-nowrap cursor-pointer"
+                                    className="flex items-center gap-2 bg-white text-black px-4 py-2.5 rounded-full font-bold text-[12px] shadow-[0_10px_30px_rgba(255,255,255,0.1)] active:scale-95 transition-all group shrink-0 whitespace-nowrap cursor-pointer"
                                 >
                                     <div className="w-3.5 h-3.5">
                                         <SparkleIcon />
                                     </div>
-                                    <span>Get in touch</span>
+                                    <span>{phone || 'Get in touch'}</span>
                                 </a>
                             </div>
                         </motion.div>
@@ -331,7 +347,7 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                         <SparkleIcon />
                     </div>
                     <span className="group-hover:animate-[blur-pulse_1.5s_ease-in-out_forwards]">
-                        Get in touch
+                        {phone || 'Get in touch'}
                     </span>
                 </a>
             </div>
