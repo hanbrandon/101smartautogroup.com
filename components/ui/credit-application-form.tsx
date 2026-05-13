@@ -104,11 +104,33 @@ export const CreditApplicationForm = () => {
         employmentStatus: '',
     });
 
+    const [hasCoApplicant, setHasCoApplicant] = useState(false);
+    const [coApplicantData, setCoApplicantData] = useState({
+        firstName: '',
+        lastName: '',
+        middleName: '',
+        dob: '',
+        ssn: '',
+        driversLicense: '',
+        dlState: '',
+        homePhone: '',
+        workPhone: '',
+        employmentStatus: '',
+    });
+
     const [residenceHistory, setResidenceHistory] = useState<ResidenceHistory[]>([
         { address: '', city: '', state: '', zip: '', country: 'United States', years: '', months: '', type: '', amount: '' }
     ]);
 
+    const [coApplicantResidenceHistory, setCoApplicantResidenceHistory] = useState<ResidenceHistory[]>([
+        { address: '', city: '', state: '', zip: '', country: 'United States', years: '', months: '', type: '', amount: '' }
+    ]);
+
     const [workHistory, setWorkHistory] = useState<WorkHistory[]>([
+        { employer: '', jobTitle: '', monthlyIncome: '', address: '', city: '', state: '', zip: '', country: 'United States', phone: '', years: '', months: '', otherIncome: '', otherSources: '' }
+    ]);
+
+    const [coApplicantWorkHistory, setCoApplicantWorkHistory] = useState<WorkHistory[]>([
         { employer: '', jobTitle: '', monthlyIncome: '', address: '', city: '', state: '', zip: '', country: 'United States', phone: '', years: '', months: '', otherIncome: '', otherSources: '' }
     ]);
 
@@ -139,6 +161,7 @@ export const CreditApplicationForm = () => {
 
     // Error State for Step 2
     const [personalErrors, setPersonalErrors] = useState<any>({});
+    const [coApplicantErrors, setCoApplicantErrors] = useState<any>({});
     const [businessErrors, setBusinessErrors] = useState<any>({});
     const [signatureError, setSignatureError] = useState(false);
 
@@ -203,6 +226,28 @@ export const CreditApplicationForm = () => {
         }
     };
 
+    const handleCoApplicantChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { id, value } = e.target;
+        const field = id.replace('co-', '');
+        let finalValue = value;
+
+        if (field === 'ssn') {
+            finalValue = formatSSN(value);
+        } else if (field === 'homePhone' || field === 'workPhone') {
+            finalValue = formatPhoneNumber(value);
+        } else if (field === 'dob') {
+            const digits = value.replace(/[^\d]/g, '');
+            if (digits.length <= 2) finalValue = digits;
+            else if (digits.length <= 4) finalValue = `${digits.slice(0, 2)}-${digits.slice(2)}`;
+            else finalValue = `${digits.slice(0, 2)}-${digits.slice(2, 4)}-${digits.slice(4, 8)}`;
+        }
+
+        setCoApplicantData({ ...coApplicantData, [field]: finalValue });
+        if (coApplicantErrors[field]) {
+            setCoApplicantErrors({ ...coApplicantErrors, [field]: false });
+        }
+    };
+
     const handleResidenceChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { id, value } = e.target;
         const field = id.split('-')[1];
@@ -218,6 +263,23 @@ export const CreditApplicationForm = () => {
         // @ts-ignore
         newHistory[index][field] = finalValue;
         setResidenceHistory(newHistory);
+    };
+
+    const handleCoResidenceChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { id, value } = e.target;
+        const field = id.split('-')[1];
+        let finalValue = value;
+
+        if (['years', 'months', 'zip'].includes(field)) {
+            finalValue = value.replace(/[^\d]/g, '');
+        } else if (field === 'amount') {
+            finalValue = value.replace(/[^\d.]/g, '');
+        }
+
+        const newHistory = [...coApplicantResidenceHistory];
+        // @ts-ignore
+        newHistory[index][field] = finalValue;
+        setCoApplicantResidenceHistory(newHistory);
     };
 
     const handleWorkChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -237,6 +299,25 @@ export const CreditApplicationForm = () => {
         // @ts-ignore
         newHistory[index][field] = finalValue;
         setWorkHistory(newHistory);
+    };
+
+    const handleCoWorkChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { id, value } = e.target;
+        const field = id.split('-')[1];
+        let finalValue = value;
+
+        if (['years', 'months', 'zip'].includes(field)) {
+            finalValue = value.replace(/[^\d]/g, '');
+        } else if (field === 'monthlyIncome' || field === 'otherIncome') {
+            finalValue = value.replace(/[^\d.]/g, '');
+        } else if (field === 'phone') {
+            finalValue = formatPhoneNumber(value);
+        }
+
+        const newHistory = [...coApplicantWorkHistory];
+        // @ts-ignore
+        newHistory[index][field] = finalValue;
+        setCoApplicantWorkHistory(newHistory);
     };
 
     const handleBusinessInfoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -279,12 +360,28 @@ export const CreditApplicationForm = () => {
         setResidenceHistory(residenceHistory.filter((_, i) => i !== index));
     };
 
+    const addCoResidence = () => {
+        setCoApplicantResidenceHistory([...coApplicantResidenceHistory, { address: '', city: '', state: '', zip: '', country: 'United States', years: '', months: '', type: '', amount: '' }]);
+    };
+
+    const removeCoResidence = (index: number) => {
+        setCoApplicantResidenceHistory(coApplicantResidenceHistory.filter((_, i) => i !== index));
+    };
+
     const addWork = () => {
         setWorkHistory([...workHistory, { employer: '', jobTitle: '', monthlyIncome: '', address: '', city: '', state: '', zip: '', country: 'United States', phone: '', years: '', months: '', otherIncome: '', otherSources: '' }]);
     };
 
     const removeWork = (index: number) => {
         setWorkHistory(workHistory.filter((_, i) => i !== index));
+    };
+
+    const addCoWork = () => {
+        setCoApplicantWorkHistory([...coApplicantWorkHistory, { employer: '', jobTitle: '', monthlyIncome: '', address: '', city: '', state: '', zip: '', country: 'United States', phone: '', years: '', months: '', otherIncome: '', otherSources: '' }]);
+    };
+
+    const removeCoWork = (index: number) => {
+        setCoApplicantWorkHistory(coApplicantWorkHistory.filter((_, i) => i !== index));
     };
 
     const validateStep1 = () => {
@@ -325,9 +422,25 @@ export const CreditApplicationForm = () => {
                 employmentStatus: !personalData.employmentStatus.trim(),
             };
             setPersonalErrors(errors);
+
+            let isCoApplicantValid = true;
+            if (hasCoApplicant) {
+                const coErrors: any = {
+                    firstName: !coApplicantData.firstName.trim(),
+                    lastName: !coApplicantData.lastName.trim(),
+                    dob: !coApplicantData.dob.trim(),
+                    ssn: coApplicantData.ssn.replace(/[^\d]/g, '').length < 9,
+                    driversLicense: !coApplicantData.driversLicense.trim(),
+                    dlState: !coApplicantData.dlState.trim(),
+                    employmentStatus: !coApplicantData.employmentStatus.trim(),
+                };
+                setCoApplicantErrors(coErrors);
+                isCoApplicantValid = !Object.values(coErrors).some(Boolean);
+            }
+
             const isSignatureValid = signature.trim().length > 0;
             setSignatureError(!isSignatureValid);
-            return !Object.values(errors).some(Boolean) && isSignatureValid;
+            return !Object.values(errors).some(Boolean) && isCoApplicantValid && isSignatureValid;
         } else {
             const errors: any = {
                 legalName: !businessInfo.legalName.trim(),
@@ -367,8 +480,12 @@ export const CreditApplicationForm = () => {
             ...step1Data,
             applicationType,
             personalData,
+            hasCoApplicant,
+            coApplicantData,
             residenceHistory,
             workHistory,
+            coApplicantResidenceHistory,
+            coApplicantWorkHistory,
             businessInfo,
             businessAddress,
             businessIncome,
@@ -621,6 +738,7 @@ export const CreditApplicationForm = () => {
                                             </select>
                                         </div>
                                     </div>
+
                                 </section>
 
                                 <section>
@@ -731,6 +849,207 @@ export const CreditApplicationForm = () => {
                                         <Plus size={14} /> Add Another Job
                                     </button>
                                 </section>
+
+                                <div className="pt-12 border-t border-white/5">
+                                    <div 
+                                        onClick={() => setHasCoApplicant(!hasCoApplicant)}
+                                        className="flex items-center gap-4 cursor-pointer group w-fit"
+                                    >
+                                        <div className={cn(
+                                            "w-5 h-5 rounded-md border flex items-center justify-center transition-all",
+                                            hasCoApplicant ? "bg-red-500 border-red-500" : "border-white/20 group-hover:border-white/40"
+                                        )}>
+                                            {hasCoApplicant && <Plus size={14} className="text-white" />}
+                                        </div>
+                                        <span className={cn(
+                                            "text-xs font-bold uppercase tracking-widest transition-colors",
+                                            hasCoApplicant ? "text-white" : "text-white/40 group-hover:text-white/60"
+                                        )}>
+                                            Include Spouse or Co-Applicant Information
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <AnimatePresence>
+                                    {hasCoApplicant && (
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: 'auto' }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                            className="overflow-hidden"
+                                        >
+                                            <div className="pt-12 space-y-12">
+                                                <section>
+                                                    <h3 className={sectionTitleStyles}><User size={20} className="text-red-500" /> Spouse or Co-Applicant Information</h3>
+                                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                                                        <div>
+                                                            <label className={cn(labelStyles, coApplicantErrors.firstName && "text-red-500")} htmlFor="co-firstName">First Name {coApplicantErrors.firstName && "*"}</label>
+                                                            <input type="text" id="co-firstName" className={cn(inputStyles, coApplicantErrors.firstName && "border-red-500/50")} value={coApplicantData.firstName} onChange={handleCoApplicantChange} required />
+                                                        </div>
+                                                        <div>
+                                                            <label className={cn(labelStyles, coApplicantErrors.lastName && "text-red-500")} htmlFor="co-lastName">Last Name {coApplicantErrors.lastName && "*"}</label>
+                                                            <input type="text" id="co-lastName" className={cn(inputStyles, coApplicantErrors.lastName && "border-red-500/50")} value={coApplicantData.lastName} onChange={handleCoApplicantChange} required />
+                                                        </div>
+                                                        <div>
+                                                            <label className={labelStyles} htmlFor="co-middleName">Middle Name</label>
+                                                            <input type="text" id="co-middleName" className={inputStyles} value={coApplicantData.middleName} onChange={handleCoApplicantChange} />
+                                                        </div>
+                                                    </div>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                                        <div>
+                                                            <label className={cn(labelStyles, coApplicantErrors.dob && "text-red-500")} htmlFor="co-dob">Date of Birth (MM-DD-YYYY) {coApplicantErrors.dob && "*"}</label>
+                                                            <input type="text" id="co-dob" className={cn(inputStyles, coApplicantErrors.dob && "border-red-500/50")} placeholder="01-01-1990" value={coApplicantData.dob} onChange={handleCoApplicantChange} required />
+                                                        </div>
+                                                        <div>
+                                                            <label className={cn(labelStyles, coApplicantErrors.ssn && "text-red-500")} htmlFor="co-ssn">SSN or ITIN {coApplicantErrors.ssn && "(INVALID)"}</label>
+                                                            <input type="text" id="co-ssn" className={cn(inputStyles, coApplicantErrors.ssn && "border-red-500/50")} placeholder="XXX-XX-XXXX" value={coApplicantData.ssn} onChange={handleCoApplicantChange} required />
+                                                        </div>
+                                                    </div>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                                        <div>
+                                                            <label className={cn(labelStyles, coApplicantErrors.driversLicense && "text-red-500")} htmlFor="co-driversLicense">Driver's License No. {coApplicantErrors.driversLicense && "*"}</label>
+                                                            <input type="text" id="co-driversLicense" className={cn(inputStyles, coApplicantErrors.driversLicense && "border-red-500/50")} value={coApplicantData.driversLicense} onChange={handleCoApplicantChange} required />
+                                                        </div>
+                                                        <div>
+                                                            <label className={cn(labelStyles, coApplicantErrors.dlState && "text-red-500")} htmlFor="co-dlState">DL Issuing State {coApplicantErrors.dlState && "*"}</label>
+                                                            <select id="co-dlState" className={cn(selectStyles, coApplicantErrors.dlState && "border-red-500/50")} value={coApplicantData.dlState} onChange={handleCoApplicantChange} required>
+                                                                <option value="">SELECT STATE</option>
+                                                                {US_STATES.map(state => (
+                                                                    <option key={state.code} value={state.code}>{state.name}</option>
+                                                                ))}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                         <div>
+                                                             <label className={labelStyles} htmlFor="co-homePhone">Home Phone</label>
+                                                             <input type="tel" id="co-homePhone" className={inputStyles} value={coApplicantData.homePhone} onChange={handleCoApplicantChange} />
+                                                         </div>
+                                                         <div>
+                                                             <label className={cn(labelStyles, coApplicantErrors.employmentStatus && "text-red-500")} htmlFor="co-employmentStatus">Employment Status {coApplicantErrors.employmentStatus && "*"}</label>
+                                                             <select id="co-employmentStatus" className={cn(selectStyles, coApplicantErrors.employmentStatus && "border-red-500/50")} value={coApplicantData.employmentStatus} onChange={handleCoApplicantChange} required>
+                                                                 <option value="">CHOOSE STATUS</option>
+                                                                 <option value="employed">EMPLOYED</option>
+                                                                 <option value="self-employed">SELF-EMPLOYED</option>
+                                                                 <option value="retired">RETIRED</option>
+                                                                 <option value="unemployed">UNEMPLOYED</option>
+                                                             </select>
+                                                         </div>
+                                                     </div>
+                                                 </section>
+
+                                                 <section>
+                                                     <h3 className={sectionTitleStyles}><Building2 size={20} className="text-red-500" /> Spouse Residence History (2 Years)</h3>
+                                                     {coApplicantResidenceHistory.map((res, index) => (
+                                                         <div key={index} className="px-4 py-6 md:p-8 bg-white/[0.02] border border-white/5 rounded-3xl mb-6 relative">
+                                                             {index > 0 && (
+                                                                 <button type="button" onClick={() => removeCoResidence(index)} className="absolute top-6 right-6 text-white/20 hover:text-red-500 transition-colors">
+                                                                     <Trash2 size={18} />
+                                                                 </button>
+                                                             )}
+                                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                                                 <div className="md:col-span-2">
+                                                                     <label className={labelStyles}>Street Address</label>
+                                                                     <input type="text" id={`cores-address-${index}`} className={inputStyles} value={res.address} onChange={(e) => handleCoResidenceChange(index, e)} required />
+                                                                 </div>
+                                                                 <div>
+                                                                     <label className={labelStyles}>City</label>
+                                                                     <input type="text" id={`cores-city-${index}`} className={inputStyles} value={res.city} onChange={(e) => handleCoResidenceChange(index, e)} required />
+                                                                 </div>
+                                                                 <div className="grid grid-cols-2 gap-4">
+                                                                     <div>
+                                                                         <label className={labelStyles}>State</label>
+                                                                         <input type="text" id={`cores-state-${index}`} className={inputStyles} value={res.state} onChange={(e) => handleCoResidenceChange(index, e)} required />
+                                                                     </div>
+                                                                     <div>
+                                                                         <label className={labelStyles}>Zip</label>
+                                                                         <input type="text" id={`cores-zip-${index}`} className={inputStyles} value={res.zip} onChange={(e) => handleCoResidenceChange(index, e)} required />
+                                                                     </div>
+                                                                 </div>
+                                                             </div>
+                                                             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+                                                                 <div>
+                                                                     <label className={labelStyles}>Years</label>
+                                                                     <input type="number" id={`cores-years-${index}`} className={inputStyles} value={res.years} onChange={(e) => handleCoResidenceChange(index, e)} required />
+                                                                 </div>
+                                                                 <div>
+                                                                     <label className={labelStyles}>Months</label>
+                                                                     <input type="number" id={`cores-months-${index}`} className={inputStyles} value={res.months} onChange={(e) => handleCoResidenceChange(index, e)} required />
+                                                                 </div>
+                                                                 <div>
+                                                                     <label className={labelStyles}>Residence Type</label>
+                                                                     <select id={`cores-type-${index}`} className={selectStyles} value={res.type} onChange={(e) => handleCoResidenceChange(index, e)} required>
+                                                                         <option value="">SELECT</option>
+                                                                         <option value="own">OWN</option>
+                                                                         <option value="rent">RENT</option>
+                                                                         <option value="other">OTHER</option>
+                                                                     </select>
+                                                                 </div>
+                                                                 <div>
+                                                                     <label className={labelStyles}>Monthly Pmt</label>
+                                                                     <input type="text" id={`cores-amount-${index}`} className={inputStyles} placeholder="$0.00" value={res.amount} onChange={(e) => handleCoResidenceChange(index, e)} required />
+                                                                 </div>
+                                                             </div>
+                                                         </div>
+                                                     ))}
+                                                     <button type="button" onClick={addCoResidence} className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-red-500 flex items-center gap-2 transition-colors">
+                                                         <Plus size={14} /> Add Another Address
+                                                     </button>
+                                                 </section>
+
+                                                 <section>
+                                                     <h3 className={sectionTitleStyles}><FileText size={20} className="text-red-500" /> Spouse Work History (2 Years)</h3>
+                                                     {coApplicantWorkHistory.map((work, index) => (
+                                                         <div key={index} className="px-4 py-6 md:p-8 bg-white/[0.02] border border-white/5 rounded-3xl mb-6 relative">
+                                                             {index > 0 && (
+                                                                 <button type="button" onClick={() => removeCoWork(index)} className="absolute top-6 right-6 text-white/20 hover:text-red-500 transition-colors">
+                                                                     <Trash2 size={18} />
+                                                                 </button>
+                                                             )}
+                                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                                                 <div>
+                                                                     <label className={labelStyles}>Current Employer</label>
+                                                                     <input type="text" id={`cowork-employer-${index}`} className={inputStyles} value={work.employer} onChange={(e) => handleCoWorkChange(index, e)} required />
+                                                                 </div>
+                                                                 <div>
+                                                                     <label className={labelStyles}>Job Title</label>
+                                                                     <input type="text" id={`cowork-jobTitle-${index}`} className={inputStyles} value={work.jobTitle} onChange={(e) => handleCoWorkChange(index, e)} required />
+                                                                 </div>
+                                                                 <div>
+                                                                     <label className={labelStyles}>Gross Monthly Income</label>
+                                                                     <input type="text" id={`cowork-monthlyIncome-${index}`} className={inputStyles} placeholder="$0,000" value={work.monthlyIncome} onChange={(e) => handleCoWorkChange(index, e)} required />
+                                                                 </div>
+                                                                 <div className="grid grid-cols-2 gap-4">
+                                                                     <div>
+                                                                         <label className={labelStyles}>Years</label>
+                                                                         <input type="number" id={`cowork-years-${index}`} className={inputStyles} value={work.years} onChange={(e) => handleCoWorkChange(index, e)} required />
+                                                                     </div>
+                                                                     <div>
+                                                                         <label className={labelStyles}>Months</label>
+                                                                         <input type="number" id={`cowork-months-${index}`} className={inputStyles} value={work.months} onChange={(e) => handleCoWorkChange(index, e)} required />
+                                                                     </div>
+                                                                 </div>
+                                                             </div>
+                                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                                 <div className="md:col-span-2">
+                                                                     <label className={labelStyles}>Employer Address</label>
+                                                                     <input type="text" id={`cowork-address-${index}`} className={inputStyles} value={work.address} onChange={(e) => handleCoWorkChange(index, e)} required />
+                                                                 </div>
+                                                                 <div>
+                                                                     <label className={labelStyles}>Employer Phone</label>
+                                                                     <input type="tel" id={`cowork-phone-${index}`} className={inputStyles} value={work.phone} onChange={(e) => handleCoWorkChange(index, e)} required />
+                                                                 </div>
+                                                             </div>
+                                                         </div>
+                                                     ))}
+                                                     <button type="button" onClick={addCoWork} className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-red-500 flex items-center gap-2 transition-colors">
+                                                         <Plus size={14} /> Add Another Job
+                                                     </button>
+                                                 </section>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
                         ) : (
                             <div className="space-y-12">

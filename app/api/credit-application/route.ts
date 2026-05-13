@@ -21,6 +21,11 @@ export async function POST(req: Request) {
             businessIncome,
             // Common
             signature,
+            // Co-Applicant
+            hasCoApplicant,
+            coApplicantData,
+            coApplicantResidenceHistory,
+            coApplicantWorkHistory,
         } = body;
 
         const {
@@ -93,6 +98,40 @@ export async function POST(req: Request) {
                 </div>
               `).join('')}
             `;
+
+            if (hasCoApplicant && coApplicantData) {
+                htmlContent += `
+                  <h3 style="background: #f4f4f4; padding: 10px;">Spouse or Co-Applicant Information</h3>
+                  <p><strong>Full Name:</strong> ${coApplicantData.firstName} ${coApplicantData.middleName ? coApplicantData.middleName + ' ' : ''}${coApplicantData.lastName}</p>
+                  <p><strong>DOB:</strong> ${coApplicantData.dob}</p>
+                  <p><strong>SSN/ITIN:</strong> ${coApplicantData.ssn}</p>
+                  <p><strong>Driver's License:</strong> ${coApplicantData.driversLicense} (${coApplicantData.dlState})</p>
+                  <p><strong>Home Phone:</strong> ${coApplicantData.homePhone || 'N/A'}</p>
+                  <p><strong>Employment Status:</strong> ${coApplicantData.employmentStatus}</p>
+
+                  <h3 style="background: #f4f4f4; padding: 10px;">Spouse Residence History (2 Years)</h3>
+                  ${coApplicantResidenceHistory.map((res: any, index: number) => `
+                    <div style="margin-bottom: 10px; border-left: 3px solid #eee; padding-left: 10px;">
+                      <p><strong>Address ${index + 1}:</strong> ${res.address}, ${res.city}, ${res.state} ${res.zip}, ${res.country}</p>
+                      <p><strong>Duration:</strong> ${res.years} Years, ${res.months} Months</p>
+                      <p><strong>Type:</strong> ${res.type}</p>
+                      <p><strong>Monthly Rent/Mortgage:</strong> $${res.amount}</p>
+                    </div>
+                  `).join('')}
+
+                  <h3 style="background: #f4f4f4; padding: 10px;">Spouse Work History (2 Years)</h3>
+                  ${coApplicantWorkHistory.map((work: any, index: number) => `
+                    <div style="margin-bottom: 10px; border-left: 3px solid #eee; padding-left: 10px;">
+                      <p><strong>Employer ${index + 1}:</strong> ${work.employer}</p>
+                      <p><strong>Job Title:</strong> ${work.jobTitle}</p>
+                      <p><strong>Income:</strong> $${work.monthlyIncome} (Gross Monthly)</p>
+                      <p><strong>Address:</strong> ${work.address}, ${work.city}, ${work.state} ${work.zip}, ${work.country}</p>
+                      <p><strong>Phone:</strong> ${work.phone}</p>
+                      <p><strong>Duration:</strong> ${work.years} Years, ${work.months} Months</p>
+                    </div>
+                  `).join('')}
+                `;
+            }
         } else {
             htmlContent += `
               <h3 style="background: #f4f4f4; padding: 10px;">Business Information</h3>
