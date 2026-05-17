@@ -103,7 +103,7 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                         {/* Menu Header */}
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="w-full flex items-center justify-center h-[56px] relative group"
+                            className="w-full flex items-center justify-center h-[56px] relative group cursor-pointer"
                         >
                             <div className="flex items-center gap-[12px]">
                                 <div className="text-white opacity-80">
@@ -241,7 +241,7 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                 <div className="md:hidden">
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="h-[56px] px-6 bg-[#222222]/40 backdrop-blur-2xl rounded-[20px] flex items-center gap-3 text-white font-bold shadow-xl pointer-events-auto transition-all active:scale-95"
+                        className="h-[56px] px-6 bg-[#222222]/40 backdrop-blur-2xl rounded-[20px] flex items-center gap-3 text-white font-bold shadow-xl pointer-events-auto transition-all active:scale-95 cursor-pointer"
                     >
                         <div className="text-white opacity-80">
                             {isOpen ? <X size={18} /> : <GridIcon />}

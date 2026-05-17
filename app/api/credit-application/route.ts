@@ -155,16 +155,26 @@ export async function POST(req: Request) {
             `;
         }
 
+        // Map to arrays to support both single objects and multiple files
+        const primaryIds = Array.isArray(primaryIdAttachment)
+            ? primaryIdAttachment
+            : (primaryIdAttachment ? [primaryIdAttachment] : []);
+
+        const coApplicantIds = Array.isArray(coApplicantIdAttachment)
+            ? coApplicantIdAttachment
+            : (coApplicantIdAttachment ? [coApplicantIdAttachment] : []);
+
         // Attachments info in Email body
-        if (primaryIdAttachment || (hasCoApplicant && coApplicantIdAttachment) || insuranceAttachment) {
+        const hasAttachments = primaryIds.length > 0 || (hasCoApplicant && coApplicantIds.length > 0) || insuranceAttachment;
+        if (hasAttachments) {
             htmlContent += `
               <h3 style="background: #f4f4f4; padding: 10px;">Submitted Documents & Attachments</h3>
             `;
-            if (primaryIdAttachment) {
-                htmlContent += `<p><strong>Applicant ID Photo:</strong> Attached (${primaryIdAttachment.name})</p>`;
+            if (primaryIds.length > 0) {
+                htmlContent += `<p><strong>Applicant ID Photo(s):</strong> Attached (${primaryIds.map((f: any) => f.name).join(', ')})</p>`;
             }
-            if (hasCoApplicant && coApplicantIdAttachment) {
-                htmlContent += `<p><strong>Co-Applicant ID Photo:</strong> Attached (${coApplicantIdAttachment.name})</p>`;
+            if (hasCoApplicant && coApplicantIds.length > 0) {
+                htmlContent += `<p><strong>Co-Applicant ID Photo(s):</strong> Attached (${coApplicantIds.map((f: any) => f.name).join(', ')})</p>`;
             }
             if (insuranceAttachment) {
                 htmlContent += `<p><strong>Insurance Document:</strong> Attached (${insuranceAttachment.name})</p>`;
@@ -182,16 +192,22 @@ export async function POST(req: Request) {
 
         // Map base64 files for Brevo API SMTP attachments
         const brevoAttachments: any[] = [];
-        if (primaryIdAttachment && primaryIdAttachment.content) {
-            brevoAttachments.push({
-                content: primaryIdAttachment.content,
-                name: primaryIdAttachment.name,
-            });
-        }
-        if (hasCoApplicant && coApplicantIdAttachment && coApplicantIdAttachment.content) {
-            brevoAttachments.push({
-                content: coApplicantIdAttachment.content,
-                name: coApplicantIdAttachment.name,
+        primaryIds.forEach((file: any) => {
+            if (file && file.content) {
+                brevoAttachments.push({
+                    content: file.content,
+                    name: file.name,
+                });
+            }
+        });
+        if (hasCoApplicant) {
+            coApplicantIds.forEach((file: any) => {
+                if (file && file.content) {
+                    brevoAttachments.push({
+                        content: file.content,
+                        name: file.name,
+                    });
+                }
             });
         }
         if (insuranceAttachment && insuranceAttachment.content) {

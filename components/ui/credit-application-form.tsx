@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import {
     CheckCircle2,
@@ -14,6 +15,8 @@ import {
     FileText,
     ShieldCheck,
     Upload,
+    AlertCircle,
+    X,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -72,6 +75,25 @@ export const CreditApplicationForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSending, setIsSending] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'warning' } | null>(null);
+    const [mounted, setMounted] = useState(false);
+
+    const showToast = (message: string, type: 'success' | 'error' | 'warning' = 'error') => {
+        setToast({ message, type });
+    };
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (toast) {
+            const timer = setTimeout(() => {
+                setToast(null);
+            }, 6000);
+            return () => clearTimeout(timer);
+        }
+    }, [toast]);
 
     // Form State
     const [applicationType, setApplicationType] = useState<ApplicationType>('personal');
@@ -167,20 +189,61 @@ export const CreditApplicationForm = () => {
     const [signatureError, setSignatureError] = useState(false);
 
     // File attachments states
-    const [primaryIdFile, setPrimaryIdFile] = useState<{ name: string; content: string } | null>(null);
-    const [coApplicantIdFile, setCoApplicantIdFile] = useState<{ name: string; content: string } | null>(null);
-    const [insuranceFile, setInsuranceFile] = useState<{ name: string; content: string } | null>(null);
+    const [primaryIdFiles, setPrimaryIdFiles] = useState<{ name: string; content: string; size: number }[]>([]);
+    const [coApplicantIdFiles, setCoApplicantIdFiles] = useState<{ name: string; content: string; size: number }[]>([]);
+    const [insuranceFile, setInsuranceFile] = useState<{ name: string; content: string; size: number } | null>(null);
+
+    // File error states
+    const [primaryIdError, setPrimaryIdError] = useState(false);
+    const [coApplicantIdError, setCoApplicantIdError] = useState(false);
+    const [insuranceError, setInsuranceError] = useState(false);
+
+    // Helper to calculate the combined size of all currently uploaded files (in bytes)
+    const getCombinedFileSize = (additionalBytes = 0) => {
+        let total = additionalBytes;
+        primaryIdFiles.forEach(f => total += f.size);
+        coApplicantIdFiles.forEach(f => total += f.size);
+        if (insuranceFile) {
+            total += insuranceFile.size;
+        }
+        return total;
+    };
+
+    const handleAddPrimaryIdFile = (newFile: { name: string; content: string; size: number }) => {
+        setPrimaryIdFiles(prev => [...prev, newFile]);
+        setPrimaryIdError(false);
+    };
+
+    const handleRemovePrimaryIdFile = (index: number) => {
+        setPrimaryIdFiles(prev => prev.filter((_, idx) => idx !== index));
+    };
+
+    const handleAddCoApplicantIdFile = (newFile: { name: string; content: string; size: number }) => {
+        setCoApplicantIdFiles(prev => [...prev, newFile]);
+        setCoApplicantIdError(false);
+    };
+
+    const handleRemoveCoApplicantIdFile = (index: number) => {
+        setCoApplicantIdFiles(prev => prev.filter((_, idx) => idx !== index));
+    };
 
     const handleFileChange = (
         e: React.ChangeEvent<HTMLInputElement>,
-        setFile: (file: { name: string; content: string } | null) => void
+        setFile: (file: { name: string; content: string; size: number } | null) => void
     ) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        // Check file size (10MB limit)
+        // Check if individual file size exceeds the 10MB limit
         if (file.size > 10 * 1024 * 1024) {
-            alert('File size exceeds the 10MB limit.');
+            showToast(`File size exceeds the 10MB limit. File size: ${(file.size / (1024 * 1024)).toFixed(2)}MB`);
+            return;
+        }
+
+        // Check if total combined size exceeds the 10MB limit
+        const combinedSize = getCombinedFileSize(file.size);
+        if (combinedSize > 10 * 1024 * 1024) {
+            showToast(`Uploading this file would exceed the 10MB total combined attachment limit.\n\nCurrent total: ${(getCombinedFileSize() / (1024 * 1024)).toFixed(2)}MB\nNew file size: ${(file.size / (1024 * 1024)).toFixed(2)}MB`);
             return;
         }
 
@@ -192,6 +255,7 @@ export const CreditApplicationForm = () => {
             setFile({
                 name: file.name,
                 content: base64Content,
+                size: file.size,
             });
         };
         reader.readAsDataURL(file);
@@ -203,26 +267,79 @@ export const CreditApplicationForm = () => {
         setFile,
         accept = "image/*,application/pdf",
         id,
+        hasError = false,
     }: {
         label: string;
-        file: { name: string } | null;
-        setFile: (file: { name: string; content: string } | null) => void;
+        file: { name: string; size: number } | null;
+        setFile: (file: { name: string; content: string; size: number } | null) => void;
         accept?: string;
         id: string;
+        hasError?: boolean;
     }) => {
+        const [isDragActive, setIsDragActive] = useState(false);
+
+        const handleDrag = (e: React.DragEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.type === "dragenter" || e.type === "dragover") {
+                setIsDragActive(true);
+            } else if (e.type === "dragleave") {
+                setIsDragActive(false);
+            }
+        };
+
+        const handleDrop = (e: React.DragEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsDragActive(false);
+
+            const droppedFile = e.dataTransfer.files?.[0];
+            if (!droppedFile) return;
+
+            // Check file size (10MB limit)
+            if (droppedFile.size > 10 * 1024 * 1024) {
+                showToast(`File size exceeds the 10MB limit. File size: ${(droppedFile.size / (1024 * 1024)).toFixed(2)}MB`);
+                return;
+            }
+
+            // Check if total combined size exceeds the 10MB limit
+            const combinedSize = getCombinedFileSize(droppedFile.size);
+            if (combinedSize > 10 * 1024 * 1024) {
+                showToast(`Uploading this file would exceed the 10MB total combined attachment limit.\n\nCurrent total: ${(getCombinedFileSize() / (1024 * 1024)).toFixed(2)}MB\nNew file size: ${(droppedFile.size / (1024 * 1024)).toFixed(2)}MB`);
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const result = event.target?.result as string;
+                const base64Content = result.split(',')[1];
+                setFile({
+                    name: droppedFile.name,
+                    content: base64Content,
+                    size: droppedFile.size,
+                });
+                setInsuranceError(false);
+            };
+            reader.readAsDataURL(droppedFile);
+        };
+
         return (
             <div className="space-y-2">
-                <label className={labelStyles}>{label}</label>
+                <label className={cn(labelStyles, hasError && "text-red-500")}>
+                    {label} {hasError && <span className="ml-1">*</span>}
+                </label>
                 {file ? (
                     <div className="flex items-center justify-between bg-white/5 border border-red-500/30 px-4 py-3 rounded-xl">
                         <div className="flex items-center gap-3 overflow-hidden">
                             <FileText className="text-red-500 shrink-0" size={18} />
-                            <span className="text-xs text-white truncate font-medium">{file.name}</span>
+                            <span className="text-xs text-white truncate font-medium">{file.name} ({(file.size / (1024 * 1024)).toFixed(2)}MB)</span>
                         </div>
                         <button
                             type="button"
-                            onClick={() => setFile(null)}
-                            className="text-white/40 hover:text-red-500 transition-colors p-1"
+                            onClick={() => {
+                                setFile(null);
+                            }}
+                            className="text-white/40 hover:text-red-500 transition-colors p-1 cursor-pointer"
                         >
                             <Trash2 size={16} />
                         </button>
@@ -230,23 +347,203 @@ export const CreditApplicationForm = () => {
                 ) : (
                     <label
                         htmlFor={id}
-                        className="flex flex-col items-center justify-center border border-dashed border-white/20 hover:border-red-500/50 bg-white/5 hover:bg-white/[0.08] transition-all px-4 py-6 rounded-xl cursor-pointer text-center group"
+                        onDragEnter={handleDrag}
+                        onDragOver={handleDrag}
+                        onDragLeave={handleDrag}
+                        onDrop={handleDrop}
+                        className={cn(
+                            "flex flex-col items-center justify-center border border-dashed transition-all px-4 py-6 rounded-xl cursor-pointer text-center group",
+                            isDragActive 
+                                ? "border-red-500 bg-red-500/10 scale-[1.02]" 
+                                : (hasError ? "border-red-500/50 bg-white/5" : "border-white/20 bg-white/5 hover:bg-white/[0.08] hover:border-red-500/50")
+                        )}
                     >
-                        <Upload className="text-white/30 group-hover:text-red-500 mb-2 transition-colors" size={20} />
+                        <Upload className={cn("mb-2 transition-colors", isDragActive ? "text-red-500 animate-bounce" : "text-white/30 group-hover:text-red-500")} size={20} />
                         <span className="text-[11px] font-bold text-white/50 group-hover:text-white transition-colors uppercase tracking-wider">
-                            Choose file or Drag here
+                            {isDragActive ? "Drop file here!" : "Choose file or Drag here"}
                         </span>
                         <span className="text-[9px] text-white/30 mt-1 uppercase tracking-widest">
-                            PDF, PNG, JPG (MAX 10MB)
+                            PDF, PNG, JPG (MAX 10MB total)
                         </span>
                         <input
                             type="file"
                             id={id}
                             accept={accept}
-                            onChange={(e) => handleFileChange(e, setFile)}
+                            onChange={(e) => {
+                                handleFileChange(e, (f) => {
+                                    setFile(f);
+                                    if (f) setInsuranceError(false);
+                                });
+                            }}
                             className="hidden"
                         />
                     </label>
+                )}
+            </div>
+        );
+    };
+
+    const MultipleFileUploadField = ({
+        label,
+        files,
+        onAddFile,
+        onRemoveFile,
+        accept = "image/*,application/pdf",
+        id,
+        hasError = false,
+    }: {
+        label: string;
+        files: { name: string; size: number }[];
+        onAddFile: (file: { name: string; content: string; size: number }) => void;
+        onRemoveFile: (index: number) => void;
+        accept?: string;
+        id: string;
+        hasError?: boolean;
+    }) => {
+        const [isDragActive, setIsDragActive] = useState(false);
+
+        const handleDrag = (e: React.DragEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.type === "dragenter" || e.type === "dragover") {
+                setIsDragActive(true);
+            } else if (e.type === "dragleave") {
+                setIsDragActive(false);
+            }
+        };
+
+        const handleDrop = (e: React.DragEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsDragActive(false);
+
+            const droppedFiles = e.dataTransfer.files;
+            if (!droppedFiles) return;
+
+            let runningCombinedSize = getCombinedFileSize();
+
+            Array.from(droppedFiles).forEach((file) => {
+                // Check if individual file size exceeds the 10MB limit
+                if (file.size > 10 * 1024 * 1024) {
+                    showToast(`The file "${file.name}" size exceeds the 10MB limit. File size: ${(file.size / (1024 * 1024)).toFixed(2)}MB`);
+                    return;
+                }
+
+                // Check if total combined size exceeds the 10MB limit
+                if (runningCombinedSize + file.size > 10 * 1024 * 1024) {
+                    showToast(`Adding "${file.name}" would exceed the 10MB total combined attachment limit.\n\nCurrent total: ${(runningCombinedSize / (1024 * 1024)).toFixed(2)}MB\nFile size: ${(file.size / (1024 * 1024)).toFixed(2)}MB`);
+                    return;
+                }
+
+                runningCombinedSize += file.size;
+
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const result = event.target?.result as string;
+                    const base64Content = result.split(',')[1];
+                    onAddFile({
+                        name: file.name,
+                        content: base64Content,
+                        size: file.size,
+                    });
+                };
+                reader.readAsDataURL(file);
+            });
+        };
+
+        const handleMultipleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            const filesList = e.target.files;
+            if (!filesList) return;
+
+            let runningCombinedSize = getCombinedFileSize();
+
+            Array.from(filesList).forEach((file) => {
+                // Check if individual file size exceeds the 10MB limit
+                if (file.size > 10 * 1024 * 1024) {
+                    showToast(`The file "${file.name}" size exceeds the 10MB limit. File size: ${(file.size / (1024 * 1024)).toFixed(2)}MB`);
+                    return;
+                }
+
+                // Check if total combined size exceeds the 10MB limit
+                if (runningCombinedSize + file.size > 10 * 1024 * 1024) {
+                    showToast(`Adding "${file.name}" would exceed the 10MB total combined attachment limit.\n\nCurrent total: ${(runningCombinedSize / (1024 * 1024)).toFixed(2)}MB\nFile size: ${(file.size / (1024 * 1024)).toFixed(2)}MB`);
+                    return;
+                }
+
+                runningCombinedSize += file.size;
+
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const result = event.target?.result as string;
+                    const base64Content = result.split(',')[1];
+                    onAddFile({
+                        name: file.name,
+                        content: base64Content,
+                        size: file.size,
+                    });
+                };
+                reader.readAsDataURL(file);
+            });
+            // Reset input value so the same file can be selected again
+            e.target.value = '';
+        };
+
+        return (
+            <div className="space-y-2">
+                <label className={cn(labelStyles, hasError && "text-red-500")}>
+                    {label} {hasError && <span className="ml-1">*</span>}
+                </label>
+                
+                {/* Upload Area */}
+                <label
+                    htmlFor={id}
+                    onDragEnter={handleDrag}
+                    onDragOver={handleDrag}
+                    onDragLeave={handleDrag}
+                    onDrop={handleDrop}
+                    className={cn(
+                        "flex flex-col items-center justify-center border border-dashed transition-all px-4 py-6 rounded-xl cursor-pointer text-center group",
+                        isDragActive 
+                            ? "border-red-500 bg-red-500/10 scale-[1.02]" 
+                            : (hasError ? "border-red-500/50 bg-white/5" : "border-white/20 bg-white/5 hover:bg-white/[0.08] hover:border-red-500/50")
+                    )}
+                >
+                    <Upload className={cn("mb-2 transition-colors", isDragActive ? "text-red-500 animate-bounce" : "text-white/30 group-hover:text-red-500")} size={20} />
+                    <span className="text-[11px] font-bold text-white/50 group-hover:text-white transition-colors uppercase tracking-wider">
+                        {isDragActive ? "Drop files here!" : "Choose Driver's License or ID File(s)"}
+                    </span>
+                    <span className="text-[9px] text-white/30 mt-1 uppercase tracking-widest">
+                        PDF, PNG, JPG (MAX 10MB total) - Multiple files allowed
+                    </span>
+                    <input
+                        type="file"
+                        id={id}
+                        accept={accept}
+                        multiple
+                        onChange={handleMultipleFileChange}
+                        className="hidden"
+                    />
+                </label>
+
+                {/* Uploaded Files List */}
+                {files.length > 0 && (
+                    <div className="space-y-2 mt-3">
+                        {files.map((file, idx) => (
+                            <div key={idx} className="flex items-center justify-between bg-white/5 border border-white/10 px-4 py-3 rounded-xl">
+                                <div className="flex items-center gap-3 overflow-hidden">
+                                    <FileText className="text-red-500 shrink-0" size={18} />
+                                    <span className="text-xs text-white truncate font-medium">{file.name} ({(file.size / (1024 * 1024)).toFixed(2)}MB)</span>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => onRemoveFile(idx)}
+                                    className="text-white/40 hover:text-red-500 transition-colors p-1 cursor-pointer"
+                                >
+                                    <Trash2 size={16} />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
                 )}
             </div>
         );
@@ -500,7 +797,25 @@ export const CreditApplicationForm = () => {
     };
 
     const validateStep2 = () => {
+        let isFilesValid = true;
+
         if (applicationType === 'personal') {
+            const hasPrimaryId = primaryIdFiles.length > 0;
+            setPrimaryIdError(!hasPrimaryId);
+
+            let hasCoId = true;
+            if (hasCoApplicant) {
+                hasCoId = coApplicantIdFiles.length > 0;
+                setCoApplicantIdError(!hasCoId);
+            } else {
+                setCoApplicantIdError(false);
+            }
+
+            const hasInsurance = insuranceFile !== null;
+            setInsuranceError(!hasInsurance);
+
+            isFilesValid = hasPrimaryId && hasCoId && hasInsurance;
+
             const errors: any = {
                 dob: !personalData.dob.trim(),
                 ssn: personalData.ssn.replace(/[^\d]/g, '').length < 9,
@@ -527,8 +842,14 @@ export const CreditApplicationForm = () => {
 
             const isSignatureValid = signature.trim().length > 0;
             setSignatureError(!isSignatureValid);
-            return !Object.values(errors).some(Boolean) && isCoApplicantValid && isSignatureValid;
+
+            return !Object.values(errors).some(Boolean) && isCoApplicantValid && isSignatureValid && isFilesValid;
         } else {
+            const hasInsurance = insuranceFile !== null;
+            setInsuranceError(!hasInsurance);
+
+            isFilesValid = hasInsurance;
+
             const errors: any = {
                 legalName: !businessInfo.legalName.trim(),
                 taxId: businessInfo.taxId.replace(/[^\d]/g, '').length < 9,
@@ -545,7 +866,8 @@ export const CreditApplicationForm = () => {
             setBusinessErrors(errors);
             const isSignatureValid = signature.trim().length > 0;
             setSignatureError(!isSignatureValid);
-            return !Object.values(errors).some(Boolean) && isSignatureValid;
+
+            return !Object.values(errors).some(Boolean) && isSignatureValid && isFilesValid;
         }
     };
 
@@ -577,8 +899,8 @@ export const CreditApplicationForm = () => {
             businessAddress,
             businessIncome,
             signature,
-            primaryIdAttachment: primaryIdFile,
-            coApplicantIdAttachment: coApplicantIdFile,
+            primaryIdAttachment: primaryIdFiles,
+            coApplicantIdAttachment: coApplicantIdFiles,
             insuranceAttachment: insuranceFile,
         };
         try {
@@ -617,7 +939,7 @@ export const CreditApplicationForm = () => {
                 </p>
                 <button 
                     onClick={() => window.location.href = '/'}
-                    className="bg-white text-black px-8 py-4 rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-all"
+                    className="bg-white text-black px-8 py-4 rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-all cursor-pointer"
                 >
                     Back to Home
                 </button>
@@ -627,6 +949,39 @@ export const CreditApplicationForm = () => {
 
     return (
         <div className="relative z-10">
+            {/* Elegant Premium Toast Notifications (Portal) */}
+            {mounted && createPortal(
+                <AnimatePresence>
+                    {toast && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+                            className="fixed bottom-6 right-6 z-[9999] max-w-sm w-[calc(100vw-3rem)] md:w-full bg-[#111111]/95 backdrop-blur-2xl border border-red-500/30 p-4 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(239,68,68,0.1)] flex items-start gap-3 pointer-events-auto"
+                        >
+                            <div className="p-1.5 rounded-xl bg-red-500/10 text-red-500 mt-0.5 shrink-0">
+                                <AlertCircle size={18} />
+                            </div>
+                            <div className="flex-1 space-y-1">
+                                <p className="text-[10px] font-black uppercase tracking-widest text-red-500">
+                                    LIMIT EXCEEDED
+                                </p>
+                                <p className="text-xs text-white/90 leading-relaxed font-medium">
+                                    {toast.message}
+                                </p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setToast(null)}
+                                className="text-white/20 hover:text-white transition-colors p-1 cursor-pointer"
+                            >
+                                <X size={14} />
+                            </button>
+                        </motion.div>
+                    )}
+                </AnimatePresence>,
+                document.body
+            )}
             {/* Progress Bar */}
             <div className="flex gap-2 mb-12">
                 <div className={cn("h-1.5 flex-1 rounded-full transition-colors duration-500", step >= 1 ? "bg-red-500" : "bg-white/10")} />
@@ -710,7 +1065,7 @@ export const CreditApplicationForm = () => {
                         <div className="pt-8">
                             <button 
                                 onClick={nextStep}
-                                className="w-full bg-white text-black py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                                className="w-full bg-white text-black py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
                             >
                                 Continue <ChevronRight size={18} />
                             </button>
@@ -736,7 +1091,7 @@ export const CreditApplicationForm = () => {
                                     type="button"
                                     onClick={() => setApplicationType('personal')}
                                     className={cn(
-                                        "px-8 py-3 rounded-full font-bold uppercase text-[10px] tracking-widest transition-all flex items-center gap-2",
+                                        "px-8 py-3 rounded-full font-bold uppercase text-[10px] tracking-widest transition-all flex items-center gap-2 cursor-pointer",
                                         applicationType === 'personal' ? "bg-red-500 text-white" : "text-white/40 hover:text-white"
                                     )}
                                 >
@@ -746,7 +1101,7 @@ export const CreditApplicationForm = () => {
                                     type="button"
                                     onClick={() => setApplicationType('business')}
                                     className={cn(
-                                        "px-8 py-3 rounded-full font-bold uppercase text-[10px] tracking-widest transition-all flex items-center gap-2",
+                                        "px-8 py-3 rounded-full font-bold uppercase text-[10px] tracking-widest transition-all flex items-center gap-2 cursor-pointer",
                                         applicationType === 'business' ? "bg-red-500 text-white" : "text-white/40 hover:text-white"
                                     )}
                                 >
@@ -807,11 +1162,13 @@ export const CreditApplicationForm = () => {
                                         </div>
                                     </div>
                                     <div className="mb-6">
-                                        <FileUploadField
-                                            label="Driver's License / ID Photo (Optional)"
-                                            file={primaryIdFile}
-                                            setFile={setPrimaryIdFile}
+                                        <MultipleFileUploadField
+                                            label="Driver's License / ID Photo(s)"
+                                            files={primaryIdFiles}
+                                            onAddFile={handleAddPrimaryIdFile}
+                                            onRemoveFile={handleRemovePrimaryIdFile}
                                             id="primary-id-upload"
+                                            hasError={primaryIdError}
                                         />
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -844,7 +1201,7 @@ export const CreditApplicationForm = () => {
                                     {residenceHistory.map((res, index) => (
                                         <div key={index} className="px-4 py-6 md:p-8 bg-white/[0.02] border border-white/5 rounded-3xl mb-6 relative">
                                             {index > 0 && (
-                                                <button type="button" onClick={() => removeResidence(index)} className="absolute top-6 right-6 text-white/20 hover:text-red-500 transition-colors">
+                                                <button type="button" onClick={() => removeResidence(index)} className="absolute top-6 right-6 text-white/20 hover:text-red-500 transition-colors cursor-pointer">
                                                     <Trash2 size={18} />
                                                 </button>
                                             )}
@@ -893,7 +1250,7 @@ export const CreditApplicationForm = () => {
                                             </div>
                                         </div>
                                     ))}
-                                    <button type="button" onClick={addResidence} className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-red-500 flex items-center gap-2 transition-colors">
+                                    <button type="button" onClick={addResidence} className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-red-500 flex items-center gap-2 transition-colors cursor-pointer">
                                         <Plus size={14} /> Add Another Address
                                     </button>
                                 </section>
@@ -903,7 +1260,7 @@ export const CreditApplicationForm = () => {
                                     {workHistory.map((work, index) => (
                                         <div key={index} className="px-4 py-6 md:p-8 bg-white/[0.02] border border-white/5 rounded-3xl mb-6 relative">
                                             {index > 0 && (
-                                                <button type="button" onClick={() => removeWork(index)} className="absolute top-6 right-6 text-white/20 hover:text-red-500 transition-colors">
+                                                <button type="button" onClick={() => removeWork(index)} className="absolute top-6 right-6 text-white/20 hover:text-red-500 transition-colors cursor-pointer">
                                                     <Trash2 size={18} />
                                                 </button>
                                             )}
@@ -943,7 +1300,7 @@ export const CreditApplicationForm = () => {
                                             </div>
                                         </div>
                                     ))}
-                                    <button type="button" onClick={addWork} className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-red-500 flex items-center gap-2 transition-colors">
+                                    <button type="button" onClick={addWork} className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-red-500 flex items-center gap-2 transition-colors cursor-pointer">
                                         <Plus size={14} /> Add Another Job
                                     </button>
                                 </section>
@@ -1019,11 +1376,13 @@ export const CreditApplicationForm = () => {
                                                         </div>
                                                     </div>
                                                     <div className="mb-6">
-                                                        <FileUploadField
-                                                            label="Co-Applicant Driver's License / ID Photo (Optional)"
-                                                            file={coApplicantIdFile}
-                                                            setFile={setCoApplicantIdFile}
+                                                        <MultipleFileUploadField
+                                                            label="Co-Applicant Driver's License / ID Photo(s)"
+                                                            files={coApplicantIdFiles}
+                                                            onAddFile={handleAddCoApplicantIdFile}
+                                                            onRemoveFile={handleRemoveCoApplicantIdFile}
                                                             id="co-id-upload"
+                                                            hasError={coApplicantIdError}
                                                         />
                                                     </div>
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1049,7 +1408,7 @@ export const CreditApplicationForm = () => {
                                                      {coApplicantResidenceHistory.map((res, index) => (
                                                          <div key={index} className="px-4 py-6 md:p-8 bg-white/[0.02] border border-white/5 rounded-3xl mb-6 relative">
                                                              {index > 0 && (
-                                                                 <button type="button" onClick={() => removeCoResidence(index)} className="absolute top-6 right-6 text-white/20 hover:text-red-500 transition-colors">
+                                                                 <button type="button" onClick={() => removeCoResidence(index)} className="absolute top-6 right-6 text-white/20 hover:text-red-500 transition-colors cursor-pointer">
                                                                      <Trash2 size={18} />
                                                                  </button>
                                                              )}
@@ -1098,7 +1457,7 @@ export const CreditApplicationForm = () => {
                                                              </div>
                                                          </div>
                                                      ))}
-                                                     <button type="button" onClick={addCoResidence} className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-red-500 flex items-center gap-2 transition-colors">
+                                                     <button type="button" onClick={addCoResidence} className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-red-500 flex items-center gap-2 transition-colors cursor-pointer">
                                                          <Plus size={14} /> Add Another Address
                                                      </button>
                                                  </section>
@@ -1108,7 +1467,7 @@ export const CreditApplicationForm = () => {
                                                      {coApplicantWorkHistory.map((work, index) => (
                                                          <div key={index} className="px-4 py-6 md:p-8 bg-white/[0.02] border border-white/5 rounded-3xl mb-6 relative">
                                                              {index > 0 && (
-                                                                 <button type="button" onClick={() => removeCoWork(index)} className="absolute top-6 right-6 text-white/20 hover:text-red-500 transition-colors">
+                                                                 <button type="button" onClick={() => removeCoWork(index)} className="absolute top-6 right-6 text-white/20 hover:text-red-500 transition-colors cursor-pointer">
                                                                      <Trash2 size={18} />
                                                                  </button>
                                                              )}
@@ -1148,7 +1507,7 @@ export const CreditApplicationForm = () => {
                                                              </div>
                                                          </div>
                                                      ))}
-                                                     <button type="button" onClick={addCoWork} className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-red-500 flex items-center gap-2 transition-colors">
+                                                     <button type="button" onClick={addCoWork} className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-red-500 flex items-center gap-2 transition-colors cursor-pointer">
                                                          <Plus size={14} /> Add Another Job
                                                      </button>
                                                  </section>
@@ -1260,10 +1619,11 @@ export const CreditApplicationForm = () => {
                                     If you currently have auto insurance, please upload a copy of your insurance card or policy document. This helps expedite the vehicle financing and pickup process.
                                 </p>
                                 <FileUploadField
-                                    label="Auto Insurance Document (Optional)"
+                                    label="Auto Insurance Document"
                                     file={insuranceFile}
                                     setFile={setInsuranceFile}
                                     id="insurance-upload"
+                                    hasError={insuranceError}
                                 />
                             </div>
                         </section>
@@ -1292,14 +1652,14 @@ export const CreditApplicationForm = () => {
                             <button
                                 type="button"
                                 onClick={prevStep}
-                                className="flex-1 bg-white/5 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:bg-white/10 transition-all"
+                                className="flex-1 bg-white/5 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:bg-white/10 transition-all cursor-pointer"
                             >
                                 <ChevronLeft size={18} /> Back
                             </button>
                             <button
                                 type="submit"
                                 disabled={isSending}
-                                className="flex-[2] bg-red-600 hover:bg-red-500 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(255,59,48,0.3)] disabled:opacity-50"
+                                className="flex-[2] bg-red-600 hover:bg-red-500 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(255,59,48,0.3)] disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
                             >
                                 {isSending ? (
                                     <>
