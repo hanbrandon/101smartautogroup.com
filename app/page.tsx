@@ -28,13 +28,20 @@ export default function Home() {
       const hash = window.location.hash;
       if (hash) {
         const id = hash.replace('#', '');
-        const element = document.getElementById(id);
-        if (element) {
-          const top = element.getBoundingClientRect().top + window.scrollY;
+        if (id === 'hero') {
           window.scrollTo({ 
-            top: top - 40, // Small offset for the menu bar
+            top: 0, 
             behavior: 'smooth' 
           });
+        } else {
+          const element = document.getElementById(id);
+          if (element) {
+            const top = element.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({ 
+              top: top - 40, // Small offset for the menu bar
+              behavior: 'smooth' 
+            });
+          }
         }
       }
     };

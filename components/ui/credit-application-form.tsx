@@ -13,6 +13,7 @@ import {
     Trash2,
     FileText,
     ShieldCheck,
+    Upload,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -164,6 +165,92 @@ export const CreditApplicationForm = () => {
     const [coApplicantErrors, setCoApplicantErrors] = useState<any>({});
     const [businessErrors, setBusinessErrors] = useState<any>({});
     const [signatureError, setSignatureError] = useState(false);
+
+    // File attachments states
+    const [primaryIdFile, setPrimaryIdFile] = useState<{ name: string; content: string } | null>(null);
+    const [coApplicantIdFile, setCoApplicantIdFile] = useState<{ name: string; content: string } | null>(null);
+    const [insuranceFile, setInsuranceFile] = useState<{ name: string; content: string } | null>(null);
+
+    const handleFileChange = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        setFile: (file: { name: string; content: string } | null) => void
+    ) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        // Check file size (10MB limit)
+        if (file.size > 10 * 1024 * 1024) {
+            alert('File size exceeds the 10MB limit.');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const result = event.target?.result as string;
+            // Get base64 content only (strip data:*/*;base64,)
+            const base64Content = result.split(',')[1];
+            setFile({
+                name: file.name,
+                content: base64Content,
+            });
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const FileUploadField = ({
+        label,
+        file,
+        setFile,
+        accept = "image/*,application/pdf",
+        id,
+    }: {
+        label: string;
+        file: { name: string } | null;
+        setFile: (file: { name: string; content: string } | null) => void;
+        accept?: string;
+        id: string;
+    }) => {
+        return (
+            <div className="space-y-2">
+                <label className={labelStyles}>{label}</label>
+                {file ? (
+                    <div className="flex items-center justify-between bg-white/5 border border-red-500/30 px-4 py-3 rounded-xl">
+                        <div className="flex items-center gap-3 overflow-hidden">
+                            <FileText className="text-red-500 shrink-0" size={18} />
+                            <span className="text-xs text-white truncate font-medium">{file.name}</span>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={() => setFile(null)}
+                            className="text-white/40 hover:text-red-500 transition-colors p-1"
+                        >
+                            <Trash2 size={16} />
+                        </button>
+                    </div>
+                ) : (
+                    <label
+                        htmlFor={id}
+                        className="flex flex-col items-center justify-center border border-dashed border-white/20 hover:border-red-500/50 bg-white/5 hover:bg-white/[0.08] transition-all px-4 py-6 rounded-xl cursor-pointer text-center group"
+                    >
+                        <Upload className="text-white/30 group-hover:text-red-500 mb-2 transition-colors" size={20} />
+                        <span className="text-[11px] font-bold text-white/50 group-hover:text-white transition-colors uppercase tracking-wider">
+                            Choose file or Drag here
+                        </span>
+                        <span className="text-[9px] text-white/30 mt-1 uppercase tracking-widest">
+                            PDF, PNG, JPG (MAX 10MB)
+                        </span>
+                        <input
+                            type="file"
+                            id={id}
+                            accept={accept}
+                            onChange={(e) => handleFileChange(e, setFile)}
+                            className="hidden"
+                        />
+                    </label>
+                )}
+            </div>
+        );
+    };
 
     const formatPhoneNumber = (value: string) => {
         if (!value) return value;
@@ -490,6 +577,9 @@ export const CreditApplicationForm = () => {
             businessAddress,
             businessIncome,
             signature,
+            primaryIdAttachment: primaryIdFile,
+            coApplicantIdAttachment: coApplicantIdFile,
+            insuranceAttachment: insuranceFile,
         };
         try {
             const response = await fetch('/api/credit-application', {
@@ -716,6 +806,14 @@ export const CreditApplicationForm = () => {
                                             </select>
                                         </div>
                                     </div>
+                                    <div className="mb-6">
+                                        <FileUploadField
+                                            label="Driver's License / ID Photo (Optional)"
+                                            file={primaryIdFile}
+                                            setFile={setPrimaryIdFile}
+                                            id="primary-id-upload"
+                                        />
+                                    </div>
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                         <div>
                                             <label className={labelStyles}>Email</label>
@@ -919,6 +1017,14 @@ export const CreditApplicationForm = () => {
                                                                 ))}
                                                             </select>
                                                         </div>
+                                                    </div>
+                                                    <div className="mb-6">
+                                                        <FileUploadField
+                                                            label="Co-Applicant Driver's License / ID Photo (Optional)"
+                                                            file={coApplicantIdFile}
+                                                            setFile={setCoApplicantIdFile}
+                                                            id="co-id-upload"
+                                                        />
                                                     </div>
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                          <div>
@@ -1146,6 +1252,21 @@ export const CreditApplicationForm = () => {
                                 </section>
                             </div>
                         )}
+
+                        <section>
+                            <h3 className={sectionTitleStyles}><FileText size={20} className="text-red-500" /> Auto Insurance Verification</h3>
+                            <div className="bg-white/5 border border-white/10 p-5 md:p-8 rounded-3xl space-y-6">
+                                <p className="text-white/60 text-[11px] leading-relaxed">
+                                    If you currently have auto insurance, please upload a copy of your insurance card or policy document. This helps expedite the vehicle financing and pickup process.
+                                </p>
+                                <FileUploadField
+                                    label="Auto Insurance Document (Optional)"
+                                    file={insuranceFile}
+                                    setFile={setInsuranceFile}
+                                    id="insurance-upload"
+                                />
+                            </div>
+                        </section>
 
                         <section>
                             <h3 className={sectionTitleStyles}><ShieldCheck size={20} className="text-red-500" /> Terms and Conditions</h3>

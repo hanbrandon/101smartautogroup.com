@@ -270,7 +270,7 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
                                                     })
                                                 }
                                                 className={inputStyles}
-                                                placeholder="hello@gawoori.com"
+                                                placeholder="email@email.com"
                                             />
                                         </div>
 
@@ -630,31 +630,43 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
                                     <div className="pt-12 mt-12 border-t border-white/5 flex flex-col gap-10">
                                         {/* Mobile: 4 Minimal Icons in a Row */}
                                         <div className="flex md:hidden items-center justify-center gap-4">
-                                            <a 
+                                            <a
                                                 href={`tel:${process.env.NEXT_PUBLIC_PHONE?.replace(/\s/g, '')}`}
                                                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 hover:bg-red-500 hover:border-red-500 transition-all group"
                                             >
-                                                <Phone size={16} className="text-white group-hover:scale-110 transition-transform" />
+                                                <Phone
+                                                    size={16}
+                                                    className="text-white group-hover:scale-110 transition-transform"
+                                                />
                                             </a>
-                                            <a 
+                                            <a
                                                 href={`sms:${process.env.NEXT_PUBLIC_PHONE?.replace(/\s/g, '')}`}
                                                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 hover:bg-white hover:text-black transition-all group"
                                             >
-                                                <MessageSquare size={16} className="text-white group-hover:text-black group-hover:scale-110 transition-transform" />
+                                                <MessageSquare
+                                                    size={16}
+                                                    className="text-white group-hover:text-black group-hover:scale-110 transition-transform"
+                                                />
                                             </a>
-                                            <a 
+                                            <a
                                                 href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}
                                                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 hover:bg-white hover:text-black transition-all group"
                                             >
-                                                <Mail size={16} className="text-white group-hover:text-black group-hover:scale-110 transition-transform" />
+                                                <Mail
+                                                    size={16}
+                                                    className="text-white group-hover:text-black group-hover:scale-110 transition-transform"
+                                                />
                                             </a>
-                                            <a 
+                                            <a
                                                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(process.env.NEXT_PUBLIC_OFFICE_ADDRESS || '')}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 hover:bg-white hover:text-black transition-all group"
                                             >
-                                                <MapPin size={16} className="text-white group-hover:text-black group-hover:scale-110 transition-transform" />
+                                                <MapPin
+                                                    size={16}
+                                                    className="text-white group-hover:text-black group-hover:scale-110 transition-transform"
+                                                />
                                             </a>
                                         </div>
 
@@ -669,7 +681,10 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
                                                         href={`tel:${process.env.NEXT_PUBLIC_PHONE?.replace(/\s/g, '')}`}
                                                         className="text-[16px] font-bold hover:text-red-500 transition-colors block"
                                                     >
-                                                        {process.env.NEXT_PUBLIC_PHONE}
+                                                        {
+                                                            process.env
+                                                                .NEXT_PUBLIC_PHONE
+                                                        }
                                                     </a>
                                                 </div>
                                             </div>
@@ -682,7 +697,10 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
                                                     href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}
                                                     className="text-[16px] font-bold hover:text-red-500 transition-colors block truncate"
                                                 >
-                                                    {process.env.NEXT_PUBLIC_EMAIL}
+                                                    {
+                                                        process.env
+                                                            .NEXT_PUBLIC_EMAIL
+                                                    }
                                                 </a>
                                             </div>
 
@@ -697,14 +715,20 @@ export const ContactDrawer = ({ isOpen, onClose }: ContactDrawerProps) => {
                                                         rel="noopener noreferrer"
                                                         className="text-[16px] font-bold text-white/60 leading-tight"
                                                     >
-                                                        {process.env.NEXT_PUBLIC_OFFICE_ADDRESS}
+                                                        {
+                                                            process.env
+                                                                .NEXT_PUBLIC_OFFICE_ADDRESS
+                                                        }
                                                     </a>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <p className="text-[9px] text-white/10 font-bold uppercase tracking-[0.4em] text-center pt-8 border-t border-white/5">
-                                            <span className="text-red-600">101 Auto Group</span> &bull;{' '}
+                                            <span className="text-red-600">
+                                                101 Auto Group
+                                            </span>{' '}
+                                            &bull;{' '}
                                             {
                                                 process.env
                                                     .NEXT_PUBLIC_MANAGER_NAME

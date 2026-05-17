@@ -56,7 +56,10 @@ export const ContactSection = () => {
         e.preventDefault();
 
         // Google Ads Conversion Tracking
-        if (typeof window !== 'undefined' && (window as any).gtag_report_conversion) {
+        if (
+            typeof window !== 'undefined' &&
+            (window as any).gtag_report_conversion
+        ) {
             (window as any).gtag_report_conversion();
         }
 
@@ -126,7 +129,10 @@ export const ContactSection = () => {
         'w-full bg-[#0D0D0D] border border-white/10 rounded-2xl px-6 py-4 text-sm focus:border-red-500 outline-none transition-colors appearance-none cursor-pointer';
 
     return (
-        <section className="py-40 bg-black relative overflow-hidden scroll-mt-24" id="contact">
+        <section
+            className="py-40 bg-black relative overflow-hidden scroll-mt-24"
+            id="contact"
+        >
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
                     <div>
@@ -134,17 +140,23 @@ export const ContactSection = () => {
                             Start Your <br /> Journey.
                         </h2>
                         <p className="text-xl text-white/40 max-w-md leading-relaxed mb-12">
-                            Whether you're looking for a new high-performance vehicle or selling your current car, our team is ready to provide a seamless experience.
+                            Whether you're looking for a new high-performance
+                            vehicle or selling your current car, our team is
+                            ready to provide a seamless experience.
                         </p>
-                        
+
                         <div className="flex flex-col gap-8">
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
                                     <BadgeDollarSign className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/20">Best Rates</p>
-                                    <p className="text-lg font-medium text-red-500">Guaranteed Financing</p>
+                                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/20">
+                                        Best Rates
+                                    </p>
+                                    <p className="text-lg font-medium text-red-500">
+                                        Guaranteed Financing
+                                    </p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4">
@@ -152,8 +164,12 @@ export const ContactSection = () => {
                                     <Car className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/20">Doorstep Delivery</p>
-                                    <p className="text-lg font-medium text-red-500">Anywhere in SoCal</p>
+                                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/20">
+                                        Doorstep Delivery
+                                    </p>
+                                    <p className="text-lg font-medium text-red-500">
+                                        Anywhere in SoCal
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -161,7 +177,7 @@ export const ContactSection = () => {
 
                     <div className="bg-white/[0.02] border border-white/10 rounded-[40px] p-8 md:p-12 relative overflow-hidden">
                         {status === 'success' ? (
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 className="flex flex-col items-center justify-center py-20 text-center space-y-4"
@@ -169,8 +185,12 @@ export const ContactSection = () => {
                                 <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center text-red-500">
                                     <CheckCircle2 size={40} />
                                 </div>
-                                <h3 className="text-2xl font-bold">Request Sent!</h3>
-                                <p className="text-white/40">We'll get back to you within 2 hours.</p>
+                                <h3 className="text-2xl font-bold">
+                                    Request Sent!
+                                </h3>
+                                <p className="text-white/40">
+                                    We'll get back to you within 2 hours.
+                                </p>
                             </motion.div>
                         ) : (
                             <div className="space-y-10">
@@ -201,26 +221,43 @@ export const ContactSection = () => {
                                     </button>
                                 </div>
 
-                                <form onSubmit={handleSubmit} className="space-y-6">
+                                <form
+                                    onSubmit={handleSubmit}
+                                    className="space-y-6"
+                                >
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div className="space-y-2">
-                                            <label className={labelStyles}>Full Name</label>
+                                            <label className={labelStyles}>
+                                                Full Name
+                                            </label>
                                             <input
                                                 required
                                                 type="text"
                                                 value={formData.name}
-                                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                                onChange={(e) =>
+                                                    setFormData({
+                                                        ...formData,
+                                                        name: e.target.value,
+                                                    })
+                                                }
                                                 className={inputStyles}
                                                 placeholder="Full Name"
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className={labelStyles}>Phone Number</label>
+                                            <label className={labelStyles}>
+                                                Phone Number
+                                            </label>
                                             <input
                                                 required
                                                 type="tel"
                                                 value={formData.phone}
-                                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                                onChange={(e) =>
+                                                    setFormData({
+                                                        ...formData,
+                                                        phone: e.target.value,
+                                                    })
+                                                }
                                                 className={inputStyles}
                                                 placeholder="(123) 456-7890"
                                             />
@@ -228,77 +265,200 @@ export const ContactSection = () => {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label className={labelStyles}>Email Address</label>
+                                        <label className={labelStyles}>
+                                            Email Address
+                                        </label>
                                         <input
                                             required
                                             type="email"
                                             value={formData.email}
-                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                            onChange={(e) =>
+                                                setFormData({
+                                                    ...formData,
+                                                    email: e.target.value,
+                                                })
+                                            }
                                             className={inputStyles}
-                                            placeholder="hello@gawoori.com"
+                                            placeholder="email@email.com"
                                         />
                                     </div>
 
                                     {activeTab === 'new_car' && (
-                                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="space-y-6"
+                                        >
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                 <div className="space-y-2">
-                                                    <label className={labelStyles}>Make</label>
-                                                    <input required value={formData.make} onChange={(e) => setFormData({ ...formData, make: e.target.value })} className={inputStyles} placeholder="e.g. Porsche" />
+                                                    <label
+                                                        className={labelStyles}
+                                                    >
+                                                        Make
+                                                    </label>
+                                                    <input
+                                                        required
+                                                        value={formData.make}
+                                                        onChange={(e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                make: e.target
+                                                                    .value,
+                                                            })
+                                                        }
+                                                        className={inputStyles}
+                                                        placeholder="e.g. Porsche"
+                                                    />
                                                 </div>
                                                 <div className="space-y-2">
-                                                    <label className={labelStyles}>Model</label>
-                                                    <input required value={formData.model} onChange={(e) => setFormData({ ...formData, model: e.target.value })} className={inputStyles} placeholder="e.g. 911 GT3" />
+                                                    <label
+                                                        className={labelStyles}
+                                                    >
+                                                        Model
+                                                    </label>
+                                                    <input
+                                                        required
+                                                        value={formData.model}
+                                                        onChange={(e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                model: e.target
+                                                                    .value,
+                                                            })
+                                                        }
+                                                        className={inputStyles}
+                                                        placeholder="e.g. 911 GT3"
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className={labelStyles}>Purchase Type</label>
+                                                <label className={labelStyles}>
+                                                    Purchase Type
+                                                </label>
                                                 <select
-                                                    value={formData.purchaseType}
-                                                    onChange={(e) => setFormData({ ...formData, purchaseType: e.target.value })}
+                                                    value={
+                                                        formData.purchaseType
+                                                    }
+                                                    onChange={(e) =>
+                                                        setFormData({
+                                                            ...formData,
+                                                            purchaseType:
+                                                                e.target.value,
+                                                        })
+                                                    }
                                                     className={selectStyles}
                                                 >
-                                                    <option value="lease">Lease</option>
-                                                    <option value="finance">Finance</option>
-                                                    <option value="cash">Cash Purchase</option>
+                                                    <option value="lease">
+                                                        Lease
+                                                    </option>
+                                                    <option value="finance">
+                                                        Finance
+                                                    </option>
+                                                    <option value="cash">
+                                                        Cash Purchase
+                                                    </option>
                                                 </select>
                                             </div>
                                         </motion.div>
                                     )}
 
                                     {activeTab === 'sell_car' && (
-                                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="space-y-6"
+                                        >
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                 <div className="space-y-2">
-                                                    <label className={labelStyles}>VIN (17 Digits)</label>
-                                                    <input required value={formData.vin} onChange={(e) => setFormData({ ...formData, vin: e.target.value })} className={inputStyles} placeholder="Vehicle VIN" />
+                                                    <label
+                                                        className={labelStyles}
+                                                    >
+                                                        VIN (17 Digits)
+                                                    </label>
+                                                    <input
+                                                        required
+                                                        value={formData.vin}
+                                                        onChange={(e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                vin: e.target
+                                                                    .value,
+                                                            })
+                                                        }
+                                                        className={inputStyles}
+                                                        placeholder="Vehicle VIN"
+                                                    />
                                                 </div>
                                                 <div className="space-y-2">
-                                                    <label className={labelStyles}>Mileage</label>
-                                                    <input required type="number" value={formData.mileage} onChange={(e) => setFormData({ ...formData, mileage: e.target.value })} className={inputStyles} placeholder="Current Miles" />
+                                                    <label
+                                                        className={labelStyles}
+                                                    >
+                                                        Mileage
+                                                    </label>
+                                                    <input
+                                                        required
+                                                        type="number"
+                                                        value={formData.mileage}
+                                                        onChange={(e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                mileage:
+                                                                    e.target
+                                                                        .value,
+                                                            })
+                                                        }
+                                                        className={inputStyles}
+                                                        placeholder="Current Miles"
+                                                    />
                                                 </div>
                                             </div>
 
                                             <div className="space-y-4">
-                                                <label className={labelStyles}>Exterior Color</label>
+                                                <label className={labelStyles}>
+                                                    Exterior Color
+                                                </label>
                                                 <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
                                                     {COLORS.map((color) => (
-                                                        <label key={color.name} className="group cursor-pointer flex flex-col items-center gap-2">
+                                                        <label
+                                                            key={color.name}
+                                                            className="group cursor-pointer flex flex-col items-center gap-2"
+                                                        >
                                                             <input
                                                                 type="radio"
                                                                 name="exteriorColorSection"
                                                                 required
-                                                                value={color.name}
-                                                                checked={formData.exteriorColor === color.name}
-                                                                onChange={(e) => setFormData({ ...formData, exteriorColor: e.target.value })}
+                                                                value={
+                                                                    color.name
+                                                                }
+                                                                checked={
+                                                                    formData.exteriorColor ===
+                                                                    color.name
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setFormData(
+                                                                        {
+                                                                            ...formData,
+                                                                            exteriorColor:
+                                                                                e
+                                                                                    .target
+                                                                                    .value,
+                                                                        },
+                                                                    )
+                                                                }
                                                                 className="sr-only peer"
                                                             />
                                                             <div
                                                                 className={cn(
                                                                     'w-10 h-10 rounded-full border-2 border-white/5 transition-all peer-checked:border-red-500 peer-checked:scale-110',
-                                                                    color.name === 'Other' ? 'bg-gradient-to-tr from-white/20 via-white/40 to-white/20' : '',
+                                                                    color.name ===
+                                                                        'Other'
+                                                                        ? 'bg-gradient-to-tr from-white/20 via-white/40 to-white/20'
+                                                                        : '',
                                                                 )}
-                                                                style={{ backgroundColor: color.hex }}
+                                                                style={{
+                                                                    backgroundColor:
+                                                                        color.hex,
+                                                                }}
                                                             />
                                                             <span className="text-[9px] font-bold uppercase tracking-wider text-white/30 group-hover:text-white transition-colors text-center">
                                                                 {color.name}
@@ -310,27 +470,65 @@ export const ContactSection = () => {
 
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                 <div className="space-y-2">
-                                                    <label className={labelStyles}>Accident History</label>
+                                                    <label
+                                                        className={labelStyles}
+                                                    >
+                                                        Accident History
+                                                    </label>
                                                     <select
-                                                        value={formData.accidentHistory}
-                                                        onChange={(e) => setFormData({ ...formData, accidentHistory: e.target.value })}
+                                                        value={
+                                                            formData.accidentHistory
+                                                        }
+                                                        onChange={(e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                accidentHistory:
+                                                                    e.target
+                                                                        .value,
+                                                            })
+                                                        }
                                                         className={selectStyles}
                                                     >
-                                                        <option value="No Accidents">No Accidents</option>
-                                                        <option value="1 Incident">1 Incident</option>
-                                                        <option value="2+ Incidents">2+ Incidents</option>
+                                                        <option value="No Accidents">
+                                                            No Accidents
+                                                        </option>
+                                                        <option value="1 Incident">
+                                                            1 Incident
+                                                        </option>
+                                                        <option value="2+ Incidents">
+                                                            2+ Incidents
+                                                        </option>
                                                     </select>
                                                 </div>
                                                 <div className="space-y-2">
-                                                    <label className={labelStyles}>Financial Status</label>
+                                                    <label
+                                                        className={labelStyles}
+                                                    >
+                                                        Financial Status
+                                                    </label>
                                                     <select
-                                                        value={formData.financialStatus}
-                                                        onChange={(e) => setFormData({ ...formData, financialStatus: e.target.value })}
+                                                        value={
+                                                            formData.financialStatus
+                                                        }
+                                                        onChange={(e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                financialStatus:
+                                                                    e.target
+                                                                        .value,
+                                                            })
+                                                        }
                                                         className={selectStyles}
                                                     >
-                                                        <option value="Finance / Loan">Finance / Loan</option>
-                                                        <option value="Active Lease">Active Lease</option>
-                                                        <option value="Paid In Full">Paid In Full</option>
+                                                        <option value="Finance / Loan">
+                                                            Finance / Loan
+                                                        </option>
+                                                        <option value="Active Lease">
+                                                            Active Lease
+                                                        </option>
+                                                        <option value="Paid In Full">
+                                                            Paid In Full
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -338,20 +536,36 @@ export const ContactSection = () => {
                                     )}
 
                                     <div className="space-y-2">
-                                        <label className={labelStyles}>Message / Notes</label>
+                                        <label className={labelStyles}>
+                                            Message / Notes
+                                        </label>
                                         <textarea
                                             rows={3}
                                             value={formData.message}
-                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                            className={cn(inputStyles, 'resize-none')}
+                                            onChange={(e) =>
+                                                setFormData({
+                                                    ...formData,
+                                                    message: e.target.value,
+                                                })
+                                            }
+                                            className={cn(
+                                                inputStyles,
+                                                'resize-none',
+                                            )}
                                             placeholder="Any additional details..."
                                         />
                                     </div>
 
                                     <div className="p-6 rounded-2xl bg-white/5 border border-white/5 flex gap-4 items-start">
-                                        <Info size={20} className="text-red-500 shrink-0" />
+                                        <Info
+                                            size={20}
+                                            className="text-red-500 shrink-0"
+                                        />
                                         <p className="text-[10px] text-white/40 leading-relaxed uppercase font-bold tracking-wider">
-                                            By submitting, you agree to our privacy policy and consent to receive communications regarding your request.
+                                            By submitting, you agree to our
+                                            privacy policy and consent to
+                                            receive communications regarding
+                                            your request.
                                         </p>
                                     </div>
 
@@ -362,7 +576,10 @@ export const ContactSection = () => {
                                     >
                                         {status === 'loading' ? (
                                             <>
-                                                <Loader2 size={18} className="animate-spin" />
+                                                <Loader2
+                                                    size={18}
+                                                    className="animate-spin"
+                                                />
                                                 Processing
                                             </>
                                         ) : (

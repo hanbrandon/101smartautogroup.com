@@ -30,7 +30,7 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
     const menuItems = [
         {
             name: 'Home',
-            href: '/#hero',
+            href: '/',
             img: '/images/menu/home.png',
         },
         {
@@ -145,11 +145,27 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                             href={item.href}
                                             onClick={(e) => {
                                                 const isHomePage = window.location.pathname === '/';
-                                                if (item.href.startsWith('/#')) {
+                                                if (item.href === '/') {
+                                                    setIsOpen(false);
+                                                    // Do NOT prevent default: allows standard browser refresh/navigation like the navbar logo
+                                                } else if (item.href.startsWith('/#')) {
                                                     if (isHomePage) {
                                                         e.preventDefault();
                                                         setIsOpen(false);
-                                                        window.location.hash = item.href.replace('/#', '');
+                                                        const targetHash = item.href.replace('/', ''); // e.g. "#hero" or "#gallery"
+                                                        if (window.location.hash === targetHash) {
+                                                            const id = targetHash.replace('#', '');
+                                                            const element = document.getElementById(id);
+                                                            if (element) {
+                                                                const top = element.getBoundingClientRect().top + window.scrollY;
+                                                                window.scrollTo({ 
+                                                                    top: top - 40, 
+                                                                    behavior: 'smooth' 
+                                                                });
+                                                            }
+                                                        } else {
+                                                            window.location.hash = targetHash.replace('#', '');
+                                                        }
                                                     } else {
                                                         setIsOpen(false);
                                                         window.location.href = item.href;
@@ -271,11 +287,27 @@ export const Navbar = ({ currentTime, onContactClick }: NavbarProps) => {
                                         href={item.href}
                                         onClick={(e) => {
                                             const isHomePage = window.location.pathname === '/';
-                                            if (item.href.startsWith('/#')) {
+                                            if (item.href === '/') {
+                                                setIsOpen(false);
+                                                // Do NOT prevent default: allows standard browser refresh/navigation like the navbar logo
+                                            } else if (item.href.startsWith('/#')) {
                                                 if (isHomePage) {
                                                     e.preventDefault();
                                                     setIsOpen(false);
-                                                    window.location.hash = item.href.replace('/#', '');
+                                                    const targetHash = item.href.replace('/', ''); // e.g. "#hero" or "#gallery"
+                                                    if (window.location.hash === targetHash) {
+                                                        const id = targetHash.replace('#', '');
+                                                        const element = document.getElementById(id);
+                                                        if (element) {
+                                                            const top = element.getBoundingClientRect().top + window.scrollY;
+                                                            window.scrollTo({ 
+                                                                top: top - 40, 
+                                                                behavior: 'smooth' 
+                                                            });
+                                                        }
+                                                    } else {
+                                                        window.location.hash = targetHash.replace('#', '');
+                                                    }
                                                 } else {
                                                     setIsOpen(false);
                                                     window.location.href = item.href;

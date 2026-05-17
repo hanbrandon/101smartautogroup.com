@@ -26,6 +26,10 @@ export async function POST(req: Request) {
             coApplicantData,
             coApplicantResidenceHistory,
             coApplicantWorkHistory,
+            // Attachments
+            primaryIdAttachment,
+            coApplicantIdAttachment,
+            insuranceAttachment,
         } = body;
 
         const {
@@ -151,6 +155,22 @@ export async function POST(req: Request) {
             `;
         }
 
+        // Attachments info in Email body
+        if (primaryIdAttachment || (hasCoApplicant && coApplicantIdAttachment) || insuranceAttachment) {
+            htmlContent += `
+              <h3 style="background: #f4f4f4; padding: 10px;">Submitted Documents & Attachments</h3>
+            `;
+            if (primaryIdAttachment) {
+                htmlContent += `<p><strong>Applicant ID Photo:</strong> Attached (${primaryIdAttachment.name})</p>`;
+            }
+            if (hasCoApplicant && coApplicantIdAttachment) {
+                htmlContent += `<p><strong>Co-Applicant ID Photo:</strong> Attached (${coApplicantIdAttachment.name})</p>`;
+            }
+            if (insuranceAttachment) {
+                htmlContent += `<p><strong>Insurance Document:</strong> Attached (${insuranceAttachment.name})</p>`;
+            }
+        }
+
         htmlContent += `
             <h3 style="background: #f4f4f4; padding: 10px;">Terms and Signature</h3>
             <p><strong>Signature:</strong> ${signature}</p>
@@ -159,6 +179,27 @@ export async function POST(req: Request) {
             <p style="font-size: 12px; color: #666;">This application was submitted via the 101 Auto Group website.</p>
           </div>
         `;
+
+        // Map base64 files for Brevo API SMTP attachments
+        const brevoAttachments: any[] = [];
+        if (primaryIdAttachment && primaryIdAttachment.content) {
+            brevoAttachments.push({
+                content: primaryIdAttachment.content,
+                name: primaryIdAttachment.name,
+            });
+        }
+        if (hasCoApplicant && coApplicantIdAttachment && coApplicantIdAttachment.content) {
+            brevoAttachments.push({
+                content: coApplicantIdAttachment.content,
+                name: coApplicantIdAttachment.name,
+            });
+        }
+        if (insuranceAttachment && insuranceAttachment.content) {
+            brevoAttachments.push({
+                content: insuranceAttachment.content,
+                name: insuranceAttachment.name,
+            });
+        }
 
         // Brevo API call
         const response = await fetch('https://api.brevo.com/v3/smtp/email', {
@@ -184,6 +225,7 @@ export async function POST(req: Request) {
                 },
                 subject: subject,
                 htmlContent: htmlContent,
+                ...(brevoAttachments.length > 0 ? { attachment: brevoAttachments } : {}),
             }),
         });
 
