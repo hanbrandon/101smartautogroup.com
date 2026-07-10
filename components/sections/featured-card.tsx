@@ -7,27 +7,63 @@ import { X, ZoomIn } from 'lucide-react';
 const DEALS = [
   {
     image: "/featured/deal-1.png",
-    title: "Luxury sedan sourcing in Los Angeles",
+    title: "Start 4th of July Sale Event Banner",
     price: "Inquire for Price",
-    tag: "Available"
+    tag: "Special Event"
   },
   {
     image: "/featured/deal-2.png",
-    title: "Performance car lease options in Orange County",
+    title: "101 Auto Group One-Stop Services & FAQ",
     price: "Inquire for Price",
-    tag: "Available"
+    tag: "Information"
   },
   {
     image: "/featured/deal-3.png",
-    title: "Premium coupe buying consultation for Southern California",
+    title: "Mercedes-Benz Luxury Lease Deals (C 300, GLA 250, GLB 250, GLC 300)",
+    price: "Inquire for Price",
+    tag: "Special Lease"
+  },
+  {
+    image: "/featured/deal-4.png",
+    title: "Hyundai Popular Models Sourcing (Elantra SE, Kona SE, Ioniq 5 SE, Tucson SE)",
+    price: "Inquire for Price",
+    tag: "Limited Time"
+  },
+  {
+    image: "/featured/deal-5.png",
+    title: "Lexus Premium Models Special Lease (ES 350E PRE, NX 350, RX 350, RZ 350)",
+    price: "Inquire for Price",
+    tag: "Best Value"
+  },
+  {
+    image: "/featured/deal-6.png",
+    title: "Toyota Reliable Vehicle Lineup (Tacoma SR5, Camry LE, RAV4 LE)",
+    price: "Inquire for Price",
+    tag: "Hot Deal"
+  },
+  {
+    image: "/featured/deal-7.png",
+    title: "BMW Ultimate Driving Lease (330, X1, X3, X5)",
+    price: "Inquire for Price",
+    tag: "Special Offer"
+  },
+  {
+    image: "/featured/deal-8.png",
+    title: "Kia Modern Electrified & SUV Lineup (K4 LXS, EV9 Light Long, Telluride S)",
     price: "Inquire for Price",
     tag: "New Arrival"
   },
   {
-    image: "/featured/deal-4.png",
-    title: "Luxury SUV trade-in and financing support",
+    image: "/featured/deal-9.png",
+    title: "Genesis Elegant Luxury Car Lease (G 70 2.5T, GV 70 2.5T, GV 80 2.5T Select)",
     price: "Inquire for Price",
-    tag: "Available"
+    tag: "Premium Choice"
+  },
+  {
+    image: "/featured/deal-10.png",
+    title: "Acura Performance Premium Leasing (Integra, ADX)",
+    price: "Inquire for Price",
+    tag: "Available Now"
   }
 ];
 
