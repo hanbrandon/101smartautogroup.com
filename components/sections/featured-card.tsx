@@ -128,7 +128,7 @@ export const FeaturedCard = () => {
                 className="w-full h-full object-contain"
               />
               <button
-                {() => setSelectedImage(null)}
+                onClick={() => setSelectedImage(null)}
                 className="absolute top-6 right-6 w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-white hover:text-black transition-all"
               >
                 <X size={24} />
