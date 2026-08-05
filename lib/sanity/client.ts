@@ -1,4 +1,4 @@
-import { createClient } from '@sanity/client';
+import { createClient } from 'next-sanity';
 import createImageUrlBuilder from '@sanity/image-url';
 import { projectId, dataset, apiVersion } from './config';
 
