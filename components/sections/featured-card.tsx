@@ -1,26 +1,21 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ZoomIn } from 'lucide-react';
-
-const DEALS = [
-  {
-    image: "/featured/deal-1.png",
-    title: "101 Auto Group Featured Deal 1",
-    price: "Inquire for Price",
-    tag: "Special Offer"
-  },
-  {
-    image: "/featured/deal-2.png",
-    title: "101 Auto Group Featured Deal 2",
-    price: "Inquire for Price",
-    tag: "Featured"
-  }
-];
+import { getFeaturedDeals, DealItem, DEFAULT_DEALS } from '@/lib/sanity/queries';
 
 export const FeaturedCard = () => {
+  const [deals, setDeals] = useState<DealItem[]>(DEFAULT_DEALS);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    getFeaturedDeals().then((data) => {
+      if (data && data.length > 0) {
+        setDeals(data);
+      }
+    });
+  }, []);
 
   return (
     <section className="py-20 scroll-mt-24" id="gallery">
@@ -31,9 +26,9 @@ export const FeaturedCard = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {DEALS.map((deal, idx) => (
+          {deals.map((deal, idx) => (
             <motion.div
-              key={idx}
+              key={deal._id || idx}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
